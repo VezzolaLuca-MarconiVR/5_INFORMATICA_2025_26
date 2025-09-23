@@ -23,7 +23,7 @@ Ekhoikos _(ekho (greco) -> rumore; oikos (latino) -> casa, ambiente)_.
 
 #### 23 settembre 2025
 
-### Mockup progetto (fatto con [Whimsical]("https://whimsical.com/")):
+### Mockup progetto (fatto con [Whimsical](https://whimsical.com/)):
 ![mockup](img/mockup.png "mockup")
 
 ### Consigli della prof:
