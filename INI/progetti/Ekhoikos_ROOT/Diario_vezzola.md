@@ -23,5 +23,8 @@ Ekhoikos _(ekho (greco) -> rumore; oikos (latino) -> casa, ambiente)_.
 
 #### 23 settembre 2025
 
-### Mockup progetto:
+### Mockup progetto (fatto con [Whimsical]("https://whimsical.com/")):
 ![mockup](img/mockup.png "mockup")
+
+### Consigli della prof:
+- Aggiungere una pagina di sensibilizzazione sulle emissioni di CO2 dovute ai trasporti e le enormi distanze che questi percorrono prima di arrivare nei nostri supermercati.
