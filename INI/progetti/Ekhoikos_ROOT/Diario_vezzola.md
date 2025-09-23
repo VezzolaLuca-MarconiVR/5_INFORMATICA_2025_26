@@ -17,3 +17,11 @@ Ekhoikos _(ekho (greco) -> rumore; oikos (latino) -> casa, ambiente)_.
     - Per limitare i consumi e le emissioni, la ricerca dei prodotti punta a mostrare gli "artigiani" più vicini, promuovendo così anche la cultura locale.
     - Per favorire l'utilizzo di materiali ecosostenibili nei prodotti fisici esiste un sistema di classifica basata sulle recensioni degli acquirenti.
     - Per ogni vendita, il 5% del ricavato viene donato ad una o più associazioni scelte dall'acquirente al momento dell'acquisto.
+
+
+------------------------------------------------------------------------------------------------------------------
+
+#### 23 settembre 2025
+
+### Mockup progetto:
+![mockup](img/mockup.png "mockup")
