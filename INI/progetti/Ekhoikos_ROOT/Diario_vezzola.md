@@ -11,7 +11,7 @@ Ekhoikos _(ekho (greco) -> rumore; oikos (latino) -> casa, ambiente)_.
 
 ### Descrizione del progetto:
 - Sistema di compravendita online di beni fisici e digitali fatti a mano, per promuovere i liberi professionisti ed il self-made.
--  
+-  Sulla piattaforma si promuove un'economia a km zero, basando la ricerca sulla distanza minima tra cliente-"artigiano" e la sostenibilità dei materiali utilizzati.
 - Gli obbiettivi della piattaforma sono i seguenti:
     - Creare un ecosistema di e-commerce per prodotti creati e lavorati a mano, sia fisici che digitali
     - Per limitare i consumi e le emissioni, la ricerca dei prodotti punta a mostrare gli "artigiani" più vicini, promuovendo così anche la cultura locale.
