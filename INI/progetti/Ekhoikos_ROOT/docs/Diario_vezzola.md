@@ -19,12 +19,21 @@ Ekhoikos _(ekho (greco) -> rumore; oikos (latino) -> casa, ambiente)_.
     - Per ogni vendita, il 5% del ricavato viene donato ad una o più associazioni scelte dall'acquirente al momento dell'acquisto.
 
 
-------------------------------------------------------------------------------------------------------------------
+----------------------
 
 #### 23 settembre 2025
 
 ### Mockup progetto (fatto con [Whimsical](https://whimsical.com/)):
-![mockup](img/mockup.png "mockup")
+![shop and chat mockups](img/shop_and_chat_MOCKUP.png "shop and chat mockups")
 
 ### Consigli della prof:
 - Aggiungere una pagina di sensibilizzazione sulle emissioni di CO2 dovute ai trasporti e le enormi distanze che questi percorrono prima di arrivare nei nostri supermercati.
+
+----------------------
+
+#### 28 settembre 2025
+
+### Mockup Homepage:
+![homepage mockup](img/homepage_MOCKUP.png "homepage mockup")
+
+### 
