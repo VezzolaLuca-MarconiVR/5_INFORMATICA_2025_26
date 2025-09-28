@@ -8,13 +8,17 @@
     --highlight: oklch(1 0.02 120);
     --border: oklch(0.6 0.02 120);
     --border-muted: oklch(0.7 0.02 120);
-    --primary: oklch(0.4 0.1 120);
+    --primary: oklch(0.5 0.11723 121.244);
+    --primary-muted: oklch(0.65 0.11723 121.244);
     --secondary: oklch(0.4 0.1 300);
+    --secondary-muted: oklch(0.55 0.1 300);
+    --accent: oklch(0.8047 0.1354 86.53);
     --danger: oklch(0.5 0.05 30);
     --warning: oklch(0.5 0.05 100);
     --success: oklch(0.5 0.05 160);
     --info: oklch(0.5 0.05 260);
 }
+
 /* Dark-mode palette */
 .dark {
     --bg-dark: oklch(0.1 0.01 120);
@@ -33,9 +37,29 @@
     --info: oklch(0.7 0.05 260);
 }
 
+/* background colors classes */
+.dark-bg {background-color: var(--bg-dark);}
+.light-bg {background-color: var(--bg-light);}
+.primary-muted-bg {background-color: var(--primary-muted);}
+.secondary-muted-bg {background-color: var(--secondary-muted);}
+
+* {
+    font-family: 'Courier New', monospace;
+}
+
 body {
     background-color: var(--bg);
+    font-size: large;
     margin: 0;
+    scroll-snap-type: y proximity;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+body > * {
+    scroll-snap-align: start;
 }
 
 nav {
@@ -76,5 +100,90 @@ nav ul li a.active {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 95vh;
+    height: 100vh;
+}
+
+@keyframes borderDashedToDotted {
+    from {border-style: solid; border-color: var(--secondary)}
+    to {border-style: dotted; border-color: --bg;}
+}
+
+#hero-div > button {
+    padding: 1vh;
+    border-radius: 10px;
+    border: 5px dotted var(--bg);
+    animation: borderDashedToDotted 0.5s steps(4, end);
+    animation-iteration-count: infinite;
+    color: var(--bg);
+    font-size: large;
+    background-color: var(--secondary-muted);
+}
+
+#hero-div > button:hover {
+    color: var(--bg-light);
+}
+
+#aboutUs-div {
+    margin: 10%;
+    padding: 2%;
+}
+
+#aboutUs-div > div {
+    padding: 2%;
+}
+
+.vertical-small-margin-children > * {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+b {
+    color: var(--secondary-muted);
+    font-weight: 600;
+}
+
+i {
+    color: var(--secondary-muted);
+}
+
+.rounded-corners {border-radius: 20px;}
+
+.collapsible {
+  background-color: var(--bg-light);
+  color: var(--text);
+  cursor: pointer;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  font-size: large;
+  font-weight: bolder;
+}
+
+.collapsible:hover, .collapsible.active {
+  background-color: var(--bg-dark);
+  color: var(--text-muted);
+}
+
+.collapsible-content {
+    display: none;
+    color: var(--text-muted);
+}
+
+.card-div {
+    color: var(--text-muted);
+    width: 25%;
+    padding: 20px;
+    background-color: var(--bg-dark);
+    transition: 0.3s;
+}
+
+.card-div:hover {
+    color: var(--text);
+    background-color: var(--bg-light);
+    scale: 105%;
+}
+
+.card-div:hover > h2 {
+    color: var(--primary-muted);
 }
