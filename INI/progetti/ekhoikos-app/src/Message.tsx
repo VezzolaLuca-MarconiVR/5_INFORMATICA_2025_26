@@ -1,7 +1,7 @@
 // PascalCasing
 function Message() {
   const name = "Luca";
-  // TSX: TypeScript XML
+  // JSX: JavaScript XML
   return <h1>Hello {name}</h1>;
 }
 
