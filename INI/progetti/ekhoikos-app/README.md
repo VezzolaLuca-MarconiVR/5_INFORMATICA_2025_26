@@ -1,3 +1,58 @@
+### Setup da una nuova postazione
+
+# Vite + React Project
+
+Questo è un progetto React creato con Vite.
+
+## Setup su una nuova postazione
+
+1. **Clona la repository**
+
+   ```bash
+   git clone https://github.com/VezzolaLuca-MarconiVR/5_INFORMATICA_2025_26.git
+   cd ekhoikos-app
+   ```
+
+2. **Installa le dipendenze**
+   (assicurati di avere [Node.js](https://nodejs.org/) installato)
+
+   ```bash
+   npm install
+   ```
+
+3. **Avvia il server di sviluppo**
+
+   ```bash
+   npm run dev
+   ```
+
+4. **Build per la produzione**
+
+   ```bash
+   npm run build
+   ```
+
+5. **Anteprima del build**
+   ```bash
+   npm run preview
+   ```
+
+## Struttura del progetto
+
+- `src/`: codice sorgente React
+- `public/`: file statici
+- `dist/`: build di produzione (generata da Vite, non incluso nel repo)
+- `node_modules/`: dipendenze (non incluso nel repo)
+
+## Dipendenze principali
+
+- React
+- Vite
+
+---
+
+# **_FOLLOWING: THE AUTOMATICALLY GENERATED README:_**
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -17,9 +72,9 @@ If you are developing a production application, we recommend updating the config
 
 ```js
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     extends: [
       // Other configs...
 
@@ -34,40 +89,40 @@ export default defineConfig([
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
         tsconfigRootDir: import.meta.dirname,
       },
       // other options...
     },
   },
-])
+]);
 ```
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from "eslint-plugin-react-x";
+import reactDom from "eslint-plugin-react-dom";
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     extends: [
       // Other configs...
       // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
+      reactX.configs["recommended-typescript"],
       // Enable lint rules for React DOM
       reactDom.configs.recommended,
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
         tsconfigRootDir: import.meta.dirname,
       },
       // other options...
     },
   },
-])
+]);
 ```
