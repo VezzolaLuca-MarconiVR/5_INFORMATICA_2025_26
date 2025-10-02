@@ -1,115 +1,150 @@
 <!DOCTYPE html>
 <html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ekhoikos - Home</title>
-    <link rel="stylesheet" href="../css/general_style.css">
+    <link rel="stylesheet" href="../css/general_style.css" />
     <script src="../js/index.js" defer></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <nav>
-        <ul>
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="shop.html">Shop</a></li>
-            <li><a href="sales.html">Sales</a></li>
-            <li><a href="chat.html">Chat</a></li>
-            <li style="float:right;"><a href="userInfo.html">User Info</a></li>
-        </ul>
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="sales.html">Sales</a></li>
+        <li><a href="chat.html">Chat</a></li>
+        <li style="float: right"><a href="userInfo.html">User Info</a></li>
+      </ul>
     </nav>
-    
+
     <!-- HERO -->
-    <div id="hero-div">
-        <img  width="90%" src="../img/EKHOIKOS!.svg" style="margin: 5vh;">
+    <section id="hero">
+      <div class="section-wrapper center-both">
+        <img width="90%" src="../img/EKHOIKOS!.svg" style="margin: 5vh" />
         <button>Shop Now!</button>
-    </div>
-    
+      </div>
+    </section>
+
     <!-- INTRO & GOALS -->
-    <div class="primary-muted-bg rounded-corners" id="aboutUs-div">
-        <div class="light-bg rounded-corners" style="margin-bottom:2%;">
-            <h2>
-                Cos'è <b>Ekhoikos</b>?
-            </h2>
-            <p>
-                Ekhoikos è una piattaforma di e-commerce che promuove i piccoli imprenditori che producono prodotti artigianali.
-                Qui ogniuno è libero di creare qualsiasi cosa, che sia un prodotto fisico o digitale, sfruttando le proprie capacità, e utilizzando
-                materiali ecosostenibili e ricialati, portando prodotti di qualità e non inquinanti nel proprio mercato locale.
-                Per queste caratteristiche abbiamo deciso di dare un... soprannome a chi farà di Ekhoikos il suo negozio personale: noi li
-                chiamiamo gli "eco-artigiani"!
+    <section class="primary-muted-bg rounded-corners" id="aboutUs-div">
+      <div
+        class="section-wrapper section-wrapper center-both light-bg rounded-corners"
+        style="margin: 10vh"
+      >
+        <h2>Cos'è <b>Ekhoikos</b>?</h2>
+        <p>
+          Ekhoikos è una piattaforma di e-commerce che promuove i piccoli
+          imprenditori che producono prodotti artigianali. Qui ogniuno è libero
+          di creare qualsiasi cosa, che sia un prodotto fisico o digitale,
+          sfruttando le proprie capacità, e utilizzando materiali ecosostenibili
+          e ricialati, portando prodotti di qualità e non inquinanti nel proprio
+          mercato locale. Per queste caratteristiche abbiamo deciso di dare
+          un... soprannome a chi farà di Ekhoikos il suo negozio personale: noi
+          li chiamiamo gli "eco-artigiani"!
+        </p>
+
+        <h2>I nostri obbiettivi:</h2>
+        <p>
+          Tenendo molto all'ecosostenibilità e alla preservazione dell'ambiente,
+          abbiamo deciso di basare questo progetto su dei pilastri fondamentali:
+        </p>
+        <ol class="vertical-small-margin-children">
+          <li>
+            <button class="collapsible"><b>"CHILOMETRO ZERO"</b><br /></button>
+            <p class="collapsible-content">
+              I prodotti visualizzati nel negozio saranno ordinati in base alla
+              distanza dal venditore;
             </p>
-        </div>
-        <div class="light-bg rounded-corners">
-            <h2>
-                I nostri obbiettivi:
-            </h2>
-            <p>
-                Tenendo molto all'ecosostenibilità e alla preservazione dell'ambiente, abbiamo deciso di basare questo progetto su dei
-                pilastri fondamentali:
-                <ol class="vertical-small-margin-children">
-                    <li>
-                        <button class="collapsible"><b>"CHILOMETRO ZERO"</b><br></button>
-                        <p class="collapsible-content">
-                            I prodotti visualizzati nel negozio saranno ordinati in base alla distanza dal venditore;
-                        </p>
-                        
-                    </li>
-                    <li>
-                        <button class="collapsible"><b>PRODOTTI SOSTENIBILI</b><br></button>
-                        <p class="collapsible-content">
-                        I materiali utilizzati nella produzione (nel caso di prodotti fisici) hanno un impatto fondamentale nella valutazione da parte degli utenti,
-                        favorendo materiali non inquinanti, poco raffinati, e anche materiali riciclati;
-                        </p>
-                    </li>
-                    <li>
-                        <button class="collapsible"><b>SOSTEGNO VERSO LE FONDAZIONI</b><br></button>
-                        <p class="collapsible-content">
-                        All'acquisto di un prodotto, il 5% del ricavato viene donato a una o più fondazioni o associazioni a stampo ecologista scelte dall'utente.
-                        </p>
-                    </li>
-                </ol>
+          </li>
+          <li>
+            <button class="collapsible">
+              <b>PRODOTTI SOSTENIBILI</b><br />
+            </button>
+            <p class="collapsible-content">
+              I materiali utilizzati nella produzione (nel caso di prodotti
+              fisici) hanno un impatto fondamentale nella valutazione da parte
+              degli utenti, favorendo materiali non inquinanti, poco raffinati,
+              e anche materiali riciclati;
             </p>
-        </div>
-    </div>
+          </li>
+          <li>
+            <button class="collapsible">
+              <b>SOSTEGNO VERSO LE FONDAZIONI</b><br />
+            </button>
+            <p class="collapsible-content">
+              All'acquisto di un prodotto, il 5% del ricavato viene donato a una
+              o più fondazioni o associazioni a stampo ecologista scelte
+              dall'utente.
+            </p>
+          </li>
+        </ol>
+      </div>
+    </section>
 
     <!-- WHY?/MISSION -->
-    <div style="width: 100%; height: 100vh;">
-        <div style="width: 100%; margin: auto; padding-top: 80px; text-align: center;">
-            <h1>La <i>nostra</i> missione</h1>
+    <section style="width: 100%; height: 100vh">
+      <div
+        class="section-wrapper center-x"
+        style="width: 100%; margin: auto; padding-top: 80px; text-align: center"
+      >
+        <h1>La <i>nostra</i> missione</h1>
+        <div style="width: 100%; display: flex; justify-content: space-around">
+          <div class="card">
+            <h2>Perchè tutto questo?</h2>
+            <p>
+              La nascita di Ekhoikos è dovuta ad una necessità che spesso è
+              stata colmata male o totalmente ignorata: la necessità di uno
+              spazio che permetta all'attività artigianale di fiorire, andando
+              controcorrente rispetto tutto il resto del mondo, che fin dalla
+              prima rivoluzione industriale ha portato all'erosione le
+              fondamenta dell'hand-made, affossando i venditori locali e anche
+              chi fa tutto ciò solo per hobbi. Questo è un tentativo che si è
+              realizzato al suo pieno potenziale, e ciò è dovuto soprattutto a
+              voi.
+            </p>
+          </div>
+          <div class="card">
+            <h2>E la qualità dei prodotti?</h2>
+            <p>
+              Ogni singolo prodotto, digitale o fisico che sia, può essere
+              valutato dagli utenti che lo acquistano in due misure:
+            </p>
+            <ul>
+              <li>
+                Quanto li ha soddisfati la qualità di quel prodotto (stelle)
+              </li>
+              <li>
+                Quanto, secondo loro, i materiali utilizzati sono ecosostenibili
+                (eco-punti)
+              </li>
+            </ul>
+            <p>
+              Sono entrambe valutazioni fatte su una scala da 1 a 5, con
+              incrementi di mezzo punto alla volta (come le "stelline" di cui
+              siamo abituati). Gli eco-punti, come le stelle, aiutano gli utenti
+              a navigare per trovare i migliori e più sostenibili prodotti nella
+              loro zona.
+            </p>
+          </div>
+          <div class="card">
+            <h2>"Dietro le quinte"</h2>
+            <p>
+              Dietro questa piattaforma ci sono decine di persone che
+              monitorano, assistono e migliorano l'esperienza di tutti gli
+              utenti, che siano clienti o "eco-artigiani", senza i quali
+              Ekhoikos non potrebbe esistere. Ruolo fondamentale è stato quello
+              dei fondatori: hanno deciso di prendere una svolta rivoluzionaria
+              anche nella progettazione del sito web: ogni elemento visivo è
+              stato ideato, creato e posizionato a mano, senza l'ausilio di
+              alcuna Intelligenza Artificiale. Questa scelta ha permesso la
+              nascita e lo sviluppo di un sito meraviglioso e dallo stile unico
+              (e anche con pochissime emissioni di CO2!!!).
+            </p>
+          </div>
         </div>
-        <div style="width: 100%; display: flex; justify-content: space-around;">
-            <div class="card-div">
-                <h2>Perchè tutto questo?</h2>
-                <p>
-                    La nascita di Ekhoikos è dovuta ad una necessità che spesso è stata colmata male o totalmente ignorata: la necessità di uno spazio 
-                    che permetta all'attività artigianale di fiorire, andando controcorrente rispetto tutto il resto del mondo, che fin dalla prima
-                    rivoluzione industriale ha portato all'erosione le fondamenta dell'hand-made, affossando i venditori locali e anche chi
-                    fa tutto ciò solo per hobbi. Questo è un tentativo che si è realizzato al suo pieno potenziale, e ciò è dovuto soprattutto a voi.
-                </p>
-            </div>
-            <div class="card-div">
-                <h2>E la qualità dei prodotti?</h2>
-                <p>
-                    Ogni singolo prodotto, digitale o fisico che sia, può essere valutato dagli utenti che lo acquistano in due misure:
-                    <ul>
-                        <li>Quanto li ha soddisfati la qualità di quel prodotto (stelle)</li>
-                        <li>Quanto, secondo loro, i materiali utilizzati sono ecosostenibili (eco-punti)</li>
-                    </ul>
-                    Sono entrambe valutazioni fatte su una scala da 1 a 5, con incrementi di mezzo punto alla volta (come le "stelline" di cui
-                    siamo abituati).
-                    Gli eco-punti, come le stelle, aiutano gli utenti a navigare per trovare i migliori e più sostenibili prodotti nella loro zona.
-                </p>
-            </div>
-            <div class="card-div">
-                <h2>"Dietro le quinte"</h2>
-                <p>
-                    Dietro questa piattaforma ci sono decine di persone che monitorano, assistono e migliorano l'esperienza di tutti gli utenti, che siano
-                    clienti o "eco-artigiani", senza i quali Ekhoikos non potrebbe esistere. Ruolo fondamentale è stato quello dei fondatori: hanno
-                    deciso di prendere una svolta rivoluzionaria anche nella progettazione del sito web: ogni elemento visivo è stato ideato, creato e 
-                    posizionato a mano, senza l'ausilio di alcuna Intelligenza Artificiale. Questa scelta ha permesso la nascita e lo sviluppo di 
-                    un sito meraviglioso e dallo stile unico (e anche con pochissime emissioni di CO2!!!).
-                </p>
-            </div>
-        </div>
-    </div>
-</body>
+      </div>
+    </section>
+  </body>
+</html>
