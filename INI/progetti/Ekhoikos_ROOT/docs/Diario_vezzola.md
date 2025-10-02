@@ -32,7 +32,7 @@ Ekhoikos _(ekho (greco) -> rumore; oikos (latino) -> casa, ambiente)_.
 
 ### Consigli della prof:
 
-- Aggiungere una pagina di sensibilizzazione sulle emissioni di CO2 dovute ai trasporti e le enormi distanze che questi percorrono prima di arrivare nei nostri supermercati.
+- Aggiungere una pagina di sensibilizzazione sulle emissioni di CO2 dovute ai trasporti e le enormi distanze che questi percorrono prima di arrivare a noi.
 
 ---
 

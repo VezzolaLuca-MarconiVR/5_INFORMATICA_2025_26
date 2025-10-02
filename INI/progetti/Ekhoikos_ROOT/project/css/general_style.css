@@ -1,6 +1,7 @@
 /* Light-mode palette */
 :root {
   --bg-dark: oklch(0.92 0.01 120);
+  --bg-dark-transparent: oklch(0.92 0.01 120 / 0.8);
   --bg: oklch(0.96 0.01 120);
   --bg-light: oklch(1 0.01 120);
   --text: oklch(0.15 0.02 120);
@@ -22,6 +23,7 @@
 /* Dark-mode palette */
 .dark {
   --bg-dark: oklch(0.1 0.01 120);
+  --bg-dark-transparent: oklch(0.1 0.01 120 / 0.4);
   --bg: oklch(0.15 0.01 120);
   --bg-light: oklch(0.2 0.01 120);
   --text: oklch(0.96 0.02 120);
@@ -41,8 +43,17 @@
 .dark-bg {
   background-color: var(--bg-dark);
 }
+.dark-bg-transparent {
+  background-color: var(--bg-dark-transparent);
+}
 .light-bg {
   background-color: var(--bg-light);
+}
+.primary-bg {
+  background-color: var(--primary);
+}
+.secondary-bg {
+  background-color: var(--secondary);
 }
 .primary-muted-bg {
   background-color: var(--primary-muted);
@@ -51,12 +62,16 @@
   background-color: var(--secondary-muted);
 }
 
+.higlight-color {
+  color: var(--highlight);
+}
+
 * {
   font-family: "Courier New", monospace;
 }
 
 html {
-  /* scroll-snap-type: y mandatory; */
+  scroll-snap-type: y proximity;
 }
 
 body {
@@ -69,15 +84,53 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-section {
+h1,
+h2 {
+  text-align: center;
+}
+
+blockquote {
+  color: var(--text-muted);
+}
+
+table {
+  margin: 5%;
+  text-align: center;
+  border-collapse: separate;
+  border-spacing: 15px;
+}
+
+th,
+td:first-child {
+  font-weight: bold;
+  background-color: var(--primary-muted);
+}
+
+th,
+td {
+  padding: 5px;
+  border: 1px, solid;
+  box-shadow: 1px 1px 1px;
+}
+
+th:last-child,
+td:last-child {
+  background-color: var(--secondary-muted);
+  color: var(--bg-dark);
+}
+
+.snapping-section {
   height: 100vh;
   height: 100dvh;
+  width: 100vw;
+  width: 100dvw;
   scroll-snap-align: center;
+  margin: 0;
 }
 
 .section-wrapper {
   margin: auto;
-  width: 80%;
+  width: 90%;
   height: 80%;
 }
 
@@ -88,6 +141,7 @@ section {
 
 .center-y {
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -95,6 +149,25 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.padding {
+  box-sizing: border-box;
+  padding: 2%;
+}
+
+.padding-sides {
+  box-sizing: border-box;
+  padding: 0 3%;
+}
+
+.padding-top-bottom {
+  box-sizing: border-box;
+  padding: 3% 0;
+}
+
+.margin-top {
+  margin-top: 3%;
 }
 
 nav {
@@ -130,7 +203,7 @@ nav ul li a.active {
   background-color: var(--secondary);
 }
 
-#hero {
+#logo {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -141,39 +214,20 @@ nav ul li a.active {
   height: 100dvh;
 }
 
-@keyframes borderDashedToDotted {
-  from {
-    border-style: solid;
-    border-color: var(--secondary);
-  }
-  to {
-    border-style: dotted;
-    border-color: --bg;
-  }
+.hero {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-#hero > button {
-  padding: 1vh;
-  border-radius: 10px;
-  border: 5px dotted var(--bg);
-  animation: borderDashedToDotted 0.5s steps(4, end);
-  animation-iteration-count: infinite;
-  color: var(--bg);
-  font-size: large;
-  background-color: var(--secondary-muted);
+#hero-containers {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../img/containers.jpg");
 }
 
-#hero > button:hover {
-  color: var(--bg-light);
-}
-
-#aboutUs-div {
-  margin: 10%;
-  padding: 2%;
-}
-
-#aboutUs-div > div {
-  padding: 2%;
+#hero-mountains {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../img/mountains-landscape.jpg");
 }
 
 .vertical-small-margin-children > * {
@@ -188,6 +242,20 @@ b {
 
 i {
   color: var(--secondary-muted);
+}
+
+.big-button {
+  padding: 1vh;
+  border-radius: 10px;
+  border: 5px dotted var(--bg);
+  color: var(--bg);
+  font-size: large;
+  background-color: var(--secondary-muted);
+}
+
+.big-button:hover {
+  color: var(--bg-light);
+  background-color: var(--secondary);
 }
 
 .rounded-corners {
@@ -219,10 +287,11 @@ i {
 
 .card {
   color: var(--text-muted);
-  width: 25%;
+  width: 30%;
   padding: 20px;
   background-color: var(--bg-dark);
   transition: 0.3s;
+  margin: 0 10px;
 }
 
 .card:hover {
