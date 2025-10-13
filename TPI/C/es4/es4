@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+// Inserire due matrici 3x3 e stamparne la matrice somma
+
+const int MATR_SIZE = 3;
+
+void sumMatr(int matrA[][MATR_SIZE], int matrB[][MATR_SIZE], int matrSum[][MATR_SIZE]);
+
+int main()
+{
+    int matrA[MATR_SIZE][MATR_SIZE], matrB[MATR_SIZE][MATR_SIZE], matrSum[MATR_SIZE][MATR_SIZE];
+
+    // Input the values for the matrices
+    printf("Type the first matrix values (left to right, top to bottom):\n");
+    for (int i = 0; i < MATR_SIZE; i++)
+    {
+        for (int j = 0; j < MATR_SIZE; j++)
+        {
+            scanf("%d", &matrA[i][j]);
+        }
+    }
+    printf("Type the second matrix values (left to right, top to bottom):\n");
+    for (int i = 0; i < MATR_SIZE; i++)
+    {
+        for (int j = 0; j < MATR_SIZE; j++)
+        {
+            scanf("%d", &matrB[i][j]);
+        }
+    }
+
+    // Print the matrices
+    printf("The two matrices are:\t");
+    for (int i = 0; i < MATR_SIZE; i++)
+    {
+        for (int j = 0; j < MATR_SIZE; j++)
+        {
+            printf("%d", matrA[i][j]);
+        }
+    }
+
+    return 0;
+}
+
+void sumMatr(int matrA[][MATR_SIZE], int matrB[][MATR_SIZE], int matrSum[][MATR_SIZE])
+{
+    for (int i = 0; i < MATR_SIZE; i++)
+    {
+        for (int j = 0; j < MATR_SIZE; j++)
+        {
+            matrSum[i][j] = matrA[i][j] + matrB[i][j];
+        }
+    }
+}
