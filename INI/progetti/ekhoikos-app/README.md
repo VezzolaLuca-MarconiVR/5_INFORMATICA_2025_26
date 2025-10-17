@@ -51,7 +51,7 @@ Questo è un progetto React creato con Vite.
 
 ---
 
-# **_FOLLOWING: THE AUTOMATICALLY GENERATED README:_**
+# **_THE AUTOMATICALLY GENERATED README:_**
 
 # React + TypeScript + Vite
 
