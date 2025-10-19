@@ -63,7 +63,10 @@ Apprendimento in autonomia della libreria JavaScript React, assieme a Vite - un 
 
 ### Inizio implementazione in React
 
-Implementazione in Rect dei component base (App, Navbar, Home)
+Implementazione in Rect dei component base (App, Navbar, Home); esplorato React Bits e trovato due elementi interessanti:
+
+- [sfondo-prisma](https://reactbits.dev/backgrounds/prism)
+- [navbar-dock](https://reactbits.dev/components/dock)
 
 #### Sitografia:
 
