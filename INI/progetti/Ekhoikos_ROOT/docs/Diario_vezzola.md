@@ -57,4 +57,14 @@ Apprendimento in autonomia della libreria JavaScript React, assieme a Vite - un 
 
 ### Nota:
 
-Non utilizzerò Bootstrap. E' troppo rigido per ciò che voglio creare. Piuttosto scrivo il CSS manualmente per avere più libertà nello stile e nella forma.
+## Non utilizzerò Bootstrap. E' troppo rigido per ciò che voglio creare. Piuttosto scrivo il CSS manualmente per avere più libertà nello stile e nella forma.
+
+#### 19 Ottobre 2025
+
+### Inizio implementazione in React
+
+Implementazione in Rect dei component base (App, Navbar, Home)
+
+#### Sitografia:
+
+- [album-spiegazione: introduzione a React](https://www.youtube.com/playlist?list=PL4cUxeGkcC9gZD-Tvwfod2gaISzfRiP9d)
