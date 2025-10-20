@@ -1,0 +1,1 @@
+ps aux ==> mostra tutti i processi in corso con i loro pid e l'utente che l'hanno inizializzato
