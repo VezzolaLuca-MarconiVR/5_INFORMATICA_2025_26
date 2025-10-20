@@ -17,7 +17,7 @@
    N.B.: Bisogna far terminare i processi in modo ordinato utilizzando le opportune wait()
 
 4. a) Prendere in input un array di n interi
-   Creare 2 figli: - il primo calcola e stampa la somma dei primi n/2 elementi
+   Creare 2 figli: - il primo calcola e stampa la somma dei primi n/2 elementi:
 
    - il secondo calcola e stampa la somma degli elementi restanti
    - il padre aspetta che i figli terminino
