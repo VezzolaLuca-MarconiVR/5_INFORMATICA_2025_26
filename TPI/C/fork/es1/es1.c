@@ -2,6 +2,13 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
+/*
+Lanciare un processo che genera un figlio:
+il padre stampa 'Sono il padre'
+il figlio stampa 'Sono il figlio'
+il padre DEVE attendere la terminazione del figlio
+*/
+
 int main()
 {
     // biforca il processo (nasce un daemon)

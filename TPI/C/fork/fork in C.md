@@ -6,6 +6,8 @@ Un fork è la duplicazione di un processo con il fine di dividerlo in due proces
 
 ## Come si fa in C?
 
+La funzione `fork()` ritorna al padre il pid del figlio appena creato e al figlio invece ritorna 0.
+
 Esempio:
 
 ```c
