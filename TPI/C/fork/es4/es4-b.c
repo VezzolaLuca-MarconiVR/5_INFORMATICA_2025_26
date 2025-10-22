@@ -5,15 +5,17 @@
 
 /*
 Prendere in input un array di n interi
-   Creare 2 figli:
-   - il primo calcola e stampa la somma dei primi n/2 elementi:
-   - il secondo calcola e stampa la somma degli elementi restanti
-   - il padre aspetta che i figli terminino
+    Creare 2 figli:
+    - il primo calcola e stampa la somma dei primi n/2 elementi:
+    - il secondo calcola e la somma degli elementi restanti
+    - utilizzare due file 'somma1.txt' e 'somma2.txt' e sfruttarli per calcolare la somma totale nel padre e output
+    - il padre aspetta che i figli terminino
 */
 
 int main()
 {
     int n;
+    FILE *fptr;
 
     // Request a natural input for n
     printf("Howm many numbers do you want to sum?");
@@ -44,6 +46,12 @@ int main()
         {
             sum += inputArr[i];
         }
+
+        // Write the sum on its file sumA.txt
+        fptr = fopen("sumA.txt", "w");
+        fprintf(fptr, itoa(sum));
+        fclose(fptr);
+
         exit(0);
     }
     // If this is the parent
@@ -60,14 +68,35 @@ int main()
             {
                 sum += inputArr[i];
             }
-            printf("The sum of the last n/2 (%d) elements is: %d\n", n / 2 + 1, sum);
+
+            // Write the sum on its file sumA.txt
+            fptr = fopen("sumB.txt", "w");
+            fprintf(fptr, itoa(sum));
+            fclose(fptr);
+
             exit(0);
         }
     }
 
+    // Il padre aspetta che i figli concludano
     wait(NULL);
+    // Per poi leggere i file contenenti i risultati e sommarli
+    fptr = fopen("sumA.txt", "r");
+    char readA[100];
+    fgets(readA, size(readA) / size(readA[0]), fptr);
+    fclose(fptr);
 
-    printf("I miei figli hanno finito di sommare!\n");
+    fptr = fopen("sumB.txt", "r");
+    char readB[100];
+    fgets(readB, size(readB) / size(readB[0]), fptr);
+    fclose(fptr);
+
+    int sumA = atoi(readA);
+    int sumB = atoi(readB);
+    int sumTot = sumA + sumB;
+
+    printf("I miei figli hanno calcolato %d e %d, quindi la somma totale è %d\n",
+           sumA, sumB, sumTot);
 
     return 0;
 }
