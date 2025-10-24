@@ -59,6 +59,16 @@ Apprendimento in autonomia della libreria JavaScript React, assieme a Vite - un 
 
 ## Non utilizzerò Bootstrap. E' troppo rigido per ciò che voglio creare. Piuttosto scrivo il CSS manualmente per avere più libertà nello stile e nella forma.
 
+---
+
+#### 2 Ottobre 2025
+
+### Creazione di una sezione riservata ad educazione civica nell'index del sito
+
+Creazione di una sezione nella parte finale dell'index seguendo i [consigli dati dalla prof](#consigli-della-prof).
+
+---
+
 #### 19 Ottobre 2025
 
 ### Inizio implementazione in React
