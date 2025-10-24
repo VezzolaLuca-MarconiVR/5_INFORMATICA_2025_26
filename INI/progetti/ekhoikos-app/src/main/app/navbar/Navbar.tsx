@@ -1,3 +1,5 @@
+import ToggleThemeButton from "./ToggleThemeButton";
+
 function Navbar() {
   return (
     <>
@@ -19,6 +21,9 @@ function Navbar() {
           </li>
           <li style={{ float: "right" }}>
             <a href="userInfo.html">User Info</a>
+          </li>
+          <li style={{ float: "right" }}>
+            <ToggleThemeButton />
           </li>
         </ul>
       </nav>
