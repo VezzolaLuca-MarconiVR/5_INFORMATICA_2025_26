@@ -24,7 +24,7 @@ int main()
 {
     char myFifoPath[] = "/tmp/myfifo";
     mkfifo(myFifoPath, 0666);
-    int myFifo = open("/tmp/myfifo", O_WRONLY, O_NONBLOCK);
+    int myFifo = open(myFifoPath, O_WRONLY, O_NONBLOCK);
 
     char *listptr[LIST_SIZE];
 
