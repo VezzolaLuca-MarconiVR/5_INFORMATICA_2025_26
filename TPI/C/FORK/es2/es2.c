@@ -4,13 +4,14 @@
 
 /*
 Prendere in input un numero intero n. Il processo deve creare n figli (hint: usare un ciclo for).
-gni figlio stampa il suo pid
+Ogni figlio stampa il suo pid
 il padre DEVE attendere la terminazione di tutti i figli
 */
 
 int main()
 {
     int n;
+    int status;
     int relID;
 
     printf("Type the number of children processes desired:\n");
@@ -30,8 +31,10 @@ int main()
         if (relID == 0)
         {
             printf("My pid is %d\n", getpid());
-            break;
+            return 0;
         }
+        else
+            waitpid(relID, &status, 0);
     }
 
     return 0;

@@ -3,6 +3,7 @@
     "stdbool.h": "c",
     "es4": "c",
     "stdio.h": "c",
-    "unistd.h": "c"
+    "unistd.h": "c",
+    "types.h": "c"
   }
 }
