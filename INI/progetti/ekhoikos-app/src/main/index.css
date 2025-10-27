@@ -4,6 +4,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  /* COLORS: */
+
   /* Light-mode palette: */
   --bg-dark: oklch(0.92 0.01 120);
   --bg-dark-transparent: oklch(0.92 0.01 120 / 0.8);
@@ -71,6 +73,8 @@
   color: var(--highlight);
 }
 
+/* ELEMENTS: */
+
 * {
   font-family: "Courier New", monospace;
 }
@@ -83,6 +87,13 @@ body {
 
 body::-webkit-scrollbar {
   display: none;
+}
+
+.pixel-blast-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
 }
 
 h1,
