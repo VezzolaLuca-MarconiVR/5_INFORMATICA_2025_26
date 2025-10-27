@@ -9,14 +9,17 @@ Prendere in input un array di n interi
     Creare 2 figli:
     - il primo calcola e stampa la somma dei primi n/2 elementi:
     - il secondo calcola e la somma degli elementi restanti
-    - utilizzare due file 'somma1.txt' e 'somma2.txt' e sfruttarli per calcolare la somma totale nel padre e output
-    - il padre aspetta che i figli terminino
+    - utilizzare delle pipe per permettere una 'diretta' tra padre e figlio
 */
 
 int main()
 {
     int n;
-    FILE *fptr;
+    int fdes1[2]; // file descriptor => [0] is the reading side; [1] is the writing side
+    int fdes2[2];
+
+    if (pipe(fdes1) < 0 || pipe(fdes2) < 0)
+        exit(1);
 
     // Request a natural input for n
     printf("Howm many numbers do you want to sum?");
@@ -41,6 +44,8 @@ int main()
     // If this is the first child
     if (relID == 0)
     {
+        close(fdes1[0]);
+
         int sum = 0;
         // Sum the first half of the array
         for (int i = 0; i < n / 2; i++)
@@ -48,10 +53,10 @@ int main()
             sum += inputArr[i];
         }
 
-        // Write the sum on its file sumA.txt
-        fptr = fopen("sumA.txt", "w");
-        fprintf(fptr, "%d", sum);
-        fclose(fptr);
+        // Write the half-sum on the pipe
+        write(fdes1[1], &sum, sizeof(sum));
+
+        close(fdes1[1]);
 
         exit(0);
     }
@@ -63,6 +68,8 @@ int main()
         // If this is the second child
         if (relID == 0)
         {
+            close(fdes2[0]);
+
             int sum = 0;
             // Sum the second half of the array
             for (int i = n / 2; i < n; i++)
@@ -70,32 +77,34 @@ int main()
                 sum += inputArr[i];
             }
 
-            // Write the sum on its file sumA.txt
-            fptr = fopen("sumB.txt", "w");
-            fprintf(fptr, "%d", sum);
+            // Write the half-sum on the pipe
+            write(fdes2[1], &sum, sizeof(sum));
 
-            fclose(fptr);
+            close(fdes2[1]);
 
             exit(0);
         }
     }
 
+    // chiudi lati pipe inutilizzati
+    close(fdes1[1]);
+    close(fdes1[1]);
+
     // Il padre aspetta che i figli concludano
     wait(NULL);
-    // Per poi leggere i file contenenti i risultati e sommarli
-    fptr = fopen("sumA.txt", "r");
-    char readA[100];
-    fgets(readA, sizeof(readA) / sizeof(readA[0]), fptr);
-    fclose(fptr);
 
-    fptr = fopen("sumB.txt", "r");
-    char readB[100];
-    fgets(readB, sizeof(readB) / sizeof(readB[0]), fptr);
-    fclose(fptr);
+    int sumA;
+    int sumB;
+    int sumTot;
 
-    int sumA = atoi(readA);
-    int sumB = atoi(readB);
-    int sumTot = sumA + sumB;
+    // Per poi leggere i pipe contenenti i risultati e sommarli
+    read(fdes1[0], &sumA, sizeof(sumA));
+    close(fdes1[0]);
+
+    read(fdes2[0], &sumB, sizeof(sumB));
+    close(fdes2[0]);
+
+    sumTot = sumA + sumB;
 
     printf("I miei figli hanno calcolato %d e %d, quindi la somma totale è %d\n",
            sumA, sumB, sumTot);
