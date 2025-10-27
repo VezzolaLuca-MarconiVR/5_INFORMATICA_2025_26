@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <limits.h>
 
 /*
 Prendere in input un array di n interi
@@ -49,7 +51,7 @@ int main()
 
         // Write the sum on its file sumA.txt
         fptr = fopen("sumA.txt", "w");
-        fprintf(fptr, itoa(sum));
+        fprintf(fptr, "%d", sum);
         fclose(fptr);
 
         exit(0);
@@ -71,7 +73,8 @@ int main()
 
             // Write the sum on its file sumA.txt
             fptr = fopen("sumB.txt", "w");
-            fprintf(fptr, itoa(sum));
+            fprintf(fptr, "%d", sum);
+
             fclose(fptr);
 
             exit(0);
@@ -83,12 +86,12 @@ int main()
     // Per poi leggere i file contenenti i risultati e sommarli
     fptr = fopen("sumA.txt", "r");
     char readA[100];
-    fgets(readA, size(readA) / size(readA[0]), fptr);
+    fgets(readA, sizeof(readA) / sizeof(readA[0]), fptr);
     fclose(fptr);
 
     fptr = fopen("sumB.txt", "r");
     char readB[100];
-    fgets(readB, size(readB) / size(readB[0]), fptr);
+    fgets(readB, sizeof(readB) / sizeof(readB[0]), fptr);
     fclose(fptr);
 
     int sumA = atoi(readA);
