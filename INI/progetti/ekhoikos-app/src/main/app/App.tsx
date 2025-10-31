@@ -1,41 +1,56 @@
-import Navbar from "./navbar/Navbar";
 import Home from "./content/home/Home";
-import PixelBlast from "./Pixelblast";
+import Dock from "./dock/Dock";
+import ToggleTheme from "./dock/ToggleThemeButton";
+
+import { RiHomeSmileFill, RiUser5Fill } from "react-icons/ri";
+import { MdDiscount } from "react-icons/md";
+import { FaShop } from "react-icons/fa6";
+import { IoMdChatbubbles } from "react-icons/io";
+
+const iconSize = 25;
+
+const items = [
+  {
+    icon: <RiHomeSmileFill size={iconSize} />,
+    label: "Home",
+    onClick: () => alert("Home!"),
+  },
+  {
+    icon: <FaShop size={iconSize} />,
+    label: "Shop",
+    onClick: () => alert("Shop!"),
+  },
+  {
+    icon: <MdDiscount size={iconSize} />,
+    label: "Sales",
+    onClick: () => alert("Sales!"),
+  },
+  {
+    icon: <IoMdChatbubbles size={iconSize} />,
+    label: "Chat",
+    onClick: () => alert("Chat!"),
+  },
+  {
+    icon: <RiUser5Fill size={iconSize} />,
+    label: "User",
+    onClick: () => alert("User!"),
+  },
+];
 
 function App() {
-  // Dynamically get the CSS variable value
-  const getCSSVariable = (variableName: string) => {
-    return getComputedStyle(document.documentElement)
-      .getPropertyValue(variableName)
-      .trim();
-  };
-
   return (
     <div className="app">
-      <div style={{ width: "100dvw", height: "100dvh", position: "relative" }}>
-        <PixelBlast
-          variant="square"
-          pixelSize={3}
-          color={getCSSVariable("--primary")}
-          patternScale={5}
-          patternDensity={2}
-          pixelSizeJitter={0.5}
-          enableRipples={false}
-          rippleSpeed={0.4}
-          rippleThickness={0.02}
-          rippleIntensityScale={0.5}
-          liquid={false}
-          liquidStrength={0.12}
-          liquidRadius={1.2}
-          liquidWobbleSpeed={2}
-          speed={0.6}
-          edgeFade={0.25}
-          transparent
+      <div className="content">
+        <ToggleTheme />
+        <Home />
+        <Dock
+          items={items}
+          panelHeight={50}
+          baseItemSize={40}
+          magnification={60}
+          distance={100}
+          spring={{ mass: 0.2, stiffness: 50, damping: 5 }}
         />
-        <div className="content">
-          <Navbar />
-          <Home />
-        </div>
       </div>
     </div>
   );

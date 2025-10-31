@@ -1,4 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+
+import { MdOutlineWbSunny, MdWbSunny } from "react-icons/md";
+
+import "./togglethemebutton.css";
 
 /* Config */
 const STORAGE_KEY = "theme-preference";
@@ -13,7 +17,7 @@ function readStoredTheme() {
   } catch (e) {}
   return null;
 }
-function storeTheme(theme) {
+function storeTheme(theme: string) {
   try {
     localStorage.setItem(STORAGE_KEY, theme);
   } catch (e) {}
@@ -24,7 +28,7 @@ function systemPrefersDark() {
     window.matchMedia?.("(prefers-color-scheme: dark)").matches
   );
 }
-function applyThemeToDocument(theme) {
+function applyThemeToDocument(theme: string) {
   const root = document.documentElement;
   if (theme === THEME_DARK) root.classList.add("dark");
   else root.classList.remove("dark");
@@ -53,7 +57,8 @@ export default function ToggleTheme({ initial = null }) {
     if (stored) return;
     const mq = window.matchMedia?.("(prefers-color-scheme: dark)");
     if (!mq) return;
-    const handler = (e) => setTheme(e.matches ? THEME_DARK : THEME_LIGHT);
+    const handler = (e: MediaQueryListEvent) =>
+      setTheme(e.matches ? THEME_DARK : THEME_LIGHT);
     mq.addEventListener?.("change", handler);
     return () => mq.removeEventListener?.("change", handler);
   }, []);
@@ -63,20 +68,12 @@ export default function ToggleTheme({ initial = null }) {
 
   return (
     <button
-      className="theme-toggle"
+      id="theme-toggle"
       onClick={toggle}
       aria-pressed={theme === THEME_DARK}
       title={theme === THEME_DARK ? "Passa a light" : "Passa a dark"}
-      style={{
-        padding: ".4rem .8rem",
-        borderRadius: 6,
-        border: "1px solid var(--border)",
-        background: "var(--bg-light)",
-        color: "var(--text)",
-        cursor: "pointer",
-      }}
     >
-      {theme === THEME_DARK ? "Light mode" : "Dark mode"}
+      {theme === THEME_DARK ? <MdOutlineWbSunny /> : <MdWbSunny />}
     </button>
   );
 }

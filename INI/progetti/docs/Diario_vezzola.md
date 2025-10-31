@@ -73,7 +73,7 @@ Creazione di una sezione nella parte finale dell'index seguendo i [consigli dati
 
 ### Inizio implementazione in React
 
-Implementazione in Rect dei component base (App, Navbar, Home); esplorato React Bits e trovato due elementi interessanti:
+Implementazione in React dei component base (App, Navbar, Home); esplorato React Bits e trovato due elementi interessanti:
 
 - [sfondo-prisma](https://reactbits.dev/backgrounds/prism)
 - [navbar-dock](https://reactbits.dev/components/dock)
@@ -81,3 +81,15 @@ Implementazione in Rect dei component base (App, Navbar, Home); esplorato React 
 #### Sitografia:
 
 - [album-spiegazione: introduzione a React](https://www.youtube.com/playlist?list=PL4cUxeGkcC9gZD-Tvwfod2gaISzfRiP9d)
+
+---
+
+#### 19 Ottobre 2025
+
+### Continuazione implementazione in React
+
+Implementazione in React del Dock (in sostituzione alla navbar) e trasposizione della home
+
+#### Sitografia:
+
+- [icone per react (già incluse)](https://react-icons.github.io/react-icons/)
