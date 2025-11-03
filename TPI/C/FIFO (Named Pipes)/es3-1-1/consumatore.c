@@ -22,9 +22,15 @@ const int LIST_SIZE = 10;
 
 int main()
 {
-    char myFifoPath[] = "/tmp/myfifo";
-    mkfifo(myFifoPath, 0666);
-    int myFifo = open(myFifoPath, O_WRONLY, O_NONBLOCK);
+    const char *FIFOPATH = "/tmp/myfifo";
+    mkfifo(FIFOPATH, 0666);
+    int myFifo = open(FIFOPATH, O_WRONLY); // Apre la FIFO (ritorna 0 se riesce, -1 in caso di errore)
+
+    if (myFifo == -1)
+    {
+        printf("Erroe nell'apertura del FIFO!");
+        return 0;
+    }
 
     char *listptr[LIST_SIZE];
 
@@ -51,6 +57,7 @@ int main()
     for (int i = 0; i < LIST_SIZE; i++)
     {
         sleep(1);
+        printf("SLEPT 1 SEC");
         write(myFifo, listptr[i], sizeof(listptr[i]));
         printf("%d", (int)sizeof(listptr[i]));
     }
