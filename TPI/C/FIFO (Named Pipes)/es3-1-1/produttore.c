@@ -24,6 +24,21 @@ int main()
 {
     int myFifo = open("/tmp/myfifo", O_RDONLY);
 
+    if (myFifo == -1)
+    {
+        printf("Erroe nell'apertura del FIFO!");
+        return 0;
+    }
+
+    char *listptr[LIST_SIZE];
+
+    // Writes one message per second on the FIFO
+    for (int i = 0; i < LIST_SIZE; i++)
+    {
+        getline(myFifo, listptr[i]);
+        printf("%d", (int)sizeof(listptr[i]));
+    }
+
     close(myFifo);
 
     return 0;
