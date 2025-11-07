@@ -1,13 +1,16 @@
+import logo from "@images/EKHOIKOS!.svg";
+import mountainImage from "@images/mountains-landscape.jpg";
+import containersImage from "@images/containers.jpg";
+
 function Home() {
   return (
     <>
-      <section id="logo" className="covering-section center-x center-y">
+      <section id="logo">
         <img
-          width="90%"
-          src="../img/EKHOIKOS!.svg"
-          style={{ margin: "5vh", maxWidth: "1900px" }}
+          width="80%"
+          src={logo}
+          style={{ margin: "5vh", maxWidth: "1700px" }}
         />
-        <button className="big-button rounded-corners">Shop Now!</button>
       </section>
 
       <section className="covering-section center-both primary-muted-bg">
@@ -34,43 +37,34 @@ function Home() {
           </p>
           <ol className="vertical-small-margin-children">
             <li>
-              <h3 className="rounded-corners">
+              <h3>
                 <b>"CHILOMETRO ZERO"</b>
-                <br />
               </h3>
-              <div className="peel-container">
-                <p className="collapsible-content peel-text">
-                  I prodotti visualizzati nel negozio saranno ordinati in base
-                  alla distanza dal venditore;
-                </p>
-              </div>
+              <p>
+                I prodotti visualizzati nel negozio saranno ordinati in base
+                alla distanza dal venditore;
+              </p>
             </li>
             <li>
-              <h3 className="rounded-corners">
+              <h3>
                 <b>PRODOTTI SOSTENIBILI</b>
-                <br />
               </h3>
-              <div className="peel-container">
-                <p className="collapsible-content peel-text">
-                  I materiali utilizzati nella produzione (nel caso di prodotti
-                  fisici) hanno un impatto fondamentale nella valutazione da
-                  parte degli utenti, favorendo materiali non inquinanti, poco
-                  raffinati, e anche materiali riciclati;
-                </p>
-              </div>
+              <p>
+                I materiali utilizzati nella produzione (nel caso di prodotti
+                fisici) hanno un impatto fondamentale nella valutazione da parte
+                degli utenti, favorendo materiali non inquinanti, poco
+                raffinati, e anche materiali riciclati;
+              </p>
             </li>
             <li>
-              <h3 className="rounded-corners">
+              <h3>
                 <b>SOSTEGNO VERSO LE FONDAZIONI</b>
-                <br />
               </h3>
-              <div className="peel-container">
-                <p className="collapsible-content peel-text">
-                  All'acquisto di un prodotto, il 5% del ricavato viene donato a
-                  una o più fondazioni o associazioni a stampo ecologista scelte
-                  dall'utente.
-                </p>
-              </div>
+              <p>
+                All'acquisto di un prodotto, il 5% del ricavato viene donato a
+                una o più fondazioni o associazioni a stampo ecologista scelte
+                dall'utente.
+              </p>
             </li>
           </ol>
         </div>
@@ -148,10 +142,13 @@ function Home() {
       </section>
 
       <section
-        id="hero-containers"
+        id="hero-container"
         className="covering-section hero center-both"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${containersImage})`,
+        }}
       >
-        <div className="section-wrapper center-x center-y higlight-color">
+        <div className="section-wrapper center-x center-y">
           <h3 className="dark-bg-transparent padding rounded-corners">
             Detto ciò, volevamo sfruttare questa pagina anche per sensibilizzare
             sul tema dell'impatto ambientale del trasporto merci in Italia,
@@ -399,6 +396,9 @@ function Home() {
       <section
         id="hero-mountains"
         className="covering-section hero center-both"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${mountainImage})`,
+        }}
       >
         <div className="section-wrapper dark-bg-transparent rounded-corners center-x center-y padding">
           <h1>Conclusioni</h1>

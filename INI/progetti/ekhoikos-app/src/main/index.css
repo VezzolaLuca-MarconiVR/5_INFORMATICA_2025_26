@@ -4,16 +4,26 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  /* Chrome, Safari, Opera */
+  -webkit-user-select: none;
+  /* Firefox */
+  -moz-user-select: none;
+  /* Internet Explorer */
+  -ms-user-select: none;
+  /* Standard */
+  user-select: none;
+
+
   /* COLORS: */
 
   /* Light-mode palette: */
   --bg-dark: oklch(0.92 0.01 120);
-  --bg-dark-transparent: oklch(0.92 0.01 120 / 0.8);
+  --bg-dark-transparent: oklch(0.92 0.01 120 / 0.5);
   --bg: oklch(0.96 0.01 120);
   --bg-light: oklch(1 0.01 120);
   --text: oklch(0.15 0.02 120);
   --text-muted: oklch(0.4 0.02 120);
-  --highlight: oklch(1 0.02 120);
+  --highlight: oklch(0.8 0.02 120);
   --border: oklch(0.6 0.02 120);
   --border-muted: oklch(0.7 0.02 120);
   --primary: oklch(0.5 0.11723 121.244);
@@ -21,6 +31,7 @@
   --secondary: oklch(0.4 0.1 300);
   --secondary-muted: oklch(0.55 0.1 300);
   --accent: oklch(0.8047 0.1354 86.53);
+  --accent-muted: oklch(0.9 0.1354 86.53);
   --danger: oklch(0.5 0.05 30);
   --warning: oklch(0.5 0.05 100);
   --success: oklch(0.5 0.05 160);
@@ -30,7 +41,7 @@
 /* Dark-mode palette */
 .dark {
   --bg-dark: oklch(0.1 0.01 120);
-  --bg-dark-transparent: oklch(0.1 0.01 120 / 0.4);
+  --bg-dark-transparent: oklch(0.1 0.01 120 / 0.5);
   --bg: oklch(0.15 0.01 120);
   --bg-light: oklch(0.2 0.01 120);
   --text: oklch(0.96 0.02 120);
@@ -40,6 +51,8 @@
   --border-muted: oklch(0.3 0.02 120);
   --primary: oklch(0.76 0.1 120);
   --secondary: oklch(0.76 0.1 300);
+  --accent: oklch(0.8047 0.1354 86.53);
+  --accent-muted: oklch(0.8047 0.1354 86.53);
   --danger: oklch(0.7 0.05 30);
   --warning: oklch(0.7 0.05 100);
   --success: oklch(0.7 0.05 160);
@@ -129,6 +142,11 @@ td {
   padding: 5px;
   border: 1px, solid;
   box-shadow: 1px 1px 1px;
+}
+
+td:hover {
+  transition:ease-in-out 0.05s;
+  scale: 110%;
 }
 
 th:last-child,
@@ -232,22 +250,13 @@ nav ul li a.active {
   /* Dynamic Viewport Height - so that only the devices that support it (mostly phones)
         will count the true visible window,and not covered parts.  */
   height: 100dvh;
+  margin-bottom: 20px;
 }
 
 .hero {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-#hero-containers {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../img/containers.jpg");
-}
-
-#hero-mountains {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../img/mountains-landscape.jpg");
 }
 
 .vertical-small-margin-children > * {

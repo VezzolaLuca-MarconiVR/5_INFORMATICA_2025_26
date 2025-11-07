@@ -84,7 +84,7 @@ Implementazione in React dei component base (App, Navbar, Home); esplorato React
 
 ---
 
-#### 19 Ottobre 2025
+#### 31 Ottobre 2025
 
 ### Continuazione implementazione in React
 
