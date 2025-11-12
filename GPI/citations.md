@@ -6,3 +6,6 @@ Citations:
 - _"La banda bassotti"_
 - _"A bombazza"_
 - _"La fortuna è cieca, ma la sfiga ci vede benissimo"_
+- _"... si vede che c'è qualche popolo eletto"_ (che sono fortunati)
+- _"no buono"_
+- "_giurin giurello se dico che vengo vengo"_
