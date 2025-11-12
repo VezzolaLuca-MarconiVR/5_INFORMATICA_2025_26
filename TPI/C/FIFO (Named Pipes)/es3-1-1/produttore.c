@@ -8,7 +8,6 @@
 #include <sys/stat.h>
 
 /*
-Programma consumatore di consumatore e produttore
 1. Produttore e Consumatore Semplice (Base)
 Scrivere due programmi C, produttore.c e consumatore.c.
     • Il Produttore crea una FIFO chiamata "/tmp/dati_fifo" con permessi 0666.
@@ -22,7 +21,16 @@ const int LIST_SIZE = 10;
 
 int main()
 {
-    int myFifo = open("/tmp/myfifo", O_RDONLY);
+    const char *pipe_path = "/tmp/mypipe";
+
+    unlink(pipe_path);
+
+    if(mkfifo(pipe_path, 0666) == -1) {
+        perror("Errore nella creazione della FIFO!");
+        return 0;
+    }
+
+    int myFifo = open(pipe_path, O_WRONLY); // Apre la FIFO (ritorna 0 se riesce, -1 in caso di errore)
 
     if (myFifo == -1)
     {
@@ -32,14 +40,39 @@ int main()
 
     char *listptr[LIST_SIZE];
 
+    // Writes the list of messages to send
+    for (int i = 0; i < LIST_SIZE; i++)
+    {
+        int length = snprintf(NULL, 0, "%d", i); // returns the lengh of the parsed string
+        const char suffix[] = " CIAO\n";
+        /* allocate space for the digits, the suffix and the terminating '\0' */
+        listptr[i] = malloc(length + sizeof(suffix));
+        if (listptr[i] == NULL)
+        {
+            perror("malloc");
+            /* free previously allocated pointers */
+            for (int j = 0; j < i; j++)
+                free(listptr[j]);
+            return 1;
+        }
+        /* build the final string */
+        snprintf(listptr[i], length + sizeof(suffix), "%d%s", i, suffix);
+    }
+
     // Writes one message per second on the FIFO
     for (int i = 0; i < LIST_SIZE; i++)
     {
-        getline(myFifo, listptr[i]);
+        sleep(1);
+        printf("SLEPT 1 SEC\n");
+        write(myFifo, listptr[i], sizeof(listptr[i]));
         printf("%d", (int)sizeof(listptr[i]));
     }
 
-    close(myFifo);
+    /* free allocated memory */
+    for (int i = 0; i < LIST_SIZE; i++)
+        free(listptr[i]);
+
+    unlink(pipe_path);
 
     return 0;
 }

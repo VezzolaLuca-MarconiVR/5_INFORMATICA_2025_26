@@ -1,0 +1,2 @@
+- Scrivi in chiaro l'equazione della curva di domanda
+- Fai un solo grafico per tutto (anche per lo spostamento)

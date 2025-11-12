@@ -39,10 +39,11 @@ Errori frequenti:
 
 ### Array e matrici
 
+
 - **Array statici**: `T a[N];` allocati nello scope (stack se non `static`). `sizeof(a)/sizeof(a[0])` funziona solo nello stesso scope.
 - **Decay**: quando passi `a` a funzione diventa `T*` e perdi la lunghezza; passa sempre `size_t n` separato.
 - **2D statico**: `T m[R][C];` memoria contigua, ordine row-major.
-- **2D dinamico contiguo**: allocare un singolo blocco `T *m = malloc(R * C * sizeof *m);` usa indice `m[r*C + c]`. Preferito per cache locality.
+- **2D dinamico contiguo**: allocare un singolo blocco `T *m = malloc(R * C * sizeof *m);` usa indice `m[r*C + c]`. Preferito per cache locality. [Attenzione! "r" e "c" sono gli indici - partendo da 0 - della riga e della colonna alla quale si vuole accedere]
 - **2D dinamico a righe**: `T** rows = malloc(R * sizeof *rows);` poi ogni `rows[i] = malloc(C * sizeof *rows[i]);` non è contiguo, comodo per righe variabili ma peggiore per prestazioni.
 - **Bounds**: C NON controlla limiti; mantieni e passa sempre le dimensioni.
 
@@ -54,12 +55,15 @@ Esempio accesso contiguo:
 
 ```c
 double *mat = malloc(R * C * sizeof *mat);
+// [Attenzione! "r" e "c" sono gli indici - partendo da 0 - della riga e della colonna alla quale si vuole accedere - e.g. il primo elemento è a r=0 e c=0]
 double at(double *m, size_t r, size_t c, size_t C) { return m[r*C + c]; }
 ```
 
 ---
 
 ### Allocazione e gestione memoria
+
+#### Guarda qui: https://www.geeksforgeeks.org/c/dynamic-memory-allocation-in-c-using-malloc-calloc-free-and-realloc/
 
 - **Allocazione**: `malloc`, `calloc`, `realloc`. Controlla sempre il risultato.
 - **Deallocazione**: `free`. Ogni `malloc`/`calloc`/`realloc` deve avere un `free` deterministico.
