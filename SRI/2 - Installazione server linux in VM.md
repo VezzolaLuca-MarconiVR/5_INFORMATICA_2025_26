@@ -1,10 +1,18 @@
-# Installazione e configurazione di un server Ubuntu
+# Installazione e configurazione di un server Ubuntu su VM
 
 ## Installazione e setup del server
 
 1. Installare il file .iso del server Ubuntu da [qui]("https://www.ubuntu-it.org/download");
 2. Avviare una VM selezionando come disco il file .iso appena scaricato quando richiesto e procedere con l'installazione
 3. durente il processo di configurazione guidata fare attenzione alla configurazione della tastiera e, se si vuole usare una versione più "leggera", scegliere la versione minimized del server Ubuntu (non serve selezionare alcuna delle altre opzioni);
+
+### Note sulla configurazione:
+
+- Se la tastiera non dovesse essere sull'impostazione italiana una vilta avviato il server si deve procedere nel seguente modo:
+  - aprire la configurazione guidata per cambiare la lingua della tastiera:
+    > sudo dpkg-reconfigure keyboard-configuration
+  - dopo la configurazione guidata riavviare il server per applicare le modifiche con:
+    > sudo reboot
 
 ## Download funzioni necessarie
 

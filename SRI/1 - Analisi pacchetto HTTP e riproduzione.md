@@ -46,9 +46,3 @@
 - La risposta del server è una pagina HTML, inviata con HTTP e con status "OK" (200), il quale indica che la richiesta del client è stata ricevuta, compresa e processata correttamente dal server, e che il server ha restituito il contenuto richiesto.
 - Su wireshark ho applicato il filtro "HTTP" per visualizzare solo i messaggi di quel tipo.
 - Il payload si trova incapsulato nel messaggio HTTP, con wireshark si trova facilmente grazie alla sezione in basso a sinistra, la quale traduce e divide in sezioni la sequenza di bit ricevuta.
-
-- Se la tastiera non dovesse essere sull'impostazione italiana una vilta avviato il server si deve procedere nel seguente modo:
-  - aprire la configurazione guidata per cambiare la lingua della tastiera:
-    > sudo dpkg-reconfigure keyboard-configuration
-  - dopo la configurazione guidata riavviare il server per applicare le modifiche con:
-    > sudo reboot

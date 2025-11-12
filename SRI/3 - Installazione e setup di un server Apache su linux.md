@@ -47,9 +47,9 @@ Per accedere tramite ssh alla VM (per copiare con comodità del testo nel termin
 - se UFW è abilitato (come mostrato in precedenza), permettere le connessioni ssh con:
   > sudo ufw allow ssh
 
-## Personalizzazione e analisi del traffico del server
+## Personalizzazione dell'index
 
-### Modifica dell'index
+### Modifica dell'index di default
 
 Per modificare l'index - cioè la pagina che attualmente viene restituita quando si manda una GET all'indirizzo del server - procedere con:
 
@@ -57,13 +57,15 @@ Per modificare l'index - cioè la pagina che attualmente viene restituita quando
 
 Una volta aperto il file, tenere premuto "Ctrl + K" per tagliare tutte le righe e poi rimpiazzarle con il proprio codice HTML dell'index.
 
+## Analizzare il traffico del server
+
 ### Osservare lo stato e le statistiche del server Apache:
 
-Permettere la visualizzazione del file di stato ad una subnet:
+Permettere la visualizzazione del file di stato ad una specifica subnet di host:
 
 > sudo nano /etc/apache2/mods-enabled/status.conf
 
-Modificare il contenuto del tag "Location":
+Modificare il contenuto del tag "Location" con "Require" impostato alla subnet alla quale si vuole dare accesso all'analisi del traffico:
 
 ```Apache
 <Location "/server-status">
@@ -77,3 +79,6 @@ Riavviare Apache:
 > sudo systemctl restart apache2
 
 Visitare "http://[serverAddress]/server-status" nel browser.
+
+Esempio della pagina di analisi del traffico di un server Apache:
+![esempio della pagina di analisi del traffico di un server Apache](analisiTrafficoApache.png)
