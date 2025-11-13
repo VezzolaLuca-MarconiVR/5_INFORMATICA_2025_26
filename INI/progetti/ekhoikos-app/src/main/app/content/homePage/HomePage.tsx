@@ -2,7 +2,7 @@ import logo from "@images/EKHOIKOS!.svg";
 import mountainImage from "@images/mountains-landscape.jpg";
 import containersImage from "@images/containers.jpg";
 
-function Home() {
+function HomePage() {
   return (
     <>
       <section id="logo">
@@ -439,4 +439,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomePage;

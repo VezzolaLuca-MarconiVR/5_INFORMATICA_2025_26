@@ -1,6 +1,11 @@
-import Home from "./content/home/Home";
+import HomePage from "./content/homePage/HomePage";
+import ShopPage from "./content/shopPage/ShopPage";
+import SalesPage from "./content/salesPage/SalesPage";
+import ChatPage from "./content/chatPage/ChatPage";
+import UserPage from "./content/userPage/UserPage";
 import Dock from "./dock/Dock";
 import ToggleTheme from "./dock/ToggleThemeButton";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { RiHomeSmileFill, RiUser5Fill } from "react-icons/ri";
 import { MdDiscount } from "react-icons/md";
@@ -13,46 +18,55 @@ const items = [
   {
     icon: <RiHomeSmileFill size={iconSize} />,
     label: "Home",
-    onClick: () => alert("Home!"),
+    to: "/",
   },
   {
     icon: <FaShop size={iconSize} />,
     label: "Shop",
-    onClick: () => alert("Shop!"),
+    to: "/shop",
   },
   {
     icon: <MdDiscount size={iconSize} />,
     label: "Sales",
-    onClick: () => alert("Sales!"),
+    to: "/sales",
   },
   {
     icon: <IoMdChatbubbles size={iconSize} />,
     label: "Chat",
-    onClick: () => alert("Chat!"),
+    to: "/chat",
   },
   {
     icon: <RiUser5Fill size={iconSize} />,
     label: "User",
-    onClick: () => alert("User!"),
+    to: "/user",
   },
 ];
 
 function App() {
   return (
-    <div className="app">
-      <div className="content">
-        <ToggleTheme />
-        <Home />
-        <Dock
-          items={items}
-          panelHeight={50}
-          baseItemSize={40}
-          magnification={60}
-          distance={100}
-          spring={{ mass: 0.2, stiffness: 50, damping: 5 }}
-        />
+    <BrowserRouter>
+      <div className="app">
+        <div className="content">
+          <ToggleTheme />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/shop" element={<ShopPage />} />
+            <Route path="/sales" element={<SalesPage />} />
+            <Route path="/chat" element={<ChatPage />} />
+            <Route path="/user" element={<UserPage />} />
+          </Routes>
+
+          <Dock
+            items={items}
+            panelHeight={50}
+            baseItemSize={40}
+            magnification={60}
+            distance={100}
+            spring={{ mass: 0.2, stiffness: 50, damping: 5 }}
+          />
+        </div>
       </div>
-    </div>
+    </BrowserRouter>
   );
 }
 

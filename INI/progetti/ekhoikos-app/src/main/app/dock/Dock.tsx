@@ -1,6 +1,14 @@
-import "./dock.css";
+"use client";
 
-("use client");
+import React, {
+  Children,
+  cloneElement,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { NavLink } from "react-router-dom";
 
 import {
   motion,
@@ -11,21 +19,14 @@ import {
   type SpringOptions,
   AnimatePresence,
 } from "motion/react";
-import React, {
-  Children,
-  cloneElement,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
 
 import "./Dock.css";
 
 export type DockItemData = {
   icon: React.ReactNode;
   label: React.ReactNode;
-  onClick: () => void;
+  to?: string;
+  onClick?: () => void;
   className?: string;
 };
 
@@ -44,6 +45,7 @@ type DockItemProps = {
   className?: string;
   children: React.ReactNode;
   onClick?: () => void;
+  to?: string;
   mouseX: MotionValue<number>;
   spring: SpringOptions;
   distance: number;
@@ -55,6 +57,7 @@ function DockItem({
   children,
   className = "",
   onClick,
+  to,
   mouseX,
   spring,
   distance,
@@ -79,7 +82,7 @@ function DockItem({
   );
   const size = useSpring(targetSize, spring);
 
-  return (
+  const content = (
     <motion.div
       ref={ref}
       style={{
@@ -90,11 +93,17 @@ function DockItem({
       onHoverEnd={() => isHovered.set(0)}
       onFocus={() => isHovered.set(1)}
       onBlur={() => isHovered.set(0)}
-      onClick={onClick}
       className={`dock-item ${className}`}
-      tabIndex={0}
-      role="button"
-      aria-haspopup="true"
+      // se l'elemento è un link, NavLink si occuperà del focus/tab; altrimenti manteniamo comportamenti per role/button
+      tabIndex={to ? -1 : 0}
+      role={to ? undefined : "button"}
+      aria-haspopup={to ? undefined : "true"}
+      onKeyDown={(e) => {
+        if (!to && (e.key === "Enter" || e.key === " ")) {
+          e.preventDefault();
+          onClick?.();
+        }
+      }}
     >
       {Children.map(children, (child) =>
         React.isValidElement(child)
@@ -105,6 +114,34 @@ function DockItem({
           : child
       )}
     </motion.div>
+  );
+
+  if (to) {
+    // NavLink for declarative navigation; chiamiamo onClick (es. analytics) prima della navigazione
+    return (
+      <NavLink
+        to={to}
+        className={({ isActive }) =>
+          isActive ? "dock-link active" : "dock-link"
+        }
+        onClick={() => {
+          if (onClick) onClick();
+        }}
+      >
+        {content}
+      </NavLink>
+    );
+  }
+
+  return (
+    <div
+      // wrapper non-interattivo: click gestito dal div interno (role=button)
+      onClick={() => {
+        if (onClick) onClick();
+      }}
+    >
+      {content}
+    </div>
   );
 }
 
@@ -197,6 +234,7 @@ export default function Dock({
           <DockItem
             key={index}
             onClick={item.onClick}
+            to={item.to}
             className={item.className}
             mouseX={mouseX}
             spring={spring}
