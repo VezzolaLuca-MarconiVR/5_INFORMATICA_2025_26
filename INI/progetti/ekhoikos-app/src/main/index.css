@@ -13,7 +13,6 @@
   /* Standard */
   user-select: none;
 
-
   /* COLORS: */
 
   /* Light-mode palette: */
@@ -103,11 +102,13 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-.pixel-blast-container {
+html,
+body,
+#root,
+.app,
+.content {
   width: 100%;
   height: 100%;
-  position: absolute;
-  overflow: hidden;
 }
 
 h1,
@@ -145,7 +146,7 @@ td {
 }
 
 td:hover {
-  transition:ease-in-out 0.05s;
+  transition: ease-in-out 0.05s;
   scale: 110%;
 }
 

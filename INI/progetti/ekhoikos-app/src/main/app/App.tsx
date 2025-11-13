@@ -3,11 +3,16 @@ import ShopPage from "./content/shopPage/ShopPage";
 import SalesPage from "./content/salesPage/SalesPage";
 import ChatPage from "./content/chatPage/ChatPage";
 import UserPage from "./content/userPage/UserPage";
+import LoginPage from "./content/loginPage/LoginPage";
 import Dock from "./dock/Dock";
 import ToggleTheme from "./dock/ToggleThemeButton";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { RiHomeSmileFill, RiUser5Fill } from "react-icons/ri";
+import {
+  RiHomeSmileFill,
+  RiUser5Fill,
+  RiLoginCircleFill,
+} from "react-icons/ri";
 import { MdDiscount } from "react-icons/md";
 import { FaShop } from "react-icons/fa6";
 import { IoMdChatbubbles } from "react-icons/io";
@@ -40,6 +45,11 @@ const items = [
     label: "User",
     to: "/user",
   },
+  {
+    icon: <RiLoginCircleFill size={iconSize} />,
+    label: "Login",
+    to: "/login",
+  },
 ];
 
 function App() {
@@ -54,6 +64,7 @@ function App() {
             <Route path="/sales" element={<SalesPage />} />
             <Route path="/chat" element={<ChatPage />} />
             <Route path="/user" element={<UserPage />} />
+            <Route path="/login" element={<LoginPage />} />
           </Routes>
 
           <Dock
