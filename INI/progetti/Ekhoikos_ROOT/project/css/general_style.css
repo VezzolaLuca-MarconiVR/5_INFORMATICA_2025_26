@@ -74,6 +74,7 @@ body {
   background-color: var(--bg);
   font-size: large;
   margin: 0;
+  user-select: none;
 }
 
 body::-webkit-scrollbar {
@@ -101,6 +102,12 @@ table {
   border-spacing: 15px;
 }
 
+#freightTransportTable > tbody> tr > td:hover {
+  scale: 108%;
+  transition: ease-in-out;
+  transition-duration: 0.1s;
+}
+
 th,
 td:first-child {
   font-weight: bold;
@@ -124,6 +131,7 @@ td:last-child {
   min-height: 110vh;
   min-height: 110dvh;
   height: fit-content;
+  box-sizing: border-box;
   padding: 25px 0;
   width: 100vw;
   width: 100dvw;
