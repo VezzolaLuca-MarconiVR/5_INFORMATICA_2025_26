@@ -1,0 +1,365 @@
+:root {
+  color-scheme: light dark;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Chrome, Safari, Opera */
+  -webkit-user-select: none;
+  /* Firefox */
+  -moz-user-select: none;
+  /* Internet Explorer */
+  -ms-user-select: none;
+  /* Standard */
+  user-select: none;
+
+  /* COLORS: */
+
+  /* Light-mode palette: */
+  --bg-dark: oklch(0.92 0.01 120);
+  --bg-dark-transparent: oklch(0.92 0.01 120 / 0.5);
+  --bg: oklch(0.96 0.01 120);
+  --bg-light: oklch(1 0.01 120);
+  --text: oklch(0.15 0.02 120);
+  --text-muted: oklch(0.4 0.02 120);
+  --highlight: oklch(0.8 0.02 120);
+  --border: oklch(0.6 0.02 120);
+  --border-muted: oklch(0.7 0.02 120);
+  --primary: oklch(0.5 0.11723 121.244);
+  --primary-muted: oklch(0.65 0.11723 121.244);
+  --secondary: oklch(0.4 0.1 300);
+  --secondary-muted: oklch(0.55 0.1 300);
+  --accent: oklch(0.8047 0.1354 86.53);
+  --accent-muted: oklch(0.9 0.1354 86.53);
+  --danger: oklch(0.5 0.05 30);
+  --warning: oklch(0.5 0.05 100);
+  --success: oklch(0.5 0.05 160);
+  --info: oklch(0.5 0.05 260);
+}
+
+/* Dark-mode palette */
+.dark {
+  --bg-dark: oklch(0.1 0.01 120);
+  --bg-dark-transparent: oklch(0.1 0.01 120 / 0.5);
+  --bg: oklch(0.15 0.01 120);
+  --bg-light: oklch(0.2 0.01 120);
+  --text: oklch(0.96 0.02 120);
+  --text-muted: oklch(0.76 0.02 120);
+  --highlight: oklch(0.5 0.02 120);
+  --border: oklch(0.4 0.02 120);
+  --border-muted: oklch(0.3 0.02 120);
+  --primary: oklch(0.76 0.1 120);
+  --secondary: oklch(0.76 0.1 300);
+  --accent: oklch(0.8047 0.1354 86.53);
+  --accent-muted: oklch(0.8047 0.1354 86.53);
+  --danger: oklch(0.7 0.05 30);
+  --warning: oklch(0.7 0.05 100);
+  --success: oklch(0.7 0.05 160);
+  --info: oklch(0.7 0.05 260);
+}
+
+/* background colors classes */
+.dark-bg {
+  background-color: var(--bg-dark);
+}
+.dark-bg-transparent {
+  background-color: var(--bg-dark-transparent);
+}
+.light-bg {
+  background-color: var(--bg-light);
+}
+.primary-bg {
+  background-color: var(--primary);
+}
+.secondary-bg {
+  background-color: var(--secondary);
+}
+.primary-muted-bg {
+  background-color: var(--primary-muted);
+}
+.secondary-muted-bg {
+  background-color: var(--secondary-muted);
+}
+
+.higlight-color {
+  color: var(--highlight);
+}
+
+/* ELEMENTS: */
+
+* {
+  font-family: "Courier New", monospace;
+}
+
+body {
+  background-color: var(--bg);
+  font-size: large;
+  margin: 0;
+  color: var(--text);
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+html,
+body,
+#root,
+.app,
+.content {
+  width: 100%;
+  height: 100%;
+}
+
+h1,
+h2 {
+  text-align: center;
+}
+
+h3 {
+  font-size: large;
+  font-weight: bolder;
+}
+
+blockquote {
+  color: var(--text-muted);
+}
+
+table {
+  margin: 5%;
+  text-align: center;
+  border-collapse: separate;
+  border-spacing: 15px;
+}
+
+th,
+td:first-child {
+  font-weight: bold;
+  background-color: var(--primary-muted);
+}
+
+th,
+td {
+  padding: 5px;
+  border: 1px, solid;
+  box-shadow: 1px 1px 1px;
+}
+
+td:hover {
+  transition: ease-in-out 0.05s;
+  scale: 110%;
+}
+
+th:last-child,
+td:last-child {
+  background-color: var(--secondary-muted);
+  color: var(--bg-dark);
+}
+
+.covering-section {
+  min-height: 110vh;
+  min-height: 110dvh;
+  height: fit-content;
+  padding: 25px 0;
+  width: 100vw;
+  width: 100dvw;
+  margin: 0;
+}
+
+.section-wrapper {
+  margin: auto;
+  width: 90%;
+  height: 80%;
+}
+
+.center-x {
+  display: flex;
+  justify-content: center;
+}
+
+.center-y {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.center-both {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.padding {
+  box-sizing: border-box;
+  padding: 2%;
+}
+
+.padding-sides {
+  box-sizing: border-box;
+  padding: 0 3%;
+}
+
+.padding-top-bottom {
+  box-sizing: border-box;
+  padding: 3% 0;
+}
+
+.margin-top {
+  margin-top: 3%;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--secondary-muted);
+}
+
+nav ul li {
+  float: left;
+}
+
+nav ul li a {
+  display: block;
+  color: var(--bg-dark);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav ul li a:hover:not(.active) {
+  background-color: var(--primary);
+}
+
+nav ul li a.active {
+  background-color: var(--secondary);
+}
+
+#logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  /* Dynamic Viewport Height - so that only the devices that support it (mostly phones)
+        will count the true visible window,and not covered parts.  */
+  height: 100dvh;
+  margin-bottom: 20px;
+}
+
+.hero {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.vertical-small-margin-children > * {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+b {
+  color: var(--secondary-muted);
+  font-weight: 600;
+}
+
+i {
+  color: var(--secondary-muted);
+}
+
+.big-button {
+  padding: 1vh;
+  border-radius: 10px;
+  border: 5px dotted var(--bg);
+  color: var(--bg);
+  font-size: large;
+  background-color: var(--secondary-muted);
+}
+
+.big-button:hover {
+  color: var(--bg-light);
+  background-color: var(--secondary);
+}
+
+.rounded-corners {
+  border-radius: 20px;
+}
+
+.card {
+  color: var(--text-muted);
+  width: 350px;
+  padding: 20px;
+  background-color: var(--bg-dark);
+  transition: 0.3s;
+  margin: 0 50px;
+}
+
+.card:hover {
+  color: var(--text);
+  background-color: var(--bg-light);
+  scale: 105%;
+}
+
+.card:hover > h2 {
+  color: var(--primary-muted);
+}
+
+svg {
+  stroke: white;
+  fill: white;
+}
+
+/*
+*
+*
+*
+* PROVA
+*
+*
+*
+*/
+
+.peel-container {
+  position: relative;
+  display: inline-block;
+}
+
+.peel-container:hover {
+  cursor: pointer;
+  translate: 0 -5px;
+}
+
+.peel-text {
+  position: relative;
+  z-index: 1;
+}
+
+.peel-container.peeled {
+  animation: none;
+}
+
+/* Etichetta in overlay e effetto peeling */
+.peel-text::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--secondary-muted);
+  transform-origin: top left;
+  transition: transform 1s ease-in-out;
+  z-index: 2;
+}
+
+/* Classe attiva per peel-off */
+.peel-text.peeled::after {
+  transform: translate(100vw, 0);
+}
