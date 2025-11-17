@@ -9,7 +9,7 @@ Prendere in input un array di n interi
     Creare 2 figli:
     - il primo calcola e stampa la somma dei primi n/2 elementi:
     - il secondo calcola e la somma degli elementi restanti
-    - utilizzare delle pipe per permettere una 'diretta' tra padre e figlio
+    - utilizzare delle pipe (anonime) per permettere una 'diretta' tra padre e figlio
 */
 
 int main()
