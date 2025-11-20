@@ -12,7 +12,9 @@ La posizione del file cambia da un sistema operativo all'altro, ma le tipiche po
 
 Esempio di file "hosts" modificato per risolvere due diversi siti dallo stesso IP:
 
-````text
+```text
+172.16.35.20 www.sito1.com //Descrizione
+```
 
 ## Setup server:
 
@@ -23,7 +25,7 @@ Ogni sito ha la sua intera struttura all'interno della propria cartella sul serv
 ```bash
 sudo mkdir -p /var/www/sito1/public_html
 sudo mkdir -p /var/www/sito2/public_html
-````
+```
 
 _"-p" sta per "parent", e permette di creare tutte le cartelle mancanti nella specifica del path._
 
