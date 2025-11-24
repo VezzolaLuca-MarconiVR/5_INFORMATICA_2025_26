@@ -93,3 +93,58 @@ Implementazione in React del Dock (in sostituzione alla navbar) e trasposizione 
 #### Sitografia:
 
 - [icone per react (già incluse)](https://react-icons.github.io/react-icons/)
+
+---
+
+#### 24 Novembre 2025
+
+### Esercizi in JavaScript
+
+Creare le funzioni lambda, con i commenti:
+
+1. somma, riceve un array e restituisce la somma degli elementi
+2. concatena, riceve un array di stringhe e le concatena
+3. cerca, riceve una stringa e dice se sono presenti caratteri non dell'alfabeto
+4. fattoriale
+
+#### Esercizio svolto:
+
+```js
+// Somma, riceve un array e restituisce la somma degli elementi
+const somma = (a, b) => a + b;
+
+// Concatena, riceve un array di stringhe e le concatena
+const concatena = (strArr) => strArr.reduce((totale, el) => totale + el);
+
+// Cerca, riceve una stringa e dice se sono presenti caratteri non dell'alfabeto
+const cerca = (str) => (/[^a-z|A-Z]/.test(str) ? "si" : "no");
+
+// Fattoriale
+const fattoriale = (n) => {
+  let fact = 2;
+  while (n > 2) fact *= n--;
+  return fact;
+};
+
+function main(a, b, strArr, str, n) {
+  // Ho utilizzato i "Template literals" per poter scrivere codice nella stringa
+  // I Template literals sono delimitati da backtick (`) e il codice è incapsulato con "${,...}"
+
+  console.log(`Somma di ${a} e ${b}: ${somma(a, b)}`);
+
+  console.log(`Concatenatura di ${strArr}: ${concatena(strArr)}`);
+
+  console.log(`Trovato un carattere non-lettera in ${str}: ${cerca(str)}`);
+
+  console.log(`Fattoriale di ${n}: ${fattoriale(n)}`);
+}
+```
+
+#### Screenshot funzionamento:
+
+![screenshot](./img/Screenshot%20testing.png)
+
+#### Sitografia:
+
+- [metodi degli array (per il metodo reduce)](https://www.w3schools.com/jsref/jsref_array[].asp)
+- [metodi delle RegExp (per il metodo test)](https://www.w3schools.com/js/js_regexp.asp)
