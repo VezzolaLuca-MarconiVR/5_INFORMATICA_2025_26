@@ -10,7 +10,7 @@ Consegna: creare le funzioni lambda, con i commenti:
 const somma = (a, b) => a + b;
 
 // Concatena, riceve un array di stringhe e le concatena
-const concatena = (strArr) => {
+const concatena = (strArr) =>
   /*
   Metodi degli array in JS ==> https://www.w3schools.com/jsref/jsref_array[].asp
   
@@ -24,11 +24,9 @@ const concatena = (strArr) => {
   I callback sono essenziali per il codice non bloccante, consentendo a JavaScript di eseguire altre attività in attesa del completamento di operazioni come richieste di rete o lettura di file.
   Sono comunemente utilizzati nelle funzioni di ordine superiore, in cui il callback viene eseguito dopo che la funzione primaria ha terminato il suo compito, immediatamente (sincrono) o dopo un ritardo o un evento (asincrono).
   */
-  return strArr.reduce((totale, el) => totale + el);
-};
-
+  strArr.reduce((totale, el) => totale + el);
 // Cerca, riceve una stringa e dice se sono presenti caratteri non dell'alfabeto
-const cerca = (str) => {
+const cerca = (str) =>
   /*
     RegExp method test:
     The test() method tests for a match in a string.
@@ -45,11 +43,7 @@ const cerca = (str) => {
 
     fonte: https://www.w3schools.com/js/js_regexp.asp
   */
-  let pattern = /[^a-z|A-Z]/;
-
-  return pattern.test(str) ? "si" : "no";
-};
-
+  /[^a-z|A-Z]/.test(str) ? "si" : "no";
 // Fattoriale
 const fattoriale = (n) => {
   let fact = 2;
