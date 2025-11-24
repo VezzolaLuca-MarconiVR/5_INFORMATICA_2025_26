@@ -1,6 +1,5 @@
 {
   "configurations": [
-    
     {
       "name": "C/C++: gcc build and debug active file",
       "type": "cppdbg",
@@ -26,6 +25,12 @@
         }
       ],
       "preLaunchTask": "C/C++: gcc build active file"
+    },
+    {
+      "type": "chrome",
+      "name": "localhost:8080",
+      "request": "launch",
+      "url": "localhost:8080"
     }
   ],
   "version": "2.0.0"
