@@ -6,7 +6,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-const int LIST_SIZE = 10;
+#define LIST_SIZE 20
 
 int main()
 {
@@ -20,16 +20,16 @@ int main()
         return 1;
     }
 
-    int myFifo = open(pipe_path, O_WRONLY);
-    if (myFifo == -1)
+    int fd = open(pipe_path, O_WRONLY);
+    if (fd == -1)
     {
         perror("Errore nell'apertura del FIFO!");
         return 1;
     }
 
-    char *listptr[LIST_SIZE];
+    char *listptr[NUM_STRINGS];
 
-    for (int i = 0; i < LIST_SIZE; i++)
+    for (int i = 0; i < NUM_STRINGS; i++)
     {
         int length = snprintf(NULL, 0, "%d", i);
         const char suffix[] = " CIAO\n";
@@ -44,18 +44,18 @@ int main()
         snprintf(listptr[i], length + sizeof(suffix), "%d%s", i, suffix);
     }
 
-    for (int i = 0; i < LIST_SIZE; i++)
+    for (int i = 0; i < NUM_STRINGS; i++)
     {
         sleep(1);
-        write(myFifo, listptr[i], strlen(listptr[i])); // ✅ usa strlen
+        write(fd, listptr[i], strlen(listptr[i])); // usa strlen
         printf("%s", listptr[i]);
     }
 
-    for (int i = 0; i < LIST_SIZE; i++)
+    for (int i = 0; i < NUM_STRINGS; i++)
         free(listptr[i]);
 
-    close(myFifo);
-    unlink(pipe_path); // ✅ rimuove la FIFO dopo l’uso
+    close(fd);
+    unlink(pipe_path); // rimuove la FIFO dopo l’uso
 
     printf("Produttore - OUT!\n");
     return 0;

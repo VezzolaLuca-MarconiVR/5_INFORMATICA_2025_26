@@ -5,28 +5,28 @@
 #include <unistd.h>
 
 // Quando viene compilato sostituisce tutti i riferimenti ad un define nel valore del define stesso
+#define PIPE_PATH "/tmp/mypipe"
 #define MAX_BUFFER 1024
-#define NUM_STRINGS 20
+#define N_MESSAGES 5
 
 int main()
 {
-    const char *pipe_path = "/tmp/mypipe";
     char buffer[MAX_BUFFER];
-    char *strings[NUM_STRINGS];
-    int fd = open(pipe_path, O_RDONLY);
+    char *strings[N_MESSAGES];
+    int fd = open(PIPE_PATH, O_RDONLY);
     if (fd == -1)
     {
         perror("Errore di apertura della pipe!");
         return 1;
     }
 
-    for (int i = 0; i < NUM_STRINGS; i++)
+    for (int i = 0; i < N_MESSAGES; i++)
         strings[i] = NULL;
 
     int string_count = 0, temp_index = 0;
     char temp[MAX_BUFFER];
 
-    while (string_count < NUM_STRINGS)
+    while (string_count < N_MESSAGES)
     {
         ssize_t bytes_read = read(fd, buffer, sizeof(buffer));
         if (bytes_read <= 0)
@@ -41,7 +41,7 @@ int main()
                 printf("Stringa %d: %s\n", string_count + 1, strings[string_count]);
                 string_count++;
                 temp_index = 0;
-                if (string_count == NUM_STRINGS)
+                if (string_count == N_MESSAGES)
                     break;
             }
             else if (temp_index < MAX_BUFFER - 1)
@@ -51,7 +51,7 @@ int main()
         }
     }
 
-    if (temp_index > 0 && string_count < NUM_STRINGS)
+    if (temp_index > 0 && string_count < N_MESSAGES)
     {
         temp[temp_index] = '\0';
         strings[string_count] = strdup(temp);
@@ -61,7 +61,7 @@ int main()
 
     close(fd);
 
-    for (int i = 0; i < NUM_STRINGS; i++)
+    for (int i = 0; i < N_MESSAGES; i++)
     {
         if (strings[i])
             free(strings[i]);
