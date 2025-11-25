@@ -81,4 +81,4 @@ Riavviare Apache:
 Visitare "http://[serverAddress]/server-status" nel browser.
 
 Esempio della pagina di analisi del traffico di un server Apache:
-![esempio della pagina di analisi del traffico di un server Apache](analisiTrafficoApache.png)
+![esempio della pagina di analisi del traffico di un server Apache](img/analisiTrafficoApache.png)

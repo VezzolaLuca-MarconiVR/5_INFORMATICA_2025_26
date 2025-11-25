@@ -6,8 +6,8 @@
 2. Aprire un browser qualsiasi al link "http://example.com/";
 3. Ora su wireshark appariranno le PDU scambiate tra la macchina e il server:
 
-   - ![Analisi messaggio HTTP (GET) in Wireshark](analisiGet.png)
-   - ![Analisi messaggio HTTP (risposta) in Wireshark](analisiResponse.png)
+   - ![Analisi messaggio HTTP (GET) in Wireshark](img/analisiGet.png)
+   - ![Analisi messaggio HTTP (risposta) in Wireshark](img/analisiResponse.png)
 
 4. Copiare il contenuto html del pacchetto contenente la risposta HTTP "(text/html)" nelle info.
 

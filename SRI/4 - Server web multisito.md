@@ -78,6 +78,6 @@ Una volta fatto ciò è possibile visitare il sito dalla VM Windows digitando il
 Il server riceverà un messaggio con all'interno il nome del virtualHost richiesto e lo comparerà con il contenuto dei file di configurazione per il reindirizzamento al dominio (alla root di carttelle) corretto.
 
 Analisi del messaggio HTTP inviato al server Apache con nome dell'host (server):
-![Analisi del messaggio HTTP inviato al server Apache](analisiGetConHost.png)
+![Analisi del messaggio HTTP inviato al server Apache](img/analisiGetConHost.png)
 
 Possiamo notare come nella GET il primo parametro sia "Host: www.sito1.com" - qui è dove viene comunicato il nome dell'host (in questo caso virtualHost).
