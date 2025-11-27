@@ -155,4 +155,4 @@ function main(a, b, strArr, str, n) {
 
 ### Creazione pagina di login
 
-Ho creato la pagina di login e ho raffinato la grafica e anche riorganizzato la struttura dei file, in particolre i file css.
+Ho creato la pagina di login e ho raffinato la grafica e anche riorganizzato la struttura dei file, in particolre dei file css.
