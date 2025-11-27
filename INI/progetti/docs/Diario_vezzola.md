@@ -148,3 +148,11 @@ function main(a, b, strArr, str, n) {
 
 - [metodi degli array (per il metodo reduce)](https://www.w3schools.com/jsref/jsref_array[].asp)
 - [metodi delle RegExp (per il metodo test)](https://www.w3schools.com/js/js_regexp.asp)
+
+---
+
+#### 27 Novembre 2025
+
+### Creazione pagina di login
+
+Ho creato la pagina di login e ho raffinato la grafica e anche riorganizzato la struttura dei file, in particolre i file css.
