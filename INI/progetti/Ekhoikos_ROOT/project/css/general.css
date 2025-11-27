@@ -163,12 +163,16 @@ nav ul {
   background-color: var(--text);
 }
 
+nav * {
+  height: 50px;
+}
+
 nav ul li {
   float: left;
 }
 
 nav ul li a {
-  display: block;
+  display: flex;
   color: var(--bg-dark);
   text-align: center;
   padding: 14px 16px;
@@ -198,6 +202,7 @@ i {
 
 main {
   flex: 1; /* occupa lo spazio rimanente */
+  height: calc(100% - 50px); /* minus navbar height */
 }
 
 input {
@@ -206,6 +211,10 @@ input {
   background-color: var(--bg);
   padding: 5px;
   color: var(--secondary-muted);
+}
+
+input:hover {
+  background-color: var(--bg-dark);
 }
 
 footer {
