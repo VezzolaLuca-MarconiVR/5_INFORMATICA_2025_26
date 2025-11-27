@@ -1,0 +1,116 @@
+table {
+  margin: 5%;
+  text-align: center;
+  border-collapse: separate;
+  border-spacing: 15px;
+}
+
+#freightTransportTable > tbody > tr > td:hover {
+  scale: 108%;
+  transition: ease-in-out;
+  transition-duration: 0.1s;
+}
+
+th,
+td:first-child {
+  font-weight: bold;
+  background-color: var(--primary-muted);
+}
+
+th,
+td {
+  padding: 5px;
+  border: 1px, solid;
+  box-shadow: 1px 1px 1px;
+}
+
+th:last-child,
+td:last-child {
+  background-color: var(--secondary-muted);
+  color: var(--bg-dark);
+}
+
+.covering-section {
+  min-height: 110vh;
+  min-height: 110dvh;
+  height: fit-content;
+  box-sizing: border-box;
+  padding: 25px 0;
+  width: 100vw;
+  width: 100dvw;
+  margin: 0;
+}
+
+.section-wrapper {
+  margin: auto;
+  width: 90%;
+  height: 80%;
+}
+
+#logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  /* Dynamic Viewport Height - so that only the devices that support it (mostly phones)
+        will count the true visible window,and not covered parts.  */
+  height: 100dvh;
+}
+
+.hero {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#hero-containers {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../img/containers.jpg");
+}
+
+#hero-mountains {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../img/mountains-landscape.jpg");
+}
+
+.vertical-small-margin-children > * {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.big-button {
+  padding: 1vh;
+  border-radius: 10px;
+  border: 5px solid var(--bg);
+  color: var(--bg);
+  font-size: large;
+  background-color: var(--secondary-muted);
+}
+
+.big-button:hover {
+  color: var(--bg-light);
+  background-color: var(--secondary);
+  scale: 110%;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+}
+
+.card {
+  color: var(--text-muted);
+  width: 350px;
+  padding: 20px;
+  background-color: var(--bg-dark);
+  transition: 0.3s;
+  margin: 0 50px;
+}
+
+.card:hover {
+  color: var(--text);
+  background-color: var(--bg-light);
+  scale: 105%;
+}
+
+.card:hover > h2 {
+  color: var(--primary-muted);
+}

@@ -1,0 +1,17 @@
+form {
+  background-color: var(--bg-light);
+  box-shadow: 0 0 5px 5px var(--bg-dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertical centering of children */
+  align-items: center; /* horizontal centering of children */
+}
+
+#form_table {
+  border-spacing: 10px;
+}
+
+#form_submit {
+  margin: 10px;
+  width: 80px;
+}
