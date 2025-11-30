@@ -1,0 +1,13 @@
+Chiarimento esercizio B
+
+Obiettivo: Delegare la soluzione di un problema a un processo figlio.
+• Lanciare un processo che genera un figlio.
+• Il figlio prende in input un numero intero X.
+• Il figlio stampa un messaggio che indica se X `e pari o dispari, e poi termina.
+• Il figlio termini con un valore diverso se X `e pari
+(exit(0)) o dispari (exit(1)); il padre non terrà conto di questo valore.
+• Il padre attende la terminazione del figlio con wait(NULL).
+• Dopo l’attesa, il padre stampa un messaggio di conferma che il figlio ha completato il suo compito.
+
+P.S. L'uso delle funzione exit() simula uno stato condizionale che al momento non sfruttiamo ma
+potenzialmente può servire per restituire informazioni al padre.

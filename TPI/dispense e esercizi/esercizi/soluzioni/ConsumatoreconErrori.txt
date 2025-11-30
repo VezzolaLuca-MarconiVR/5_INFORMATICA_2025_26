@@ -1,0 +1,69 @@
+%%writefile consumatore.c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <errno.h>
+
+#define MAX_SIZE 50 
+#define N_MES 10
+#define PATH_FIFO "/tmp/dati_fifo"
+
+int main(){
+    int fd;
+    char buffer[MAX_SIZE];
+    int bytes_input;
+    int m_read = 0;
+
+    printf("Consumatore: In attesa dell'apertura della FIFO...\n");
+
+    //APERTURA NON BLOCCANTE: O_RDONLY | O_NONBLOCK
+	//Non si blocca anche se non c'è un processo in lettura
+    fd = open(PATH_FIFO, O_RDONLY | O_NONBLOCK); 
+
+    if (fd == -1){
+        perror("Errore nell'apertura della FIFO");
+        return EXIT_FAILURE; 
+    }
+    printf("Consumatore: FIFO aperta con successo in modalità non bloccante.\n");
+
+    
+    while(m_read < N_MES){
+        
+        bytes_input = read(fd, buffer, MAX_SIZE - 1); 
+
+        if (bytes_input > 0) {
+            // Caso 1: Lettura di successo
+            buffer[bytes_input] = '\0'; 
+            m_read++;
+            printf("Consumatore: Ricevuto [%d/%d]: %s\n", m_read, N_MES, buffer);
+        
+        } else if (bytes_input == 0) {
+            //Il produttore ha chiuso la FIFO.
+            //NON USCIAMO, ma trattiamo come un'attesa non bloccante.
+            printf("Consumatore: Produttore ha chiuso la FIFO. In attesa di un nuovo produttore...\n");
+            sleep(1); 
+            
+        } else { // bytes_input == -1
+            //Errore dovuto a FIFO vuota (EAGAIN/EWOULDBLOCK)
+            
+            if (errno == EAGAIN || errno == EWOULDBLOCK) {
+                printf("Consumatore: FIFO vuota. Nessun dato disponibile (attesa di 1s)...\n");
+                sleep(1);
+            } else {
+                //Altro errore grave
+                perror("Errore durante la lettura dalla FIFO");
+                close(fd);
+                return EXIT_FAILURE; 
+            }
+        }
+    }
+    
+    close(fd);
+    printf("Consumatore: Raggiunti %d messaggi. FIFO chiusa. Fine esecuzione.\n", N_MES);
+    
+    return 0; 
+}

@@ -1,0 +1,22 @@
+1) Stampare il valore massimo e il valore minimo di un array di 10 elementi
+es. input: [8,10,5,1,2,7,8,9,5,9]
+    max = 10
+	min = 1
+
+2) Scrivere una funzione int fattoriale(int n) che stampi il fattoriale avendo in input il valore n
+
+3) Prendere da input 10 numeri, inserirli in un array e stampare 
+solo i numeri primi
+
+4) Prendere in input due matrici 3x3 e stampare la matrice somma
+
+5) Leggi e stampa sullo schermo tutto il contenuto del file parole.txt
+
+6) Copia il contenuto di un file input.txt in un nuovo file output.txt
+
+7) Leggi da un file numeri.txt una lista di numeri interi (uno per riga)
+e calcola la loro media
+
+
+
+
