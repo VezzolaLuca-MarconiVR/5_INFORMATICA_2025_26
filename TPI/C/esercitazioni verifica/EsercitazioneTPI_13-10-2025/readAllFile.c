@@ -8,12 +8,12 @@
 int main()
 {
     FILE *fptr = fopen(FILE_NAME, "r"); // r stands for read only
-    int bytesRead;
+    size_t bytesRead;
     char buffer[BUFFER_SIZE];
 
     if (fptr == NULL)
     {
-        perror("The file does not exist!");
+        perror("The could not be opened");
         return 1;
     }
 
@@ -32,6 +32,8 @@ int main()
     } while (bytesRead > 0); // loop until end of file
 
     printf("\n");
+
+    fclose(fptr);
 
     return 0;
 }
