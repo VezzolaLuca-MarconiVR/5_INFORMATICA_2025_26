@@ -14,7 +14,3 @@ es. input: [8,10,5,1,2,7,8,9,5,9]
 6) Copia il contenuto di un file input.txt in un nuovo file output.txt
 
 7) Leggi da un file numeri.txt una lista di numeri interi (uno per riga) e calcola la loro media
-
-
-
-
