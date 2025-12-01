@@ -17,7 +17,7 @@
         <li><a href="sales.html">Sales</a></li>
         <li><a href="chat.html">Chat</a></li>
         <li style="float: right">
-          <a href="login.html" class="active">Login</a>
+          <a href="login.html">Login</a>
         </li>
       </ul>
     </nav>
@@ -25,16 +25,28 @@
     <main>
       <div class="center-both full-height">
         <form action="link.xyz" class="padding rounded-corners">
-          <h1>Login</h1>
+          <h1>Registrati</h1>
           <div class="form-fields">
+            <label for="name">Nome:</label>
+            <input type="name" id="name" name="name" />
+
+            <label for="surname">Cognome:</label>
+            <input type="surname" id="surname" name="surname" />
+
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" />
 
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" />
+
+            <label for="passwordConfirm">Conferma password:</label>
+            <input
+              type="password"
+              id="passwordConfirm"
+              name="passwordConfirm"
+            />
           </div>
-          <input type="submit" id="form_submit" />
-          <a class="small-link" href="signup.html">Devi ancora registrarti?</a>
+          <input type="submit" id="form_submit" name="Login" />
         </form>
       </div>
     </main>

@@ -171,12 +171,23 @@ nav ul li {
   float: left;
 }
 
+a {
+  text-decoration:none;
+}
+
+a:hover:not(.active) {
+  text-decoration: underline;
+}
+
+a:hover.active {
+  cursor: default;
+}
+
 nav ul li a {
   display: flex;
   color: var(--bg-dark);
   text-align: center;
   padding: 14px 16px;
-  text-decoration: none;
 }
 
 nav ul li a:hover:not(.active) {
@@ -185,6 +196,10 @@ nav ul li a:hover:not(.active) {
 
 nav ul li a.active {
   background-color: var(--secondary);
+}
+
+.small-link {
+  font-size: x-small;
 }
 
 b {

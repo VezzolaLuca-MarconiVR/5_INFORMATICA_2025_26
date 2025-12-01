@@ -7,11 +7,19 @@ form {
   align-items: center; /* horizontal centering of children */
 }
 
-#form_table {
-  border-spacing: 10px;
+.form-fields {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 20px;
 }
 
 #form_submit {
   margin: 10px;
   width: 80px;
+  background-color: var(--secondary);
+  color: var(--bg);
+}
+
+#form_submit:hover {
+  background-color: var(--secondary-muted);
 }
