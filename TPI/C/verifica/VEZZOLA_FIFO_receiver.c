@@ -28,12 +28,12 @@ int main()
 
     struct sensore s;
 
-    for (int i = 0; i < 8; i++)
+    for (int i = 0; i < 30; i++)
     {
         // [DONE!] TODO: leggere la struttura dalla FIFO
         read(fd, &s, sizeof(s));
 
-        printf("[ID: %d] Temp: %.2f °C; Umidità : %.2f %%\n", s.id, s.temperatura, s.umidita);
+        printf("[ID: %d] Temp: %.2f°C; Umidità : %.2f%%\n", s.id, s.temperatura, s.umidita);
         // [DONE!] TODO: inserire id,
         // [DONE!] TODO: inserire temperatura ,
         // [DONE!] TODO: inserire umidita );

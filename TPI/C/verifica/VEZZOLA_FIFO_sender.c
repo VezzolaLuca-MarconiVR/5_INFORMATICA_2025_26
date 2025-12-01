@@ -39,14 +39,14 @@ int main()
 
     struct sensore s;
 
-    for (int i = 0; i < 8; i++)
+    for (int i = 0; i < 30; i++)
     {
         // [DONE!] TODO: genera id in maniera progressiva
         s.id = i;
         // [DONE!] TODO: genera temp randomicamente (10°C-40°C)
-        s.temperatura = 10 + (rand() % 3000) / 100.0;
+        s.temperatura = 10 + (rand() % 3100) / 100.0;
         // [DONE!] TODO: genera umidità  randomicamente (20-90%)
-        s.umidita = 20 + (rand() % 7000) / 100.0;
+        s.umidita = 20 + (rand() % 7100) / 100.0;
 
         printf("Sender: invio struttura %d...\n", s.id);
 
