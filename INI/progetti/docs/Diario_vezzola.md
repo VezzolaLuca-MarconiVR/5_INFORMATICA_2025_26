@@ -160,3 +160,9 @@ Ho creato la pagina di login e ho raffinato la grafica e anche riorganizzato la 
 ### Creazione pagina dello shop
 
 Ho creato la pagina dello shop con le card per i prodotti, una lista di filtri e una sezione per mettere in seguito la mappa.
+
+---
+
+#### 5 Dicembre 2025
+
+###

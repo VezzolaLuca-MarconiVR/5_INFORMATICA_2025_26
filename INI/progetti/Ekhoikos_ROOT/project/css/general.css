@@ -76,6 +76,7 @@
 
 html,
 body {
+  position: relative;
   height: 100%;
   margin: 0;
   display: flex;
@@ -95,6 +96,22 @@ body {
 body::-webkit-scrollbar {
   display: none;
 }
+
+body {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-repeat: repeat-y;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  mix-blend-mode: multiply;
+  background-image: url("../img/crumpled-paper-texture-coral-background.png");
+  backdrop-filter:;
+}
+
 h1,
 h2 {
   text-align: center;
@@ -202,7 +219,7 @@ i {
 
 main {
   flex: 1; /* occupa lo spazio rimanente */
-  height: calc(100% - 50px); /* minus navbar height */
+  height: fit-content; /* minus navbar height */
 }
 
 input {
