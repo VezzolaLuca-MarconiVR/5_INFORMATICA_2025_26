@@ -76,16 +76,11 @@
 
 html,
 body {
+  position: relative;
   height: 100%;
   margin: 0;
   display: flex;
   flex-direction: column;
-}
-
-body {
-  background-color: var(--bg);
-  font-size: large;
-  user-select: none;
 }
 
 .selectable-content {
@@ -95,6 +90,41 @@ body {
 body::-webkit-scrollbar {
   display: none;
 }
+
+body {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  left: 0;
+
+  font-size: large;
+  user-select: none;
+
+  /* Crumbled paper texture */
+  background-repeat: repeat-y;
+  background-size: cover;
+  mix-blend-mode: multiply;
+  background-image: url("../img/crumbled-paper-texture.png");
+}
+
+.grainPaperTexture {
+  /* Grain paper texture */
+  background-repeat: repeat-y;
+  background-size: cover;
+  mix-blend-mode: multiply;
+  background-image: url("../img/grain-paper-texture.png");
+}
+
+.grainPaperTextureSmall {
+  /* Grain paper texture */
+  background-repeat: repeat-y;
+  background-size: cover;
+  mix-blend-mode: multiply;
+  background-image: url("../img/grain-paper-texture-small.png");
+}
+
 h1,
 h2 {
   text-align: center;
@@ -217,7 +247,7 @@ i {
 
 main {
   flex: 1; /* occupa lo spazio rimanente */
-  height: calc(100% - 50px); /* minus navbar height */
+  height: fit-content; /* minus navbar height */
 }
 
 input {
