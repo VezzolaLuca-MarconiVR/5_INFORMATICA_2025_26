@@ -1,0 +1,1 @@
+L'HTML (_Hyper Text Markup Language_) è il principale linguaggio di markup utilizzato per comunicare pagine web in internet.

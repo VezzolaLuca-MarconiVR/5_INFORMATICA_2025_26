@@ -1,0 +1,3 @@
+- [Stili del testo](https://help.obsidian.md/syntax#Bold%2C+italics%2C+highlights)
+- [Link interni](https://help.obsidian.md/syntax#Internal+links)
+- [Link esterni](https://help.obsidian.md/syntax#External+links)
