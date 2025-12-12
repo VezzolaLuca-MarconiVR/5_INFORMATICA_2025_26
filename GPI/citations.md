@@ -12,3 +12,7 @@ Citations:
 - _"... mi fai rizzare i capelli Stefanino"_
 - _"voi siete il gruppo vacanze Piemonte... anzi, gruppo miracolati di Lourdes"_
 - _"scamorzine"_
+
+Fortune cookie:
+
+- _"Bisogna far la festa quando cade il santo"_
