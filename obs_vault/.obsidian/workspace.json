@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "Sistemi e Reti/Web e HTTP/Approfondimenti/considerazioni sul protocollo HTTP.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
@@ -183,12 +183,12 @@
   "active": "125c1f885ea8751e",
   "lastOpenFiles": [
     "Sistemi e Reti/Web e HTTP/Web e HTTP.md",
+    "Sistemi e Reti/Web e HTTP/Approfondimenti/considerazioni sul protocollo HTTP.md",
     "Sistemi e Reti/Web e HTTP/Approfondimenti/API Restful.md",
     "Sistemi e Reti/Web e HTTP/Approfondimenti/AJAX.md",
     "Sistemi e Reti/Web e HTTP/Approfondimenti/Architettura multi-tier.md",
     "Sistemi e Reti/Web e HTTP/Approfondimenti/HTML.md",
     "Sistemi e Reti/Web e HTTP/Approfondimenti/Modello ISO-OSI.md",
-    "Sistemi e Reti/Web e HTTP/Approfondimenti/considerazioni sul protocollo HTTP.md",
     "Sistemi e Reti/Web e HTTP/Approfondimenti",
     "architetturaClientServer.md",
     "modello ISO/OSI.md",
