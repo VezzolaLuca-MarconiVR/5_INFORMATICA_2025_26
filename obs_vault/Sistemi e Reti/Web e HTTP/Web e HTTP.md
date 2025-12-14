@@ -2,7 +2,7 @@
 
 # Il livello applicazione
 
-HTTP, assieme a protocolli come DNS, FTP e SMTP si collocano al livello Applicazione del [Modello TCP](modelloTCP) e nei tre livelli superiori (Sessione, Presentazione e Applicazione) del [Modello ISO/OSI](modello%20ISO-OSI).
+HTTP, assieme a protocolli come DNS, FTP e SMTP si collocano al livello Applicazione del [Modello TCP](modelloTCP) e nei tre livelli superiori (Sessione, Presentazione e Applicazione) del [Modello ISO/OSI](Modello%20ISO-OSI.md).
 
 # Funzionamento di un server Web
 
@@ -104,8 +104,20 @@ http://server/percorso/programma?campo1=valore1&campo2=valore2
 
 I dati possono essere digitati nella barra di ricerca oppure digitati in automatico all'invio di un form (il body non viene valorizzato).
 
-Usando il comando GET, quindi, i parametri passati nell'URL sono visibili nella barra degli indirizzi del browser. Il server recupera i valori pervenuti leggendo la _QUERY_STRING_.
+Usando il comando GET, quindi, i parametri passati nell'URL sono visibili nella barra degli indirizzi del browser. Il server recupera i valori pervenuti leggendo la _QUERY_STRING_. La lunghezza massima della stringa è di 2048 caratteri.
 #### Nota bene:
-Nella query string i caratteri "+" rappresentano gli spazi e ogni % precede due caratteri esadecimali che devono essere poi interpretati.
+Nella query string i caratteri "+" rappresentano gli spazi e ogni "%" precede due caratteri esadecimali che devono essere poi interpretati come un unico carattere.
 
 ### Il metodo POST
+
+A differenza del metodo GET, la stringa di informazioni viene passata nel body della richiesta. Non ci sono limiti di lunghezza per la stringa, e nei dati sono perfino ammessi valori binari.
+
+# Considerazioni finali
+
+- **HTTP non ha memoria** (è _stateless_, privo di uno stato): ogni richiesta HTTP è trattata dal server come unica e indipendente dalle altre.
+- **HTTP è asimmetrico** (_pull-based_): è sempre e solo il client che chiama il server. Non esiste la possibilità che accada il contrario.
+- **HTTP è nato per la trasmissione di pagine Web**, tuttavia con il tempo sono nati nuovi linguaggi e procedure di sviluppo software per inviare anche altre tipologie di dati.
+- **HTTP non è sicuro**. Le informazioni passano in chiaro e possono essere facilmente intercettate e lette. Le informazioni riservate devono essere crittografate., e il protocollo HTTPS (***Secure HTTP***) è stato creato apposta per fare ciò.
+
+***[APPROFONDIMENTO: Considerazioni sul protocollo HTTP](considerazioni%20sul%20protocollo%20HTTP.md)***
+***[APPROFONDIMENTO: API Restful](API%20Restful.md)***
