@@ -1,0 +1,4 @@
+AJAX (_Asynchronous JavaScript and XML_) è un insieme di tecniche utilizzate per lo sviluppo di Web app per renderle interattive.
+- ***Asynchronous*** perché i dati extra sono richiesti al server e caricati in background senza interferire con il comportamento della pagina esistente;
+- ***JavaScript*** viene utilizzato lato client per automatizzare alcuni processi che altrimenti richiederebbero un reinvio della pagina da parte del server (per esempio il riordino di una tabella);
+- ***[XML](https://it.wikipedia.org/wiki/XML)*** (_Extensible Markup Language_) può essere usato per richiedere di aggiornare la pagina in maniera asincrona mediante l'uso dell'oggetto JavaScript _XMLHttpRequest_ senza richiedere il reinvio di tutto il contenuto.

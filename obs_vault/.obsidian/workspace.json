@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "8f0abcb0e922679d",
+        "id": "31773bb597fb9f7f",
         "type": "tabs",
         "children": [
           {
-            "id": "894f6a8ccfd62fb5",
+            "id": "46a0f50015087b16",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -180,11 +180,17 @@
       "bases:Create new base": false
     }
   },
-  "active": "894f6a8ccfd62fb5",
+  "active": "46a0f50015087b16",
   "lastOpenFiles": [
-    "architetturaClientServer.md",
+    "Sistemi e Reti/Web e HTTP/Modello ISO-OSI.md",
     "Sistemi e Reti/Web e HTTP/Web e HTTP.md",
     "Sistemi e Reti/Web e HTTP/HTML.md",
+    "Sistemi e Reti/Web e HTTP/Architettura multi-tier.md",
+    "Sistemi e Reti/Web e HTTP/AJAX.md",
+    "architetturaClientServer.md",
+    "modello ISO/OSI.md",
+    "modello ISO",
+    "modello.md",
     "Sistemi e Reti/Web e HTTP",
     "Senza nome 1.base",
     "Senza nome.base",
