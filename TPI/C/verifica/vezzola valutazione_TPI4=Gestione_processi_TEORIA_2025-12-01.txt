@@ -1,0 +1,94 @@
+fondo scala punteggio per singolo esercizio: 5  
+punteggio necessario per la sufficienza: 600  
+  
+:: es.0 [peso: 100]  
+  ++ Spiega in modo chiaro la differenza tra processo e programma, fornendo una definizione di entrambi i concetti.  
+  -- La tua risposta: La differenza principale tra processo e programma consiste nel fatto che il programma è statico, è il codice scritto, mentre il processo è dinamico, è l'esecuzione di tale codice scritto.  
+ECHO attivo.
+	Il programma è l'insieme di caratteri che compongono una lista di istruzioni, è puro testo scritto, ha solo un significato logico.  
+ECHO attivo.
+	Un processo è l'esecuzione delle istruzioni di un programma, è rappresentato da una struttura dati in memoria centrale e ha vita nella CPU.  
+  
+:: es.1 [peso: 100]  
+  ++ Che cosa significa l'acronimo PCB? Descrivi che cosa contiene e a che cosa serve all'interno del sistema operativo.  
+  -- La tua risposta: PCB (Process Control Block) è una sezione della struttura dati risiedente in memoria che descrive lo stato di un processo. Esso contiene informazioni quali il puntatore alla prossima istruzione da eseguire, i limiti di memoria del processo e informazioni sull'utilizzo della CPU. Viene utilizzato per salvare lo stato del processo per poi ricaricarlo durante il context switch.  
+  
+:: es.2 [peso: 100]  
+  ++ Quali sono i principali stati di un processo in un sistema operativo e quali eventi determinano il passaggio da uno stato all'altro?  
+  -- La tua risposta: I principali stati di un processo sono i seguenti: nuovo, pronto, in esecuzione, finito. Se il sistema prevede anche un I/O allora esiste anche lo stato di attesa di I/O.  
+ECHO attivo.
+	L'ammissione in memoria di un processo determina il passaggio da stato di nuovo a stato di pronto.  
+ECHO attivo.
+	L'evento di dispatch (eseguito dal dispatcher secondo l'ordine definito dallo scheduler) determina il passaggio dallo stato di pronto allo stato di esecuzione.  
+ECHO attivo.
+	La necessità di attendere un I/O da parte del processo ne determina il passaggio dallo stato di esecuzione allo stato di attesa di I/O.  
+ECHO attivo.
+	L'arrivo di un I/O determina il passaggio di un processo in attesa allo stato di pronto.  
+ECHO attivo.
+	La terminazione delle istruzioni determina il passaggio da esecuzione a stato di finito.  
+  
+:: es.3 [peso: 100]  
+  ++ Che cos'è il context switching in un sistema operativo e quali informazioni devono essere salvate e ripristinate durante questa fase?  
+- Perché si parla di sovraccarico?  
+  -- La tua risposta: Il context switching è il procedimento che comprende il salvataggio dello stato attuale del programma (PCB) in memoria centrale ed il caricamento dello stato del prossimo programma da eseguire nella CPU.  
+ECHO attivo.
+	Si parla di puro sovraccarico perchè durante il context switch il processore non esegue alcuna istruzione "utile".  
+  
+:: es.4 [peso: 100]   
+  ++ Quale affermazione descrive correttamente la creazione sincrona di un processo figlio?  
+  -- La tua risposta: Padre e figlio proseguono l'esecuzione in parallelo  
+  
+:: es.5 [peso: 100]  
+  ++ Descrivi le principali metriche utilizzate per valutare gli algoritmi di scheduling.  
+  -- La tua risposta: Le principali metriche per valutare gli algoritmi di scheduling sono:  
+ECHO attivo.
+	- Tr (response time - tempo di risposta), il periodo compreso tra il tempo di arrivo (ta) e il tempo della prima esecuzione;  
+ECHO attivo.
+	- Tw (waiting time - tempo di attesa), la somma di tutti i periodi di tempo passati non in esecuzione (Tr + Tw1 + Tw2 + ...) da un processo;  
+ECHO attivo.
+	- Tt (turnaround time - tempo di turnaround), la somma del tempo di attesa (Tw) e il tempo di esecuzione (burst - tb) - "da quando arriva a quando finisce".  
+  
+:: es.6 [peso: 100]  
+  ++ Spiega in che cosa consiste l'algoritmo di scheduling HRRN e descrivi come viene calcolata la priorità di un processo, evidenziando quali vantaggi offre rispetto agli algoritmi a priorità fissa.  
+  -- La tua risposta: Nell'algoritmo di scheduling HRRN (Highest Response Ratio Next) si calcola la priorità di esecuzione di un processo con il rapporto tra il tempo di attesa (fino a quel momento) e il tempo di burst.  
+ECHO attivo.
+	Più è alto il tempo di burst, più è bassa la priorità; più tempo il processo aspetta in memoria, più alta è la priorità.  
+ECHO attivo.
+ECHO attivo.
+ECHO attivo.
+	ta (tempo di arrivo)  
+ECHO attivo.
+	tb (tempo di burst)  
+ECHO attivo.
+	P = 1+ Tw/tb  
+ECHO attivo.
+ECHO attivo.
+ECHO attivo.
+	Questo permette di eliminare il problema della starvation.  
+  
+:: es.7 [peso: 100]   
+  ++ Qual è il compito dello scheduler a breve termine?  
+  -- La tua risposta: Selezionare il processo da eseguire sulla CPU  
+  
+:: es.8 [peso: 100]   
+  ++ Il dispatcher si occupa principalmente di:  
+  -- La tua risposta: Passare la CPU al processo selezionato dallo scheduler  
+  
+:: es.9 [peso: 100]  
+  ++ Data la seguente immagine  
+- individua di che algoritmo di scheduling si tratta  
+- motiva la risposta  
+- e calcola i relativi tempi  
+-- d'attesa  
+-- di risposta  
+-- e di tournaround  
+<img src="img/TPI4=scheduling_processi.jpeg">  
+  -- La tua risposta: L'algoritmo utilizzato è SJF con prelazione perché quando arriva un nuovo processo viene fatto un context switch se esso ha un CPU burst più basso.  
+ECHO attivo.
+	Tempi:  
+ECHO attivo.
+	attesa P1:9; P2:1; P3:0; P4:2.  
+ECHO attivo.
+	risposta P1:0; P2:0; P3:0; P4:2.  
+ECHO attivo.
+	turnaround P1:16; P2:5; P3:1; P4:6.  
