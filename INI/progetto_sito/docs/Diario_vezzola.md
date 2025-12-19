@@ -247,3 +247,43 @@ Parte del codice html del login:
 ### Modellazione database
 
 Ho modellato il DB del sito web su carta e l'ho consegnato.
+
+---
+
+#### 19/12/2025
+
+### Creazione del database
+
+```sql
+CREATE TABLE Users (
+    User_ID int PRIMARY KEY AUTO_INCREMENT,
+    Name varchar(64) NOT NULL,
+    Surname varchar(64) NOT NULL,
+    Username varchar(15) NOT NULL,
+    Psw varchar(64) NOT NULL
+);
+CREATE TABLE Products (
+    Creator_ID int,
+    Name varchar(64) NOT NULL,
+	Description varchar(2048) NOT NULL,
+    FOREIGN KEY (Creator_ID) REFERENCES Users(User_ID)
+);
+```
+
+### Inserimento dei dati di prova
+
+```sql
+INSERT INTO users (Name, Surname, Username, Psw)
+VALUES ("Mario", "Rossi", "Mrss_81", "passwordDifficilissima99"),
+	("Alessia", "Verdi", "AVrd", "passwordDifficilissimissima101"),
+    ("Baryon", "Moss", "Bjoiash", "ciao:)")
+;
+
+INSERT INTO products (Name, Description, Creator_ID) VALUES ("Foca Peluche", "Una carinissima e morbidissima foca peluche fatta interamente a mano per addormentarsi all'istante!", 1), ("Cornice A5 in larice decorata", "Cornice per immagini formato A5 in larice decorata con conchiglie marine.", 1), ("Sassi", "Ho raccolto dei sassi colorati. Vuoi comprarli? Sono a tua disposione.", 2);
+```
+
+### Query esempio
+
+```sql
+SELECT * FROM products WHERE Creator_ID = 1;
+```
