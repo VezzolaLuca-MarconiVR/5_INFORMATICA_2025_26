@@ -18,7 +18,7 @@
 
 _(per scaricare qualsiasi cosa serve un IP, quindi se si ha cambiato le impostazioni per utilizzare la "Scheda con bridge", rimettere le impostazioni base, cioè con il DNS)_
 
-```bash
+```shell
   sudo apt install nano
 ```
 
@@ -30,7 +30,7 @@ _(specifico per VirtualBox)_
 2. Nelle impostazioni (sezione base, non esperto), selezionare "Rete", selezionare "Scheda con bridge" invece di "NAT", poi premere "OK" e avviare nuovamente la VM;
 3. Una volta avviata la VM, eseguire i seguenti comandi:
 
-```bash
+```shell
   cd /etc/netplan/
   ls
   sudo nano nomefile.yaml
@@ -59,6 +59,6 @@ _(specifico per VirtualBox)_
 
 4. Dopodichè, salvare il file con CTRL+X e Y per confermare;
 5. Una volta salvato il file di configurazione, applicare le modifiche fatte con:
-   ```bash
+   ```shell
    sudo netplan apply
    ```

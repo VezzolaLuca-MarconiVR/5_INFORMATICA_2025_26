@@ -22,7 +22,7 @@ Esempio di file "hosts" modificato per risolvere due diversi siti dallo stesso I
 
 Ogni sito ha la sua intera struttura all'interno della propria cartella sul server in "/var/www", quindi serve creare una cartella root per ogni sito che si vuole aggiungere (in aggiunta a http, il dominio di base):
 
-```bash
+```shell
 sudo mkdir -p /var/www/sito1/public_html
 sudo mkdir -p /var/www/sito2/public_html
 ```
@@ -31,7 +31,7 @@ _"-p" sta per "parent", e permette di creare tutte le cartelle mancanti nella sp
 
 Serve anche permettere l'accesso ad Apache ai file:
 
-```bash
+```shell
 sudo chown -R $USER:$USER /var/www/sito1/public_html
 sudo chown -R $USER:$USER /var/www/sito2/public_html
 ```
@@ -42,7 +42,7 @@ E successivamente creare un index.html in ognuna delle cartelle public_html util
 
 Ora serve creare un file di configurazione distinto per ognuno dei siti creati:
 
-```bash
+```shell
 sudo nano /etc/apache2/sites-available/sito1.conf
 ```
 
@@ -61,7 +61,7 @@ Esempio di file di configurazione dell'host virtuale:
 
 ### Abilitazione dei siti appena creati
 
-```bash
+```shell
 sudo a2ensite sito1.conf
 sudo a2ensite sito2.conf
 sudo systemctl reload apache2
@@ -69,7 +69,7 @@ sudo systemctl reload apache2
 
 Controlla per sicurezza se la sintassi è corretta:
 
-```bash
+```shell
 sudo apache2ctl configtest
 ```
 
