@@ -87,11 +87,20 @@ sudo systemctl restart vsftpd
 sudo systemctl status vsftpd
 ```
 
-## Utilizzo dei comandi base per caricare e scaricare un file con FTP da CMD:
+## Utilizzo dei comandi base per caricare e scaricare un file con FTP da CMD (in modalità ACTIVE):
 
-![Screenshot della connessione FTP via CMD](image.png)
+![Screenshot della connessione FTP via CMD](./img/comandiFtpViaCmd.png)
 
-Comandi di base del client ftp:
+Immagine caricata e poi scaricata:
+![A little blue man - 8x8 pixels](./img/little_blue_man.png)
+
+### Comandi da linea di comando
+
+Aprire la connessione FTP:
+
+- ftp "yourServerIpAddressOrDomainName"
+
+Comandi di base del client FTP:
 
 - **open** per connetterti a un server FTP remoto.
 - **user** per inviare un nome utente per l'autenticazione.
@@ -116,3 +125,20 @@ Comandi di base del client ftp:
 - **verbose** per consentire (o rimuovere) l'output dettagliato delle risposte del server e delle statistiche di trasferimento.
 - **trace** per abilitare il tracciamento dei pacchetti a fini di debug.
 - **debug** per abilitare la modalità di debug, mostrando tutti i comandi inviati al server.
+
+## Utilizzo del client FTP FileZilla per visualizzare la struttura di cartelle e modificarla (in modalità PASV):
+
+FileZilla usa di base, per una maggiore sicurezza, la modalità passive. Per permettere le connessioni PASV al server dobbiamo pima aggiungere al file di configurazione le seguenti opzioni:
+
+```shell
+pasv_enable=YES
+pasv_min_port=40000
+pasv_max_port=40100
+```
+
+Screenshot FileZilla della struttura di cartelle accessibile da sito1:
+
+![Screenshot di FileZilla della struttura di cartelle accessibile da sito1](./img/screenFileZillaFTPSito1.png)
+
+Screenshot FileZilla della struttura di cartelle accessibile da sito2 e aggiunta di un nuovo file .txt:
+![Screenshot di FileZilla della struttura di cartelle accessibile da sito1](./img/screenFileZillaFTPSito2.png)
