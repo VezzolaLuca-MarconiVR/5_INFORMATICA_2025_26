@@ -265,7 +265,7 @@ CREATE TABLE Users (
 CREATE TABLE Products (
     Creator_ID int,
     Name varchar(64) NOT NULL,
-	Description varchar(2048) NOT NULL,
+	  Description varchar(2048) NOT NULL,
     FOREIGN KEY (Creator_ID) REFERENCES Users(User_ID)
 );
 ```
