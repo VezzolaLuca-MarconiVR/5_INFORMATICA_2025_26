@@ -28,6 +28,11 @@ Palumbo citations:
 - _"Matthew si crocifigge per voi"_
 - _"sono i conti della serva questi qua"_
 - _"stiamo facendo una valutazione spannometrica"_ (a spanne)
+- _"siamo nati per soffrire"_
+- _"accómódati"_
+- _"mi appello alla corte di giustizia"_
+- _"Ivan Valentino... prima o poi lo conosceremo"_
+- _"Ma che rottura di palle"_
 - _""_
 
 Fortune cookies citations:
