@@ -20,7 +20,7 @@ string CesarCipherDecrypt(string_view input);
 string SpartanScitalEncrypt(string_view input, size_t discreteCircumference);
 string SpartanScitalDecrypt(string_view input, size_t discreteCircumference);
 // Leon B. A.'s polyalphabetic cipher
-string PolylphabeticCipherEncrypt(string_view input);
+string PolylphabeticCipherEncrypt(string_view input, string &innerDisc);
 string PolyalphabeticCipherDecrypt(string_view input);
 // Vigenerè's algorithm
 string VigenereAlgorithmEncrypt(string_view input);
@@ -260,10 +260,46 @@ string SpartanScitalDecrypt(string_view input, size_t discreteCircumference)
   return output;
 }
 
-// Leon B. A.'s polyalphabetic cipher
-string PolylphabeticCipherEncrypt(string_view input)
+// Leon B. A.'s polyalphabetic cipher (first method - explained in chapter XIV of "De Cifris")
+string PolylphabeticCipherEncrypt(string_view input, string_view innerDisc, char innerDiscIndex)
 {
   string output;
+
+  // Initializing a random seed
+  srand(time(NULL));
+
+  // The displacement of the innerDiscIndex inside the innerDisc string
+  size_t innerDiscIndexDisplacement = innerDisc.find(innerDiscIndex);
+
+  // Underestimated string capacity
+  output.reserve(input.size());
+
+  // 24 characters
+  const string outerDisc = "ABCDEFGILMNOPQRSTVXZ1234";
+
+  // The displacement (rotation) of the inner disc relative to the outer disc
+  size_t innerDiscDisplacement = 0;
+
+  // All of the rotation are made automatically by this function following random values
+
+  innerDiscDisplacement = rand() % 24;
+  output.push_back(outerDisc[(innerDiscIndexDisplacement + innerDiscDisplacement) % 24]);
+
+  // We will change displacement after a random number of characters between 12 and 24
+  // (the rough average of letters in phrases of three or four words)
+  // If ecceding the length of the input, it will be zero
+  size_t randomN = rand() % 12 + 12;
+  size_t charsBeforeNewDisplacement = randomN > input.length() ? input.length() : randomN;
+
+  for (size_t i = 0; i < charsBeforeNewDisplacement; i++)
+  {
+    // TODO: Looks for the position of the character to write in the inner disc and then uses it to calculate the additional offset (stocazzo)
+    size_t stocazzo;
+
+    stocazzo = 999;
+
+    output.push_back(outerDisc[(innerDiscIndexDisplacement + innerDiscDisplacement + stocazzo) % 24]);
+  }
 
   return output;
 }
