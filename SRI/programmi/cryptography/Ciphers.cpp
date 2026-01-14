@@ -14,20 +14,23 @@
 using namespace std;
 
 // Cesar's cipher
-string CesarCipherEncrypt(string_view input);
-string CesarCipherDecrypt(string_view input);
+string cesarCipherEncrypt(string_view input);
+string cesarCipherDecrypt(string_view input);
 // Spartan Scital
-string SpartanScitalEncrypt(string_view input, size_t discreteCircumference);
-string SpartanScitalDecrypt(string_view input, size_t discreteCircumference);
+string spartanScitalEncrypt(string_view input, size_t discreteCircumference);
+string spartanScitalDecrypt(string_view input, size_t discreteCircumference);
 // Leon B. A.'s polyalphabetic cipher
-string PolylphabeticCipherEncrypt(string_view input, string &innerDisc);
-string PolyalphabeticCipherDecrypt(string_view input);
+string polylphabeticCipherEncrypt(string &input, string &innerDisc, char innerDiscIndex);
+string PolyalphabeticCipherDecrypt(string_view input, string_view innerDisc, char innerDiscIndex);
 // Vigenerè's algorithm
-string VigenereAlgorithmEncrypt(string_view input);
-string VigenereAlgorithmDecrypt(string_view input);
+string vigenereAlgorithmEncrypt(string_view input);
+string vigenereAlgorithmDecrypt(string_view input);
 
 // Returns the string without spaces
 void removeSpaces(string &input);
+
+// Applies a kind of "pacman effect"
+size_t circularModule(int n, int mod);
 
 int main()
 {
@@ -74,7 +77,7 @@ int main()
     {
     case 1:
       // Cesar's cipher
-      output = CesarCipherEncrypt(input);
+      output = cesarCipherEncrypt(input);
       break;
     case 2:
       // Spartan Scital
@@ -89,11 +92,22 @@ int main()
           cout << "Incorrect input: please type a natural number";
       } while (lastOptionSelected <= 0);
 
-      output = SpartanScitalEncrypt(input, lastOptionSelected);
+      output = spartanScitalEncrypt(input, lastOptionSelected);
 
       break;
     case 3:
+      char innerDiscIndex;
+
+      cout << "Type the index character (one of the inner disc letters): ";
+      getline(cin, userLastInput);
+      innerDiscIndex = userLastInput.at(0);
+
+      cout << "Type the inner disc (the start doesn't matter): ";
+      getline(cin, userLastInput);
+
       // Leon B. A.'s polyalphabetic cipher
+      output = polylphabeticCipherEncrypt(input, userLastInput, innerDiscIndex);
+
       break;
     case 4:
       // Vigenerè's algorithm
@@ -127,7 +141,7 @@ int main()
     {
     case 1:
       // Cesar's cipher
-      output = CesarCipherDecrypt(input);
+      output = cesarCipherDecrypt(input);
       break;
     case 2:
       // Spartan Scital
@@ -141,7 +155,7 @@ int main()
           cout << "Incorrect input: please type a natural number" << endl;
       } while (lastOptionSelected <= 0);
 
-      output = SpartanScitalDecrypt(input, lastOptionSelected);
+      output = spartanScitalDecrypt(input, lastOptionSelected);
 
       break;
     case 3:
@@ -160,7 +174,7 @@ int main()
 }
 
 // Cesar's cipher
-string CesarCipherEncrypt(string_view input)
+string cesarCipherEncrypt(string_view input)
 {
   string output;
   output.reserve(input.size());
@@ -187,7 +201,7 @@ string CesarCipherEncrypt(string_view input)
 
   return output;
 }
-string CesarCipherDecrypt(string_view input)
+string cesarCipherDecrypt(string_view input)
 {
   string output;
   output.reserve(input.size());
@@ -216,7 +230,7 @@ string CesarCipherDecrypt(string_view input)
 }
 
 // Spartan Scital
-string SpartanScitalEncrypt(string_view input, size_t discreteCircumference)
+string spartanScitalEncrypt(string_view input, size_t discreteCircumference)
 {
   string output;
 
@@ -247,7 +261,7 @@ string SpartanScitalEncrypt(string_view input, size_t discreteCircumference)
 
   return output;
 }
-string SpartanScitalDecrypt(string_view input, size_t discreteCircumference)
+string spartanScitalDecrypt(string_view input, size_t discreteCircumference)
 {
   string output;
   output.reserve(input.size() / discreteCircumference);
@@ -261,15 +275,15 @@ string SpartanScitalDecrypt(string_view input, size_t discreteCircumference)
 }
 
 // Leon B. A.'s polyalphabetic cipher (first method - explained in chapter XIV of "De Cifris")
-string PolylphabeticCipherEncrypt(string_view input, string_view innerDisc, char innerDiscIndex)
+string polylphabeticCipherEncrypt(string &input, string &innerDisc, char innerDiscIndex)
 {
   string output;
 
   // Initializing a random seed
   srand(time(NULL));
 
-  // The displacement of the innerDiscIndex inside the innerDisc string
-  size_t innerDiscIndexDisplacement = innerDisc.find(innerDiscIndex);
+  // Looks for the position of the index in the inner disc and then uses it as an additional offset
+  int innerDiscIndexPosition = innerDisc.find(innerDiscIndex);
 
   // Underestimated string capacity
   output.reserve(input.size());
@@ -278,32 +292,61 @@ string PolylphabeticCipherEncrypt(string_view input, string_view innerDisc, char
   const string outerDisc = "ABCDEFGILMNOPQRSTVXZ1234";
 
   // The displacement (rotation) of the inner disc relative to the outer disc
-  size_t innerDiscDisplacement = 0;
+  int innerDiscDisplacement = 999;
 
-  // All of the rotation are made automatically by this function following random values
+  // Temporary random displacement variable
+  int temp;
 
-  innerDiscDisplacement = rand() % 24;
-  output.push_back(outerDisc[(innerDiscIndexDisplacement + innerDiscDisplacement) % 24]);
+  size_t randomN;
+  size_t charsBeforeNewDisplacement;
 
-  // We will change displacement after a random number of characters between 12 and 24
-  // (the rough average of letters in phrases of three or four words)
-  // If ecceding the length of the input, it will be zero
-  size_t randomN = rand() % 12 + 12;
-  size_t charsBeforeNewDisplacement = randomN > input.length() ? input.length() : randomN;
-
-  for (size_t i = 0; i < charsBeforeNewDisplacement; i++)
+  // Encrypts all of the characters of the input into the output (adding special chars for rotating the disc)
+  for (size_t encryptedChars = 0; encryptedChars < input.length(); encryptedChars += charsBeforeNewDisplacement)
   {
-    // TODO: Looks for the position of the character to write in the inner disc and then uses it to calculate the additional offset (stocazzo)
-    size_t stocazzo;
 
-    stocazzo = 999;
+    // All of the rotation are made automatically by this function following random values
+    // The displacement is between 0 and 23 and must be different from the last time
+    do
+    {
+      temp = rand() % 24;
+    } while (innerDiscDisplacement == temp);
 
-    output.push_back(outerDisc[(innerDiscIndexDisplacement + innerDiscDisplacement + stocazzo) % 24]);
+    innerDiscDisplacement = temp;
+
+    // Encrypts the alignment of the two discs in the message
+    output.push_back(outerDisc.at((innerDiscIndexPosition + innerDiscDisplacement) % 24));
+
+    // We will change displacement after a random number of characters between 12 and 24
+    // (the rough average of letters in phrases of three or four words)
+    // If ecceding the number of characters to be encrypted, it is the number of characters to be encrypted
+    randomN = rand() % 12 + 12;
+    charsBeforeNewDisplacement = randomN > input.length() - encryptedChars ? input.length() - encryptedChars : randomN;
+
+    for (size_t i = 0; i < charsBeforeNewDisplacement; i++)
+    {
+      int pos = outerDisc.find(input.at(i + encryptedChars));
+      if (pos == std::string_view::npos)
+      {
+        // gestisci l’errore
+        continue; // oppure throw, oppure log
+      }
+
+      int idx = circularModule(pos + innerDiscIndexPosition - innerDiscDisplacement, 23);
+
+      if (idx >= innerDisc.size())
+      {
+        // anche questo è un errore
+      }
+
+      output.push_back(innerDisc[idx]);
+
+      // output.push_back(innerDisc[circularModule((outerDisc.find(input.at(i + encryptedChars)) + innerDiscIndexPosition - innerDiscDisplacement), 23)]);
+    }
   }
 
   return output;
 }
-string PolyalphabeticCipherDecrypt(string_view input)
+string PolyalphabeticCipherDecrypt(string_view input, string_view innerDisc, char innerDiscIndex)
 {
   string output;
 
@@ -311,13 +354,13 @@ string PolyalphabeticCipherDecrypt(string_view input)
 }
 
 // Vigenerè's algorithm
-string VigenereAlgorithmEncrypt(string_view input)
+string vigenereAlgorithmEncrypt(string_view input)
 {
   string output;
 
   return output;
 }
-string VigenereAlgorithmDecrypt(string_view input)
+string vigenereAlgorithmDecrypt(string_view input)
 {
   string output;
 
@@ -328,4 +371,21 @@ string VigenereAlgorithmDecrypt(string_view input)
 void removeSpaces(string &str)
 {
   str.erase(remove(str.begin(), str.end(), ' '), str.end());
+}
+
+// Applies a kind of "pacman effect"
+size_t circularModule(int n, int mod)
+{
+  size_t output;
+
+  if (n >= 0)
+  {
+    output = n % mod;
+  }
+  else
+  {
+    output = mod + n;
+  }
+
+  return output;
 }
