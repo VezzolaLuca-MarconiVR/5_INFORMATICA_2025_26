@@ -160,6 +160,18 @@ int main()
       break;
     case 3:
       // Leon B. A.'s polyalphabetic cipher
+      char innerDiscIndex;
+
+      cout << "Type the index character (one of the inner disc letters): ";
+      getline(cin, userLastInput);
+      innerDiscIndex = userLastInput.at(0);
+
+      cout << "Type the inner disc (the start doesn't matter): ";
+      getline(cin, userLastInput);
+
+      // Leon B. A.'s polyalphabetic cipher
+      output = PolyalphabeticCipherDecrypt(input, userLastInput, innerDiscIndex);
+
       break;
     case 4:
       // Vigenerè's algorithm
@@ -324,23 +336,7 @@ string polylphabeticCipherEncrypt(string &input, string &innerDisc, char innerDi
 
     for (size_t i = 0; i < charsBeforeNewDisplacement; i++)
     {
-      int pos = outerDisc.find(input.at(i + encryptedChars));
-      if (pos == std::string_view::npos)
-      {
-        // gestisci l’errore
-        continue; // oppure throw, oppure log
-      }
-
-      int idx = circularModule(pos + innerDiscIndexPosition - innerDiscDisplacement, 23);
-
-      if (idx >= innerDisc.size())
-      {
-        // anche questo è un errore
-      }
-
-      output.push_back(innerDisc[idx]);
-
-      // output.push_back(innerDisc[circularModule((outerDisc.find(input.at(i + encryptedChars)) + innerDiscIndexPosition - innerDiscDisplacement), 23)]);
+      output.push_back(innerDisc.at(circularModule((outerDisc.find(input.at(i + encryptedChars)) - innerDiscDisplacement), 24)));
     }
   }
 
@@ -349,6 +345,76 @@ string polylphabeticCipherEncrypt(string &input, string &innerDisc, char innerDi
 string PolyalphabeticCipherDecrypt(string_view input, string_view innerDisc, char innerDiscIndex)
 {
   string output;
+
+  // The "standard" outer disc
+  const string outerDisc = "ABCDEFGILMNOPQRSTVXZ1234";
+
+  // The length of the inner disc must be equal to that of the outer disc (24 characters)
+  if (outerDisc.size() != innerDisc.size())
+  {
+    cout << "[Error]: The length of the inner disc must be equal to that of the outer disc (24 characters)" << endl;
+    return output;
+  }
+
+  // Reserving an underestimated string capacity for efficiency
+  output.reserve(input.size());
+
+  // Looks for the position of the index in the inner disc
+  auto idxPos = innerDisc.find(innerDiscIndex);
+  if (idxPos == std::string::npos)
+  {
+    cout << "[Error]: Invalid inner disc index character" << endl;
+    return output;
+  }
+
+  int innerDiscIndexPosition = (int)idxPos;
+
+  // The displacement (rotation) of the inner disc relative to the outer disc
+  int innerDiscDisplacement = -1;
+
+  bool lastWasInOuterDisc = false;
+
+  for (char c : input)
+  {
+    auto innerDiscPosition = innerDisc.find(c);
+    auto outerDiscPosition = outerDisc.find(c);
+
+    if (innerDiscPosition != string::npos)
+    {
+      // The character is a lower case letter to decrypt
+
+      int innerDiscCharPos = (int)innerDiscPosition;
+      int outerPos = (int)(circularModule(innerDiscCharPos + innerDiscDisplacement, 24));
+      output.push_back(outerDisc[outerPos]);
+
+      lastWasInOuterDisc = false;
+    }
+    else if (outerDiscPosition != string::npos)
+    {
+      // The character is an upper case letter or a number - the displacement has changed
+
+      if (lastWasInOuterDisc)
+      {
+        // Writing two outer-disc characters one after the other is forbidden,
+        // so the crypted message is invalid
+
+        cout << "[Error]: Invalid crypted message" << endl;
+        output.clear();
+        return output;
+      }
+
+      // Change the displacement according to the character just read
+      innerDiscDisplacement = (int)(outerDiscPosition)-innerDiscIndexPosition;
+
+      lastWasInOuterDisc = true;
+    }
+    else
+    {
+      cout << "[Error]: Invalid crypted message" << endl;
+      output.clear();
+      return output;
+    }
+  }
 
   return output;
 }
