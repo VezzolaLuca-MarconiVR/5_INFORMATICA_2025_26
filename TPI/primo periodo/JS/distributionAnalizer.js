@@ -1,6 +1,14 @@
-function main(divisions, data) {
-  const analisis = analize(divisions, data);
-  drawChart(analisis);
+function main() {
+  const divisionsInput = document.getElementById("divisionsInput");
+  const divisionsValue = parseInt(divisionsInput.value, 10);
+
+  const dataInput = document.getElementById("dataInput");
+  const values = dataInput.value.split(",").map((s) => s.trim());
+  const numbers = values.map(parseFloat);
+  const validNumbers = numbers.filter((num) => !isNaN(num));
+
+  const analysis = analize(divisionsValue, validNumbers);
+  drawChart(analysis);
 }
 
 function analize(divisions, data) {
@@ -58,4 +66,30 @@ function drawChart(values) {
     },
     options: { scales: { y: { beginAtZero: true } } },
   });
+}
+
+function readFileSlowly() {
+  document
+    .getElementById("fileInput")
+    .addEventListener("change", function (event) {
+      let file = event.target.files[0];
+      let reader = new FileReader();
+
+      reader.onload = function (event) {
+        let arrayBuffer = event.target.result;
+        let array = new Uint8Array(arrayBuffer);
+
+        let fileSize = arrayBuffer.byteLength;
+        let bytes = [];
+        for (let i = 0; i < Math.min(20, fileSize); i++) {
+          bytes.push(array[i]);
+        }
+
+        document.getElementById("fileContents").textContent =
+          "First 20 bytes of file as ArrayBuffer: " + bytes.join(", ");
+        console.log("ArrayBuffer:", arrayBuffer);
+      };
+
+      reader.readAsArrayBuffer(file);
+    });
 }
