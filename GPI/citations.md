@@ -33,6 +33,9 @@ Palumbo citations:
 - _"mi appello alla corte di giustizia"_
 - _"Ivan Valentino... prima o poi lo conosceremo"_
 - _"Ma che rottura di palle"_
+- _"assiettete"_ (siediti)
+- _"se avete la vista di spiderman voi dietro ci vedete"_
+- _"gli hai svelato il Quarto Segreto di Fatima"_
 - _""_
 
 Fortune cookies citations:
