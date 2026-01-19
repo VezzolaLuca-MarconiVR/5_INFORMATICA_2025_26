@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Stream & Plot Large Numeric File</title>
+    <style>
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          Arial;
+        margin: 20px;
+      }
+      #controls {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+      }
+      #progressBar {
+        width: 100%;
+        height: 12px;
+        background: #eee;
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      #progressFill {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #4caf50, #2e7d32);
+      }
+      #charts {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+      }
+      #charts canvas {
+        width: 50%;
+        height: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Stream & Plot Large Numeric File</h1>
+
+    <div id="controls">
+      <label>
+        <strong>File</strong>
+        <input id="fileInput" type="file" accept=".txt,.csv" />
+      </label>
+
+      <label>
+        <strong>Max plotted points</strong>
+        <input id="maxPoints" type="number" value="2000" min="100" step="100" />
+      </label>
+
+      <label>
+        <strong>Batch size (worker)</strong>
+        <input
+          id="batchSize"
+          type="number"
+          value="10000"
+          min="1000"
+          step="1000"
+        />
+      </label>
+
+      <button id="startBtn">Start</button>
+      <button id="cancelBtn" disabled>Cancel</button>
+    </div>
+
+    <div id="progressBar" aria-hidden="true">
+      <div id="progressFill"></div>
+    </div>
+    <p id="status">Idle</p>
+
+    <div id="charts">
+      <canvas id="histCanvas"></canvas> <canvas id="cdfCanvas"></canvas>
+    </div>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
