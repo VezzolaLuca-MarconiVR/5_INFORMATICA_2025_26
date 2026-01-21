@@ -49,6 +49,10 @@ void cleanup_socket(int sockfd)
 // AGGIUNTE DA ME
 // The expected greeting from a new client (or which already played and won)
 #define EXPECTED_GREETING "salute, o mio servo"
+#define MSG_GUESS_TOO_BIG "Error: Guessed number is too large!"
+#define MAX_PENDING_CLIENTS 256
+#define MSG_MAX_PENDING_CLIENTS_REACHED "Error: Too many pending 'sessions' for now - try again later"
+
 typedef struct addrAndPortList
 {
   char addr[INET_ADDRSTRLEN];
@@ -96,10 +100,12 @@ int main()
   unsigned short clientPort;
 
   // List of UDP "pending" clients still not concluded with a right number guess
-  addrAndPortList *clientsList;
+  addrAndPortList clientsList [MAX_PENDING_CLIENTS];
   int pendingClientsCount = 0;
   // List of the randomly generated numbers each corresponding to a client
   int *clientsRandomNumber;
+  // Contains the position of the current client in the list of clients
+  int clientPosition;
 
   // fine della preparazione
   // ora si comunica. riceviamo con la primitiva recvfrom
@@ -132,11 +138,28 @@ int main()
 
     // Looking for the client address and port in the list and behaving accordingly
 
-    if (findInClientsList(clientsList, pendingClientsCount, clientAddress, clientPort))
+    clientPosition = findInClientsList(clientsList, pendingClientsCount, clientAddress, clientPort);
+
+    if (clientPosition >= 0) // If client is found in the clients list
     {
       // This client has already greeted this server - checking the message
       // the message should contain a number between 1 and 100 (both included)
       int clientGuess = str_to_int(buffer);
+      if(clientGuess<1 || clientGuess>100){
+        sendto(sockfd, MSG_GUESS_TOO_BIG, strlen(MSG_GUESS_TOO_BIG), 0, (const struct sockaddr *) &cliaddr, sizeof(cliaddr));
+        continue;
+      } else {
+        if(clientGuess == )
+      }
+    } else if(pendingClientsCount >= MAX_PENDING_CLIENTS){
+      // Too many pending clients - denying any new client
+      sendto(sockfd, MSG_MAX_PENDING_CLIENTS_REACHED, strlen(MSG_MAX_PENDING_CLIENTS_REACHED), 0, (const struct sockaddr *) &cliaddr, sizeof(cliaddr));
+    } else {
+      if(clientsRandomNumber[clientPosition] == clientGuess){
+        // Send success and remove from list
+      } else {
+        // Send not success
+      }
     }
 
     if (nBytesRecieved == sizeof(EXPECTED_GREETING)) // Length check to save computational time if false
@@ -154,7 +177,7 @@ int main()
   return 0;
 }
 
-// If it finds the client returns 1
+// If it finds the client returns its position in the list
 // Otherwise returns 0 if the client couldn't be found, if the list is empty or if the clientAddress is not the length of INET_ADDRSTRLEN
 int findInClientsList(addrAndPortList *clientsList, int pendingClientsCount, char *clientAddress, int clientPort)
 {
@@ -174,7 +197,7 @@ int findInClientsList(addrAndPortList *clientsList, int pendingClientsCount, cha
     if (clientsList[i].port == clientPort)
     {
       if (strcmp(clientsList[i].addr, clientAddress) == 0)
-        return 1;
+        return i;
     }
   }
 
@@ -183,9 +206,8 @@ int findInClientsList(addrAndPortList *clientsList, int pendingClientsCount, cha
 
 int str_to_int(const char *str)
 {
-  char *endptr;
   errno = 0;
-  long result = strtol(str, &endptr, 10);
+  long result = strtol(str, NULL, 10);
 
   // Check for conversion errors
   if (errno == ERANGE)
@@ -193,12 +215,9 @@ int str_to_int(const char *str)
     perror("Errore: errore di conversione con strtol)");
     return 0; // Overflow or underflow
   }
-  if (*endptr != '\0')
-  {
-    return 0; // Invalid characters left
-  }
   if (result > INT_MAX || result < INT_MIN)
   {
+    perror("Errore: errore di conversione con strtol (out of int range)");
     return 0; // Out of int range
   }
   return (int)result;

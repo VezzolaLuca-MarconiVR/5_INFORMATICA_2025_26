@@ -54,7 +54,7 @@ int main() {
 
   // Send message
   sendto(sockfd, (const char *)MESSAGE, strlen(MESSAGE), 
-       0, (const struct sockaddr *) &servaddr, 
+       0, (const struct sockaddr *) &servaddr,
        sizeof(servaddr));
   printf("Message sent to the server.\n");
 
