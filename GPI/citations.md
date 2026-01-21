@@ -36,6 +36,9 @@ Palumbo citations:
 - _"assiettete"_ (siediti)
 - _"se avete la vista di spiderman voi dietro ci vedete"_
 - _"gli hai svelato il Quarto Segreto di Fatima"_
+- _"Chiudete questa galleria del vento"_ (abbiamo aperto tutte le finestre in lab206 pk c'era puzza)
+- _"Addenziòne addenziòne"_
+- _"shiangazza, cha'tti ta rifrisca e a mi m'ammazza"_
 - _""_
 
 Fortune cookies citations:
