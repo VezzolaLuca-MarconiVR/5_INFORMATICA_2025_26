@@ -47,12 +47,11 @@ void cleanup_socket(int sockfd)
 #define cleanup_socket(sockfd) close(sockfd) // Cleanup for Unix
 #endif
 
-// AGGIUNTE DA ME
-// The expected greeting from a new client (or which already played and won)
-#define EXPECTED_GREETING "salute, o mio servo"
-#define MSG_GUESS_TOO_BIG "Error: Guessed number is too large!"
+// ADDED BY Luca
+#include "constants.h"
+
+// The maximum number of pending clients
 #define MAX_PENDING_CLIENTS 256
-#define MSG_CORRECTING_GREETING "Error: the first message to send to the server must be 'salute, o mio servo'"
 
 typedef struct addrAndPortSimple
 {
@@ -62,14 +61,17 @@ typedef struct addrAndPortSimple
 
 typedef struct clientSimple
 {
+  // The IP address and port of the client
   addrAndPortSimple aAndP;
+  // The random number the client's user has to guess
   int rnd;
-  int birthTime;
+  // The time of "subscription" of the client
+  int subTime;
 } clientSimple;
 
-int findInClientsList(clientSimple clientsList[], size_t len, int pendingClientsCount, char *clientAddress, int clientPort);
-void removeClientFromList(clientSimple clientList[], size_t len, size_t idx);
-void addClientToList(clientSimple clientList[], size_t len, clientSimple newClient);
+int findInClientsList(clientSimple clientsList[], size_t len, int pendingClientsCount, char clientAddress[], int clientPort);
+void removeClientFromList(clientSimple clientList[], size_t *len, size_t idx);
+void addClientToList(clientSimple clientList[], size_t *len, clientSimple newClient);
 int str_to_int(const char *str);
 
 // MAIN FUNCTION
@@ -117,7 +119,13 @@ int main()
   // The length of the clients list
   size_t len = 0;
   // Contains the position of the current client in the list of clients
-  int clientPosition;
+  int clientPosition = -1;
+
+  // Contains the guess of the client
+  int clientGuess = -1;
+
+  // Initialising the random seed
+  srand(time(NULL));
 
   // fine della preparazione
   // ora si comunica. riceviamo con la primitiva recvfrom
@@ -129,7 +137,7 @@ int main()
         BUFFER_SIZE - 1, // il -1 è per lasciare agio per il terminatore nullo (\0), importante se stiamo trattando il contenuto del buffer come una stringa
         0,               // opzioni per la ricezione. 0 è nessuna opzione speciale
         (struct sockaddr *)&cliaddr,
-        &addrLen); // dopo la chiamata, len sarà aggiornato con la dimensione effettiva dell'indirizzo del client dal quale è stato ricevuto il messaggio
+        &addrLen); // dopo la chiamata, sarà aggiornato con la dimensione effettiva dell'indirizzo del client dal quale è stato ricevuto il messaggio
 
     if (nBytesRecieved < 0)
     {
@@ -154,23 +162,42 @@ int main()
 
     if (clientPosition >= 0) // If client is found in the clients list
     {
+      if (strcmp(buffer, GREETING_MESSAGE) == 0)
+      {
+        // Renewing the client's subscription time
+        clientsList[clientPosition].subTime = time(NULL);
+        continue;
+      }
+
       // This client has already greeted this server - checking the message
       // the message should contain a number between 1 and 100 (both included)
-      int clientGuess = str_to_int(buffer);
+      clientGuess = str_to_int(buffer);
       if (clientGuess < 1 || clientGuess > 100)
       {
-        sendto(sockfd, MSG_GUESS_TOO_BIG, strlen(MSG_GUESS_TOO_BIG), 0, (const struct sockaddr *)&cliaddr, sizeof(cliaddr));
+        sendto(sockfd, MSG_GUESS_OUT_OF_RANGE, strlen(MSG_GUESS_OUT_OF_RANGE), 0, (const struct sockaddr *)&cliaddr, sizeof(cliaddr));
         continue;
       }
       else
       {
-        if (clientsList[clientPosition].rnd == clientGuess)
+        if (clientGuess > clientsList[clientPosition].rnd)
         {
-          // Send success and remove from list
+          // Guess too high
+          sendto(sockfd, MSG_GUESS_TOO_HIGH, strlen(MSG_GUESS_TOO_HIGH), 0, (const struct sockaddr *)&cliaddr, sizeof(cliaddr));
+          continue;
+        }
+        else if (clientGuess < clientsList[clientPosition].rnd)
+        {
+          // Guess too low
+          sendto(sockfd, MSG_GUESS_TOO_LOW, strlen(MSG_GUESS_TOO_LOW), 0, (const struct sockaddr *)&cliaddr, sizeof(cliaddr));
+          continue;
         }
         else
         {
-          // Send not success
+          // Send success and remove from list
+          sendto(sockfd, MSG_GUESS_MATCHED, strlen(MSG_GUESS_MATCHED), 0, (const struct sockaddr *)&cliaddr, sizeof(cliaddr));
+          removeClientFromList(clientsList, &len, clientPosition);
+          pendingClientsCount--;
+          continue;
         }
       }
     }
@@ -190,7 +217,7 @@ int main()
           if (clientsList[i].aAndP.addr[0] == '\0') // Skips empty array cells
             continue;
 
-          tempAge = difftime(time(NULL), clientsList[i].birthTime);
+          tempAge = difftime(time(NULL), clientsList[i].subTime);
           if (tempAge > oldestAge)
           {
             oldestAge = tempAge;
@@ -198,36 +225,36 @@ int main()
           }
         }
 
-        removeClientFromList(clientsList, len, idxOldest);
+        removeClientFromList(clientsList, &len, idxOldest); // Pass address of len
+        pendingClientsCount--;
       }
 
-      if (nBytesRecieved == sizeof(EXPECTED_GREETING)) // Length check to save computational time if false
+      if (nBytesRecieved == strlen(GREETING_MESSAGE)) // Length check to save computational time if false
       {
         // Checking for string equality
         // NOTE: strcmp runs through the string until \0 or a mismatch is found
         // this means that the buffer is safe to use since we've set the first character after the actual message to be '\0'
-        if (strcmp(buffer, EXPECTED_GREETING) == 0)
+        if (strcmp(buffer, GREETING_MESSAGE) == 0)
         {
           // Copying the infos in a temporary struct
           clientSimple newCl;
           strcpy(newCl.aAndP.addr, clientAddress);
           newCl.aAndP.port = clientPort;
-          newCl.birthTime = time(NULL);
+          newCl.subTime = time(NULL);
           newCl.rnd = rand() % 100 + 1;
-          addClientToList(clientsList, len, newCl);
+          addClientToList(clientsList, &len, newCl); // Pass address of len
+          pendingClientsCount++;
 
           // Saying to the client the success of the "game registration"
-          sendto(sockfd, MSG_CORRECTING_GREETING, strlen(MSG_CORRECTING_GREETING), 0, (const struct sockaddr *)&cliaddr, sizeof(cliaddr));
+          sendto(sockfd, MSG_REGISTERED, strlen(MSG_REGISTERED), 0, (const struct sockaddr *)&cliaddr, sizeof(cliaddr));
 
           continue;
         }
       }
 
       // Sending correction about first message
-      sendto(sockfd, MSG_CORRECTING_GREETING, strlen(MSG_CORRECTING_GREETING), 0, (const struct sockaddr *)&cliaddr, sizeof(cliaddr));
+      sendto(sockfd, MSG_INCORRECT_GREETING, strlen(MSG_INCORRECT_GREETING), 0, (const struct sockaddr *)&cliaddr, sizeof(cliaddr));
     }
-
-    printf("Risposta al client: %s", buffer);
   }
 
   cleanup_socket(sockfd);
@@ -235,18 +262,12 @@ int main()
 }
 
 // If it finds the client returns its position in the list
-// Otherwise returns -1 if the client couldn't be found, if the list is empty or if the clientAddress is not the length of INET_ADDRSTRLEN
-int findInClientsList(clientSimple clientsList[], size_t len, int pendingClientsCount, char *clientAddress, int clientPort)
+// Otherwise returns -1 if the client couldn't be found
+int findInClientsList(clientSimple clientsList[], size_t len, int pendingClientsCount, char clientAddress[INET_ADDRSTRLEN], int clientPort)
 {
   // Checks for empty list
   if (pendingClientsCount == 0)
     return -1;
-
-  // Checking for invalid client address
-  if (sizeof(clientAddress) < INET_ADDRSTRLEN || sizeof(clientAddress) > INET_ADDRSTRLEN)
-  {
-    return -1;
-  }
 
   // Checks for port
   for (size_t i = 0; i < len; i++)
@@ -259,19 +280,19 @@ int findInClientsList(clientSimple clientsList[], size_t len, int pendingClients
   return -1;
 }
 
-void removeClientFromList(clientSimple clientList[], size_t len, size_t idx)
+void removeClientFromList(clientSimple clientList[], size_t *len, size_t idx)
 {
   memset(&clientList[idx], 0, sizeof(*clientList));
+  (*len)--; // Dereference the pointer to modify the original
 }
 
-void addClientToList(clientSimple clientList[], size_t len, clientSimple newClient)
+void addClientToList(clientSimple clientList[], size_t *len, clientSimple newClient)
 {
-  // Looks for first empty space to save the new client data into
-  for (size_t i = 0; i < len; i++)
+  (*len)++;
+  for (size_t i = 0; i < *len; i++) // Dereference here too
   {
     if (clientList[i].aAndP.addr[0] == '\0')
     {
-      // The address is set to null - this "cell" is empty - overwrite
       clientList[i] = newClient;
       return;
     }
