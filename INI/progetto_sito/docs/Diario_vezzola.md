@@ -252,7 +252,7 @@ Ho modellato il DB del sito web su carta e l'ho consegnato.
 
 #### 19/12/2025
 
-### Creazione del database
+### Creazione delle tabelle Utenti e Products
 
 ```sql
 CREATE TABLE Users (
@@ -286,4 +286,94 @@ INSERT INTO products (Name, Description, Creator_ID) VALUES ("Foca Peluche", "Un
 
 ```sql
 SELECT * FROM products WHERE Creator_ID = 1;
+```
+
+---
+
+#### 23/01/2026
+
+## Primi passi con PHP: inizializzazione di un DB e comandi di base in PHP
+
+Cartella contenente i file del DB creato con xampp lite: `xampp-lite/apps/mysql/data/nomeDatabase`
+
+### Creazione del database e della tabella utenti
+
+```sql
+create database Ekhoikos;
+
+create table Users(
+  user_code int AUTO_INCREMENT PRIMARY KEY,
+  name varchar(50) not null,
+  surname varchar(50) not null,
+  email varchar(254) not null
+);
+```
+
+### Inserimento dei dati di prova
+
+```sql
+insert into users(name, surname, email) VALUES
+(
+  "Mario", "Rosi", "mross@gmail.com"
+),
+(
+  "Anna", "Verdi", "averd@gmail.com"
+),
+(
+  "Maria", "Azzurri", "mazz@gmail.com"
+);
+```
+
+### File PHP per una scmplice INSERT
+
+[Source...](https://www.w3schools.com/php/php_mysql_insert.asp)
+
+I file php devono essere inseriti dentro la cartella `www/myDB`
+
+```php
+  <?php
+  // Dati fondamentali per la connessione al server DB
+  $servername = "localhost"; // localhost per usare un server DB locale
+  $username = "root"; // root because this is the "master user"
+  $password = ""; // for now, no password is needed
+  $dbname = "myDB";
+
+  // Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+//Check connection
+if ($conn->query($sql) === TRUE) {
+  echo "New record created successfully";
+} else {
+  echo "Error: " . $sql . "<br>" . $conn->eror;
+}
+
+$conn->close();
+
+  ?>
+```
+
+### Passare i dati da una pagina HTML ad uno script PHP
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Insert user</title>
+  </head>
+  <body>
+    <!-- 'action' should contain the name of the php file that handles this form -->
+    <form action="fileName.php" method="post">
+      <label for="uname">Name:</label>
+      <input type="text" id="uname" name="uname" />
+
+      <label for="usurname">Surname:</label>
+      <input type="text" id="usurname" name="usurname" />
+
+      <label for="uemail">Email:</label>
+      <input type="text" id="uemail" name="uemail" />
+
+      <input type="submit" value="Insert User" />
+    </form>
+  </body>
+</html>
 ```
