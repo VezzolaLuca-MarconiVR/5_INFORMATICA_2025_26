@@ -227,6 +227,7 @@ int main()
       {
         // Guess out of range [1; 100]
         printf("You must type a number between 1 and 100 (both included)!\n");
+        strcpy(lastUserInput, "quit");
       }
     }
   }
