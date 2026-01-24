@@ -521,7 +521,8 @@ void removeSpaces(string &str)
   str.erase(remove(str.begin(), str.end(), ' '), str.end());
 }
 
-// Applies a kind of "pacman effect" ==> negative values "go around" instead of becoming their absolute value and then being "moduled"
+// Applies a kind of "pacman effect"
+// ==> negative values "go around" instead of becoming their absolute value and then getting "moduled"
 size_t circularModule(int n, int mod)
 {
   size_t output;
