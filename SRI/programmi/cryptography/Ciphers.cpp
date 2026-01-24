@@ -23,8 +23,8 @@ string spartanScitalDecrypt(string_view input, size_t discreteCircumference);
 string polylphabeticCipherEncrypt(string &input, string &innerDisc, char innerDiscIndex);
 string PolyalphabeticCipherDecrypt(string_view input, string_view innerDisc, char innerDiscIndex);
 // Vigenerè's algorithm
-string vigenereAlgorithmEncrypt(string_view input);
-string vigenereAlgorithmDecrypt(string_view input);
+string vigenereAlgorithmEncrypt(string_view input, string_view key);
+string vigenereAlgorithmDecrypt(string_view input, string_view key);
 
 // Returns the string without spaces
 void removeSpaces(string &input);
@@ -96,6 +96,7 @@ int main()
 
       break;
     case 3:
+      // Leon B. A.'s polyalphabetic cipher
       char innerDiscIndex;
 
       cout << "Type the index character (one of the inner disc letters): ";
@@ -105,12 +106,15 @@ int main()
       cout << "Type the inner disc (the start doesn't matter): ";
       getline(cin, userLastInput);
 
-      // Leon B. A.'s polyalphabetic cipher
       output = polylphabeticCipherEncrypt(input, userLastInput, innerDiscIndex);
 
       break;
     case 4:
       // Vigenerè's algorithm
+      cout << "Type the key word: ";
+      getline(cin, userLastInput);
+
+      output = vigenereAlgorithmEncrypt(input, userLastInput);
       break;
     }
 
@@ -175,6 +179,10 @@ int main()
       break;
     case 4:
       // Vigenerè's algorithm
+      cout << "Type the key word: ";
+      getline(cin, userLastInput);
+
+      output = vigenereAlgorithmDecrypt(input, userLastInput);
       break;
     }
 
@@ -420,15 +428,89 @@ string PolyalphabeticCipherDecrypt(string_view input, string_view innerDisc, cha
 }
 
 // Vigenerè's algorithm
-string vigenereAlgorithmEncrypt(string_view input)
+string vigenereAlgorithmEncrypt(string_view input, string_view key)
 {
   string output;
 
+  // Checks if all of the characters are letters
+  for (size_t i = 0; i < input.length(); i++)
+  {
+    if (!(input[i] >= 'A' && input[i] <= 'Z' || input[i] >= 'a' && input[i] <= 'z'))
+    {
+      // Non-letter character found
+      perror("Error: Non-letter character found in input");
+      output.clear();
+      return output;
+    }
+  }
+  for (size_t i = 0; i < key.length(); i++)
+  {
+    if (!(key[i] >= 'A' && key[i] <= 'Z' || key[i] >= 'a' && key[i] <= 'z'))
+    {
+      // Non-letter character found
+      perror("Error: Non-letter character found in key");
+      output.clear();
+      return output;
+    }
+  }
+
+  string inputUpperCase;
+  string keyUpperCase;
+
+  // Transform both input and key to upper-case
+  transform(input.begin(), input.end(), back_inserter(inputUpperCase), ::toupper);
+  transform(key.begin(), key.end(), back_inserter(keyUpperCase), ::toupper);
+
+  // Reserve memory for output
+  output.reserve(input.size());
+
+  for (size_t i = 0; i < input.length(); i++)
+  {
+    output.push_back((inputUpperCase.at(i) - 'A' + keyUpperCase.at(i % keyUpperCase.length()) - 'A') % 26 + 'A');
+  }
+
   return output;
 }
-string vigenereAlgorithmDecrypt(string_view input)
+string vigenereAlgorithmDecrypt(string_view input, string_view key)
 {
   string output;
+
+  // Checks if all of the characters are letters
+  for (size_t i = 0; i < input.length(); i++)
+  {
+    if (!(input[i] >= 'A' && input[i] <= 'Z' || input[i] >= 'a' && input[i] <= 'z'))
+    {
+      // Non-letter character found
+      perror("Error: Non-letter character found in input");
+      output.clear();
+      return output;
+    }
+  }
+  for (size_t i = 0; i < key.length(); i++)
+  {
+    if (!(key[i] >= 'A' && key[i] <= 'Z' || key[i] >= 'a' && key[i] <= 'z'))
+    {
+      // Non-letter character found
+      perror("Error: Non-letter character found in key");
+      output.clear();
+      return output;
+    }
+  }
+
+  string inputUpperCase;
+  string keyUpperCase;
+
+  // Transform both input and key to upper-case
+  transform(input.begin(), input.end(), back_inserter(inputUpperCase), ::toupper);
+  transform(key.begin(), key.end(), back_inserter(keyUpperCase), ::toupper);
+
+  // Reserve memory for output
+  output.reserve(input.size());
+
+  for (size_t i = 0; i < input.length(); i++)
+  {
+    output.push_back(circularModule((inputUpperCase.at(i) - keyUpperCase.at(i % keyUpperCase.length())), 26) + 'A');
+  }
 
   return output;
 }
@@ -439,7 +521,7 @@ void removeSpaces(string &str)
   str.erase(remove(str.begin(), str.end(), ' '), str.end());
 }
 
-// Applies a kind of "pacman effect"
+// Applies a kind of "pacman effect" ==> negative values "go around" instead of becoming their absolute value and then being "moduled"
 size_t circularModule(int n, int mod)
 {
   size_t output;
