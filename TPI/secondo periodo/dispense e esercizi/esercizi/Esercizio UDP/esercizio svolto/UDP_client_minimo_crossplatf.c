@@ -4,6 +4,7 @@
 // gcc UDP_client_minimo_crossplatf.c -o UDP_client_minimo_crossplatf
 
 #define _GNU_SOURCE
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -187,12 +188,12 @@ int main()
         else if (mGTL)
         {
           // Inform the user that the guess was too low
-          printf("No, più alto!\n");
+          printf("No, piu' alto!\n");
         }
         else if (mGTH)
         {
           // Inform the user that the guess was too high
-          printf("No, più basso!\n");
+          printf("No, piu' basso!\n");
         }
 
         do
