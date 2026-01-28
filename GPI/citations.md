@@ -48,7 +48,7 @@ Palumbo citations:
 - _"Il cicciottino della mamma"_ (bovi - il più piccolo della classe)
 - _"Per la Peppa"_
 - _"Oi, non mi dite niente di questi nuovi occhialini color vomito mattutino? Mi sono seduta sopra gli altri e hanno fatto splash"_
-- _""_
+- _"Io in Europa non posso dire 'la Coca-Cola è buona e con la Pepsi mi sciacquo i piedi', in America si"_
 - _""_
 
 Fortune cookies citations:
