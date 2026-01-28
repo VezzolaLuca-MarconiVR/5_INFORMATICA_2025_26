@@ -49,6 +49,8 @@ Palumbo citations:
 - _"Per la Peppa"_
 - _"Oi, non mi dite niente di questi nuovi occhialini color vomito mattutino? Mi sono seduta sopra gli altri e hanno fatto splash"_
 - _"Io in Europa non posso dire 'la Coca-Cola è buona e con la Pepsi mi sciacquo i piedi', in America si"_
+- _"...allora non chiediamo al signor Pizza e Fichi"_
+- _"Capish' ammé"_
 - _""_
 
 Fortune cookies citations:

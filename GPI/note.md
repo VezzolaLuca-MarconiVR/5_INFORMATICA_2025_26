@@ -32,3 +32,14 @@ Esercizio:
 - R = €2000
 - ROI = 20%
 - $VAN = -5020 + \sum_{i=1}^{n} \frac {2000}{(1+0,2)^i} = 1631$
+
+---
+
+## 28/01/2026
+
+### RACI
+
+- Responsible ==> Coloro che sono direttamente coinvolti in un'attività mediante una resposabilità di ripo operativo;
+- Accountable ==> Coloro che sono responsabili dell'attività perchè ne organizzano gli aspetti operativi, i quali sono appellati per prendere decisioni importanti;
+- Consulted ==> Coloro che sono consultati in merito a come svolgere l'attività o riguardo alcuni dei suoi aspetti pratici;
+- Informed ==> Coloro che non hanno un ruolo diretto ma che sono a conoscenza del procedimento dell'attività.
