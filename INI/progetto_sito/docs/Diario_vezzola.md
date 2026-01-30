@@ -377,3 +377,47 @@ $conn->close();
   </body>
 </html>
 ```
+
+---
+
+#### 30/01/2026
+
+## Esercitazione in laboratorio: creazione DB, popolamento e costruzione di query
+
+```sql
+create database Negozio;
+
+create table categorie(
+  id_categoria int AUTO_INCREMENT PRIMARY KEY,
+  nome varchar(128) NOT null
+);
+CREATE table prodotti(
+  id_prodotto int AUTO_INCREMENT PRIMARY KEY,
+  nome varchar(128) NOT NULL,
+  fornitore varchar(128) not null,
+  id_categorie int,
+  FOREIGN KEY (id_categorie) REFERENCES categorie(id_categoria),
+  prezzo float not null
+);
+create table clienti(
+  id_cliente int AUTO_INCREMENT PRIMARY KEY,
+  nome varchar(128) not null,
+  indirizzo varchar(256) not null,
+  citta varchar(256) not null,
+  nazione varchar(32) not null
+);
+create table ordini(
+  id_ordine int AUTO_INCREMENT PRIMARY KEY,
+  id_cliente int NOT NULL,
+  FOREIGN KEY (id_cliente) REFERENCES clienti(id_cliente),
+  data_ordine date not null
+);
+create table dettagli_ordini(
+  id_ordine int,
+  id_prodotto int,
+  FOREIGN KEY (id_ordine) REFERENCES ordini(id_ordine),
+  FOREIGN KEY (id_prodotto) REFERENCES prodotti(id_prodotto),
+  quantità int not null,
+  PRIMARY KEY (id_ordine, id_prodotto)
+);
+```
