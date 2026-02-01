@@ -24,8 +24,9 @@ DWORD WINAPI ClientHandler(LPVOID lpParam)
   {
     buffer[bytesRead] = '\0';
     printf("Client dice: %s", buffer);
-    send(clientSocket, buffer, bytesRead, 0); // Eco al client
   }
+
+  send(clientSocket, buffer, bytesRead, 0);
 
   printf("Client disconnesso.\n");
   closesocket(clientSocket);

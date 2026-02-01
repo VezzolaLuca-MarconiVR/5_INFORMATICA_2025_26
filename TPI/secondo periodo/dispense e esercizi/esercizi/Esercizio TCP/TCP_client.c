@@ -27,7 +27,8 @@ int main()
   boolean closeConnection = FALSE;
   char sendbuf[GERERAL_BUFF_SIZE];
   char recvbuf[GERERAL_BUFF_SIZE];
-  int iResult;
+  int bytesSent;
+  int bytesRecvd;
 
   // Inizializzazione Winsock
   if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0)
@@ -61,6 +62,15 @@ int main()
 
   printf("Connesso al server.\n");
 
+  // The string sent contained bad characters
+  boolean errorBadString = FALSE;
+  // The composite string is too long
+  boolean errorStringTooLong = FALSE;
+  // The composite string is still too short
+  boolean errorStringTooShort = FALSE;
+  // The composite string has met its prefixed length. Recieve the final string, then the session is closed.
+  boolean sessionSuccess = FALSE;
+
   do
   {
     // Ask user to input string
@@ -69,6 +79,7 @@ int main()
     {
       // Getline error
       perror("Error: my_getline input invalid");
+      return 1;
     }
     else
     {
@@ -77,13 +88,72 @@ int main()
     }
 
     // Invio dati
-    iResult = send(ConnectSocket, sendbuf, (int)strlen(sendbuf), 0);
+    bytesSent = send(ConnectSocket, sendbuf, (int)strlen(sendbuf), 0);
+    if (bytesSent == SOCKET_ERROR)
+    {
+      printf("Send failed: %d\n", WSAGetLastError());
+      return 1;
+    }
 
-    printf("Waiting for server response...");
+    bytesRecvd = (int)recv(ConnectSocket, recvbuf, (int)strlen(recvbuf), 0);
+    if (bytesRecvd == SOCKET_ERROR)
+    {
+      printf("Recieve failed: %d\n", WSAGetLastError());
+      return 1;
+    }
 
-    bytesRead = (int)recv(ConnectSocket, recvbuf, (int)strlen(recvbuf), 0);
+    recvbuf[bytesRecvd - 1] = '\0';
 
-    recvbuf[bytesRead - 1] = '\0';
+    errorBadString = strcmp(bytesRecvd, MSG_ERROR_BAD_STRING) == 0;
+    errorStringTooLong = strcmp(bytesRecvd, MSG_ERROR_STRING_TOO_LONG) == 0;
+    errorStringTooShort = strcmp(bytesRecvd, MSG_ERROR_STRING_TOO_SHORT) == 0;
+    sessionSuccess = strcmp(bytesRecvd, MSG_SESSION_SUCCESS) == 0;
+
+    if (!errorBadString)
+    {
+      // Recieve the current string, or the max number of characters for the total string in the case of errorStringTooLong
+      bytesRecvd = (int)recv(ConnectSocket, recvbuf, (int)strlen(recvbuf), 0);
+      if (bytesRecvd == SOCKET_ERROR)
+      {
+        printf("Recieve failed: %d\n", WSAGetLastError());
+        return 1;
+      }
+
+      recvbuf[bytesRecvd - 1] = '\0';
+    }
+
+    if (errorBadString)
+    {
+      // The string sent contained bad characters
+      printf("Errore! Solo lettere ammesse. Parola resettata!");
+    }
+    else if (errorStringTooLong)
+    {
+      // The composite string is too long
+      printf("Troppo lunga! La lunghezza massima era %s. Ricomincia da capo.", recvbuf);
+    }
+    else if (errorStringTooShort)
+    {
+      // The composite string is still too short. Extract the n of chars remaining from the string and the current string from the message.
+      // size_t len = strcspn(str, &delimiter); // Find length until delimiter
+      // char nRemainingChars[len + 1];
+      // strncpy(nChar, recvbuf, );
+      printf("Ricevuto. Parola attuale: %s. Mancano %s caratteri.", recvbuf, );
+    }
+    else if (sessionSuccess)
+    {
+      // The composite string has met its prefixed length. Recieve the final string, then the session is closed.
+      bytesRecvd = (int)recv(ConnectSocket, recvbuf, (int)strlen(recvbuf), 0);
+      if (bytesRecvd == SOCKET_ERROR)
+      {
+        printf("Recieve failed: %d\n", WSAGetLastError());
+        return 1;
+      }
+
+      printf("[Server}: The final string is: %s", recvbuf);
+
+      closeConnection = TRUE;
+    }
 
     // CHECK FOR SERVER RESPONSE (IN CODES)
   } while (closeConnection);
