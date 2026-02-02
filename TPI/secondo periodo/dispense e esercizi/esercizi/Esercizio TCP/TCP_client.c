@@ -18,6 +18,8 @@ typedef long ssize_t;
 #endif
 #endif
 
+ssize_t my_getline(char **lineptr, size_t *n, FILE *stream);
+
 int main()
 {
   WSADATA wsaData;
@@ -25,10 +27,14 @@ int main()
   struct sockaddr_in clientService;
   ssize_t bytesRead = 0;
   boolean closeConnection = FALSE;
-  char sendbuf[GERERAL_BUFF_SIZE];
-  char recvbuf[GERERAL_BUFF_SIZE];
+  char *sendbuf = NULL;
+  size_t sendbuf_size = 0;
+  char recvbuf[GENERAL_BUFF_SIZE];
   int bytesSent;
   int bytesRecvd;
+
+  // Extra variable for user input
+  char secondrecvbuf[GENERAL_BUFF_SIZE];
 
   // Inizializzazione Winsock
   if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0)
@@ -74,7 +80,8 @@ int main()
   do
   {
     // Ask user to input string
-    bytesRead = my_getline(&sendbuf, sizeof(sendbuf), stdin);
+    printf("Input a string contaning only letters from the ASCII standard: ");
+    bytesRead = my_getline(&sendbuf, &sendbuf_size, stdin);
     if (bytesRead < 0)
     {
       // Getline error
@@ -104,10 +111,10 @@ int main()
 
     recvbuf[bytesRecvd - 1] = '\0';
 
-    errorBadString = strcmp(bytesRecvd, MSG_ERROR_BAD_STRING) == 0;
-    errorStringTooLong = strcmp(bytesRecvd, MSG_ERROR_STRING_TOO_LONG) == 0;
-    errorStringTooShort = strcmp(bytesRecvd, MSG_ERROR_STRING_TOO_SHORT) == 0;
-    sessionSuccess = strcmp(bytesRecvd, MSG_SESSION_SUCCESS) == 0;
+    errorBadString = strcmp(recvbuf, MSG_ERROR_BAD_STRING) == 0;
+    errorStringTooLong = strcmp(recvbuf, MSG_ERROR_STRING_TOO_LONG) == 0;
+    errorStringTooShort = strcmp(recvbuf, MSG_ERROR_STRING_TOO_SHORT) == 0;
+    sessionSuccess = strcmp(recvbuf, MSG_SESSION_SUCCESS) == 0;
 
     if (!errorBadString)
     {
@@ -135,10 +142,27 @@ int main()
     else if (errorStringTooShort)
     {
       // The composite string is still too short. Extract the n of chars remaining from the string and the current string from the message.
-      // size_t len = strcspn(str, &delimiter); // Find length until delimiter
-      // char nRemainingChars[len + 1];
-      // strncpy(nChar, recvbuf, );
-      printf("Ricevuto. Parola attuale: %s. Mancano %s caratteri.", recvbuf, );
+      char delimiter = ';';
+      size_t len = strcspn(recvbuf, &delimiter); // Find length until delimiter
+
+      // Copy number from string
+      // personal solution:
+      // for (size_t i = 0; i < len; i++)
+      // {
+      //   secondrecvbuf[i] = recvbuf[i];
+      // }
+      strncpy(secondrecvbuf, recvbuf, len);
+
+      // Set len to be the position of the first char of the second "substring"
+      len++;
+
+      // Shift string after the delimiter to the start
+      for (size_t i = 0; recvbuf[i + len] != '\0'; i++)
+      {
+        recvbuf[i] = recvbuf[i + len]; // Copy the character shifted back len places (starting from the end)
+        recvbuf[i + len] = '\0';       // Clear the character just copied
+      }
+      printf("Ricevuto. Parola attuale: %s. Mancano %s caratteri.", recvbuf, secondrecvbuf);
     }
     else if (sessionSuccess)
     {
@@ -154,8 +178,6 @@ int main()
 
       closeConnection = TRUE;
     }
-
-    // CHECK FOR SERVER RESPONSE (IN CODES)
   } while (closeConnection);
 
   // Chiusura connessione

@@ -1,5 +1,5 @@
 #define SERVER_PORT 8888
-#define GERERAL_BUFF_SIZE 512
+#define GENERAL_BUFF_SIZE 128
 
 // COMMUNICATION CODES:
 // Se la stringa inviata contiene numeri o simboli: "Errore! Solo lettere ammesse. Parola resettata!" (il server cancella i progressi di quel client).
@@ -10,3 +10,6 @@
 #define MSG_ERROR_STRING_TOO_SHORT "{E01}"
 // Se la lunghezza totale raggiunge esattamente N: "Complimenti! Parola finale: [stringa_totale]. Sessione conclusa."
 #define MSG_SESSION_SUCCESS "{SS}"
+
+// La lunghezza massima della stringa finale
+#define MAX_FINAL_STRING_LENGTH 32
