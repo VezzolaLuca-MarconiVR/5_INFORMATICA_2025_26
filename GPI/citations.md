@@ -53,6 +53,7 @@ Palumbo citations:
 - _"Capish' ammé"_
 - _"Quello con quel codino simpatico come un calcio di un cavallo"_ (riferendosi al tecnico)
 - _""_
+- _""_
 
 Fortune cookies citations:
 
