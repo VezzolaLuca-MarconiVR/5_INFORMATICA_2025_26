@@ -421,3 +421,28 @@ create table dettagli_ordini(
   PRIMARY KEY (id_ordine, id_prodotto)
 );
 ```
+
+---
+
+#### 6/02/2026
+
+## Creazione file HTML e PHP di un form
+
+Form di input e php
+
+Prendere le pagine registrazione.html e registrazione.php, utilizzare il db negozio implementato e popolato la scorsa lezione, o uno simile, modificare tenendo conto di:
+
+- Handling
+- Validation
+- Required
+- Form url e-mail
+
+Creare il file connessione.php, il file funzioni.php contenente la funzione test_input
+Modificare il file registrazione.html e registrazione.php utilizzando prepared statements.
+Consegnare il diario di bordo aggiornato e la cartella sito_cognome contenuta nella cartella www
+
+Link utili:
+
+- https://www.w3schools.com/html/html_form_input_types.asp
+- https://www.w3schools.com/php/php_forms.asp
+- https://www.w3schools.com/php/php_mysql_prepared_statements.asp
