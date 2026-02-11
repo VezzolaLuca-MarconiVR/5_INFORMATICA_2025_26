@@ -39,7 +39,9 @@ Esercizio:
 
 ### RACI
 
-- Responsible ==> Coloro che sono direttamente coinvolti in un'attività mediante una resposabilità di ripo operativo;
+- Responsible ==> Coloro che sono direttamente coinvolti in un'attività mediante una resposabilità di ripo operativo (quelli che devono fare le cose);
 - Accountable ==> Coloro che sono responsabili dell'attività perchè ne organizzano gli aspetti operativi, i quali sono appellati per prendere decisioni importanti;
 - Consulted ==> Coloro che sono consultati in merito a come svolgere l'attività o riguardo alcuni dei suoi aspetti pratici;
 - Informed ==> Coloro che non hanno un ruolo diretto ma che sono a conoscenza del procedimento dell'attività.
+
+Ogni attività deve avere almeno una "R".

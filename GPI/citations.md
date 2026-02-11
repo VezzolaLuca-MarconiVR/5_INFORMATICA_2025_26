@@ -51,6 +51,8 @@ Palumbo citations:
 - _"Io in Europa non posso dire 'la Coca-Cola è buona e con la Pepsi mi sciacquo i piedi', in America si"_
 - _"...allora non chiediamo al signor Pizza e Fichi"_
 - _"Capish' ammé"_
+- _"Quello con quel codino simpatico come un calcio di un cavallo"_ (riferendosi al tecnico)
+- _""_
 - _""_
 
 Fortune cookies citations:
