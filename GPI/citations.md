@@ -52,8 +52,8 @@ Palumbo citations:
 - _"...allora non chiediamo al signor Pizza e Fichi"_
 - _"Capish' ammé"_
 - _"Quello con quel codino simpatico come un calcio di un cavallo"_ (riferendosi al tecnico)
-- _""_
-- _""_
+- _"Eh... la scuola deve limitare le entrate all'esame altrimenti quelli si portano dietro anche la clack"_
+- _""_ Mentre io soffocavo e le chiedevo di andare in bagno lei... mi guardò... e continuò.. (Non mi rispose mai)
 
 Fortune cookies citations:
 
