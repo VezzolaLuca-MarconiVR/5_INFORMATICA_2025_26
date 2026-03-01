@@ -446,3 +446,22 @@ Link utili:
 - https://www.w3schools.com/html/html_form_input_types.asp
 - https://www.w3schools.com/php/php_forms.asp
 - https://www.w3schools.com/php/php_mysql_prepared_statements.asp
+
+---
+
+#### 1/03/2026
+
+## Creazione di un sistema di Handling, Validation, Requirement, e Input Validation
+
+Sistema di gestione form con validazione e connessione al database.
+
+## Componenti Principali
+
+- `connessione.php` - Gestisce la connessione al database
+- `funzioni.php` - Contiene la funzione per correggere l'input in un formato ideale:
+  - `test_input()` - Funzione per pulire e validare i dati in ingresso
+
+## Caratteristiche di Sicurezza
+
+- Utilizza prepared statements per proteggere da SQL injection
+- Valida tutti i dati ricevuti dal form

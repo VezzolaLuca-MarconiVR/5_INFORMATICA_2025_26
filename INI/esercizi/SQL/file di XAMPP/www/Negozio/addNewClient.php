@@ -243,7 +243,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if(empty($unameAndSurnameErr) && empty($uaddressErr) && empty($ucityErr) && empty($unationErr)){
     // Data has been checked and is good
-    require 'connect.php';
+    require 'connessione.php';
   }
 }
 
