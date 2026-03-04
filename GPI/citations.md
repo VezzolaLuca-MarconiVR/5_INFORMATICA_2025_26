@@ -53,7 +53,11 @@ Palumbo citations:
 - _"Capish' ammé"_
 - _"Quello con quel codino simpatico come un calcio di un cavallo"_ (riferendosi al tecnico)
 - _"Eh... la scuola deve limitare le entrate all'esame altrimenti quelli si portano dietro anche la clack"_
-- _""_ Mentre io soffocavo e le chiedevo di andare in bagno lei... mi guardò... e continuò.. (Non mi rispose mai)
+- _""_ Mentre io soffocavo e le chiedevo di andare in bagno lei mi guardò... e continuò a non fare nulla... (Non mi rispose mai)
+- _"Vi scamazzo sul muro"_
+- _"Sono di Bolzano mare"_
+- _"Io aiuto solo dopo il versamento di una cospicua cifra"_ (all'inizio delle prove INVALSI)
+- _""_
 
 Fortune cookies citations:
 
