@@ -57,6 +57,9 @@ Palumbo citations:
 - _"Vi scamazzo sul muro"_
 - _"Sono di Bolzano mare"_
 - _"Io aiuto solo dopo il versamento di una cospicua cifra"_ (all'inizio delle prove INVALSI)
+- _"Che siete? Il gruppo delle educande delle Orsoline?"_ (non abbiamo festeggiato i 100 giorni alla maturità)
+- _"Si, si... andiamo in Pakistan a prendere il personale per l'assistenza"_
+- _"Che è? Il conclave? Nominiamo il papa."_
 - _""_
 
 Fortune cookies citations:
