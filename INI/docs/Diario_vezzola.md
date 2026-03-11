@@ -453,7 +453,7 @@ Link utili:
 
 ## Creazione di un sistema di Handling, Validation, Requirement, e Input Validation
 
-Sistema di gestione form con validazione e connessione al database.
+Sistema di gestione form con validazione e connessione al database (con XAMPP).
 
 ## Componenti Principali
 
@@ -465,3 +465,18 @@ Sistema di gestione form con validazione e connessione al database.
 
 - Utilizza prepared statements per proteggere da SQL injection
 - Valida tutti i dati ricevuti dal form
+
+---
+
+#### 11/03/2026
+
+## SQL Select via PHP
+
+Esercizi su select via script PHP server-side (con XAMPP).
+
+## Select create
+
+- `selectAll.php` - Query: SELECT * from Clienti ![Select All](./img/Screen%20Select%20All.png)
+- `selectWhere.php` - Query: SELECT id_cliente, nome from Clienti where nazione != 'Italia' ![Select Where](./img/Screen%20Select%20Where.png)
+- `selectJoin.php` - Query: SELECT P.id_prodotto, P.nome  from Prodotti AS P JOIN Categorie AS C on P.id_categorie = C.id_categoria WHERE C.nome = 'Libri e Riviste' ![Select Join](./img/Screen%20Select%20Join.png)
+

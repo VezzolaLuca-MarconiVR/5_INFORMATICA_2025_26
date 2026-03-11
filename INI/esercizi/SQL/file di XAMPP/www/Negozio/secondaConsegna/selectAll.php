@@ -17,11 +17,19 @@ $sql = "SELECT * from Clienti";
 // Execute the SQL query
 $result = $conn->query($sql);
 
+// Output a title
+echo "<h1>Query: SELECT * from Clienti</h1>";
+
 // Process the result set
-if ($result->num-rows > 0) {
+if ($result->num_rows > 0) {
   // Output data of each row
   while($row = $result->fetch_assoc()) {
-    echo "id_cliente:" . $row["id"].  "nome:" . $row["name"]. "indirizzo:" . $row["address"]. "città:" . $row["city"]. "nazione:" . $row["nation"]. "<br>";
+    echo "<b>id:</b> " . $row["id_cliente"].
+    "; <b>nome:</b> " . $row["nome"].
+    "; <b>indirizzo:</b> " . $row["indirizzo"].
+    "; <b>città:</b> " . $row["citta"].
+    "; <b>nazione:</b> " . $row["nazione"].
+    "<br>";
   }
 } else {
   echo "0 results";
