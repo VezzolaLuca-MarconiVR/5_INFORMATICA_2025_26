@@ -458,13 +458,83 @@ Sistema di gestione form con validazione e connessione al database (con XAMPP).
 ## Componenti Principali
 
 - `connessione.php` - Gestisce la connessione al database
-- `funzioni.php` - Contiene la funzione per correggere l'input in un formato ideale:
-  - `test_input()` - Funzione per pulire e validare i dati in ingresso
+```php
+<?php
+  // Inizializzazione delle variabili descrittive della connessione con il DB
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "negozio";
 
+  // Create connection
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  // Check connection
+  if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+  }
+
+  $sql = "INSERT INTO Clienti (nome, indirizzo, citta, nazione)
+  VALUES ('$unameAndSurname', '$uaddress', '$ucity', '$unation')";
+
+  if ($conn->query($sql) === TRUE) {
+    echo "<span class='success'>New client added successfully!</span>";
+  } else {
+  echo "Error: " . $sql . "<br>" . $conn->eror;
+  }
+
+  $conn->close();
+?>
+```
+- `functions.php` - Contiene la funzione per correggere l'input in un formato ideale:
+```php
+<?php
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+?>
+```
 ## Caratteristiche di Sicurezza
 
 - Utilizza prepared statements per proteggere da SQL injection
 - Valida tutti i dati ricevuti dal form
+
+## Aggiunta di una lista di opzioni (select with options) all'HTML con JS
+
+```js
+const nationSelect = document.getElementById("nationSelect");
+
+const nationsList = [
+  "Afghanistan",
+  "Albania",
+  ...
+  "Zimbabwe",
+];
+
+let node;
+let textnode;
+
+node = document.createElement("option");
+textnode = document.createTextNode("-----");
+node.appendChild(textnode);
+node.setAttribute("value", ""); // "value" è nullo per l'opzione vuota
+nationSelect.appendChild(node);
+
+// Aggiunge un'opzione per ogni nazione nella lista con attributo "value" identico al nome dell'opzione
+nationsList.forEach((el) => {
+  node = document.createElement("option");
+
+  textnode = document.createTextNode(el);
+  node.appendChild(textnode);
+
+  node.setAttribute("value", el);
+
+  nationSelect.appendChild(node);
+});
+
+```
 
 ---
 
@@ -480,3 +550,67 @@ Esercizi su select via script PHP server-side (con XAMPP).
 - `selectWhere.php` - Query: SELECT id_cliente, nome from Clienti where nazione != 'Italia' ![Select Where](./img/Screen%20Select%20Where.png)
 - `selectJoin.php` - Query: SELECT P.id_prodotto, P.nome  from Prodotti AS P JOIN Categorie AS C on P.id_categorie = C.id_categoria WHERE C.nome = 'Libri e Riviste' ![Select Join](./img/Screen%20Select%20Join.png)
 
+---
+
+#### 13/03/2026
+
+## Creazione DB per progetto sito "Ekhoikos"
+
+Creazione del database e delle tabelle con SQL.
+
+## Creazione DB
+```sql
+CREATE DATABASE Ekhoikos;
+```
+
+## Creazione tabelle
+```sql
+CREATE TABLE Utenti(
+  nomeUtente varchar(32) PRIMARY KEY,
+  psw varchar(255) NOT NULL,
+  nome varchar(64) NOT NULL,
+  cognome varchar(64) NOT NULL,
+  dNascita date NOT NULL,
+  email varchar(320) NOT NULL UNIQUE
+);
+
+CREATE TABLE SpaziDiMemoria(
+  idSpazio int PRIMARY KEY AUTO_INCREMENT,
+  tier int(1)
+);
+
+CREATE TABLE Licenze(
+  nome varchar(32) PRIMARY KEY,
+  descrizione varchar(255)
+);
+
+CREATE TABLE Venditori(
+  nomeUtente varchar(32),
+  stelle int(1),
+  FOREIGN KEY (nomeUtente) REFERENCES Utenti(nomeUtente),
+  PRIMARY KEY (nomeUtente)
+)
+```
+
+### Nota:
+
+All'inserimento dei dati, le password sono crittate dal PHP nella seguente maniera:
+```php
+$password = "user_secret_password";
+$hash = password_hash($password, PASSWORD_DEFAULT);
+
+// Save $hash to your database. 
+// Use a VARCHAR(255) column to allow for future algorithm changes.
+```
+
+Verifica degli utenti:
+```php
+$user_input = $_POST['password']; // Password from login form
+$stored_hash = "..."; // Hash retrieved from your database
+
+if (password_verify($user_input, $stored_hash)) {
+    echo "Password is valid!";
+} else {
+    echo "Invalid password.";
+}
+```
