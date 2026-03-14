@@ -546,9 +546,134 @@ Esercizi su select via script PHP server-side (con XAMPP).
 
 ## Select create
 
-- `selectAll.php` - Query: SELECT * from Clienti ![Select All](./img/Screen%20Select%20All.png)
-- `selectWhere.php` - Query: SELECT id_cliente, nome from Clienti where nazione != 'Italia' ![Select Where](./img/Screen%20Select%20Where.png)
-- `selectJoin.php` - Query: SELECT P.id_prodotto, P.nome  from Prodotti AS P JOIN Categorie AS C on P.id_categorie = C.id_categoria WHERE C.nome = 'Libri e Riviste' ![Select Join](./img/Screen%20Select%20Join.png)
+- `selectAll.php`
+  ```php
+  <?php
+  // Reference: https://www.w3schools.com/php/php_mysql_select.asp
+
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "negozio";
+
+  // Create connection
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  // Check connection
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+
+  $sql = "SELECT * from Clienti";
+  // Execute the SQL query
+  $result = $conn->query($sql);
+
+  // Output a title
+  echo "<h1>Query: SELECT * from Clienti</h1>";
+
+  // Process the result set
+  if ($result->num_rows > 0) {
+    // Output data of each row
+    while($row = $result->fetch_assoc()) {
+      echo "<b>id:</b> " . $row["id_cliente"].
+      "; <b>nome:</b> " . $row["nome"].
+      "; <b>indirizzo:</b> " . $row["indirizzo"].
+      "; <b>città:</b> " . $row["citta"].
+      "; <b>nazione:</b> " . $row["nazione"].
+      "<br>";
+    }
+  } else {
+    echo "0 results";
+  }
+
+  $conn->close();
+  ?>
+  ```
+  Risultato:
+  ![Select All](./img/Screen%20Select%20All.png)
+
+- `selectWhere.php`
+  ```php
+  <?php
+  // Reference: https://www.w3schools.com/php/php_mysql_select.asp
+
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "negozio";
+
+  // Create connection
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  // Check connection
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+
+  $sql = "SELECT id_cliente, nome from Clienti where nazione != 'Italia'";
+  // Execute the SQL query
+  $result = $conn->query($sql);
+
+  // Output a title
+  echo "<h1>Query: SELECT id_cliente, nome from Clienti where nazione != 'Italia'</h1>";
+
+  // Process the result set
+  if ($result->num_rows > 0) {
+    // Output data of each row
+    while($row = $result->fetch_assoc()) {
+      echo "<b>id:</b> " . $row["id_cliente"].
+      "; <b>nome:</b> " . $row["nome"].
+      "<br>";
+    }
+  } else {
+    echo "0 results";
+  }
+
+  $conn->close();
+  ?>
+  ```
+  Risultato:
+  ![Select Where](./img/Screen%20Select%20Where.png)
+
+- `selectJoin.php`
+  ```php
+  <?php
+  // Reference: https://www.w3schools.com/php/php_mysql_select.asp
+
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "negozio";
+
+  // Create connection
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  // Check connection
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+
+  $sql = "SELECT P.id_prodotto, P.nome  from Prodotti AS P JOIN Categorie AS C on P.id_categorie = C.id_categoria WHERE C.nome = 'Libri e Riviste'";
+  // Execute the SQL query
+  $result = $conn->query($sql);
+
+  // Output a title
+  echo "<h1>Query: SELECT P.id_prodotto, P.nome  from Prodotti AS P JOIN Categorie AS C on P.id_categorie = C.id_categoria WHERE C.nome = 'Libri e Riviste'</h1>";
+
+  // Process the result set
+  if ($result->num_rows > 0) {
+    // Output data of each row
+    while($row = $result->fetch_assoc()) {
+      echo "<b>id:</b> " . $row["id_prodotto"].
+      "; <b>nome:</b> " . $row["nome"].
+      "<br>";
+    }
+  } else {
+    echo "0 results";
+  }
+
+  $conn->close();
+  ?>
+  ```
+  Risultato:
+  ![Select Join](./img/Screen%20Select%20Join.png)
 
 ---
 
@@ -581,7 +706,7 @@ CREATE TABLE SpaziDiMemoria(
 
 CREATE TABLE Licenze(
   nome varchar(32) PRIMARY KEY,
-  descrizione varchar(255)
+  descrizione varchar(1024)
 );
 
 CREATE TABLE Venditori(
@@ -589,7 +714,78 @@ CREATE TABLE Venditori(
   stelle int(1),
   FOREIGN KEY (nomeUtente) REFERENCES Utenti(nomeUtente),
   PRIMARY KEY (nomeUtente)
-)
+);
+
+CREATE TABLE File(
+  idFIle int AUTO_INCREMENT,
+  idSpazio int,
+  nome varchar(255),
+  filePath varchar(260),
+  dimensioneByte int NOT NULL,
+  unicoYN boolean NOT NULL,
+  FOREIGN KEY (idSpazio) REFERENCES SpaziDiMemoria(idSpazio),
+  PRIMARY KEY (idFile, idSpazio)
+);
+
+CREATE TABLE Prodotti(
+  idProd int AUTO_INCREMENT,
+  nomeVenditore varchar(32),
+  statoProd varchar(32) NOT NULL,
+  descrizione varchar(512),
+  nome varchar(32) NOT NULL,
+  prezzo decimal(10, 2) NOT NULL,
+  quantita int,
+  acconto decimal(10, 2),
+  FOREIGN KEY (nomeVenditore) REFERENCES Venditori(nomeVenditore),
+  PRIMARY KEY (idProd, nomeVenditore)
+);
+
+CREATE TABLE ProdottiVenduti(
+  idProd int,
+  nomeVenditore varchar(32),
+  nomeCliente varchar(32),
+  FOREIGN KEY (idProd, nomeVenditore) REFERENCES Prodotti(idProd, nomeVenditore),
+  FOREIGN KEY (nomeCliente) REFERENCES Utenti(nomeUtente)
+);
+
+CREATE TABLE Richieste(
+  idRichiesta int AUTO_INCREMENT,
+  nomeCliente varchar(32),
+  idProd int,
+  nomeVenditore varchar(32),
+  statoRichiesta varchar(32) DEFAULT "In attesa",
+  specificazioni varchar(512),
+  FOREIGN KEY (nomeCliente) REFERENCES Utenti(nomeUtente),
+  FOREIGN KEY (idProd, nomeVenditore) REFERENCES Prodotti(idProd, nomeVenditore),
+  PRIMARY KEY (idRichiesta, nomeCliente, idProd, nomeVenditore)
+);
+
+CREATE TABLE ProdottiFisici(
+  idProd int,
+  nomeVenditore varchar(32),
+  pesoKg decimal(3,2),
+  FOREIGN KEY (idProd, nomeVenditore),
+  PRIMARY KEY (idProd, nomeVenditore) REFERENCES Prodotti(idProd, nomeVenditore)
+);
+
+CREATE TABLE ProdottiDigitali(
+  idProd int,
+  nomeVenditore varchar(32),
+  FOREIGN KEY (idProd, nomeVenditore) REFERENCES (idProd, nomeVenditore),
+  PRIMARY KEY (idProd, nomeVenditore)
+);
+
+CREATE TABLE FileInProdottiDigitali(
+  nome varchar(255),
+  filePath varchar(260),
+  idSpazio int,
+  idProd int,
+  nomeVenditore varchar(32),
+  FOREIGN KEY (nome, filePath, idSpazio) REFERENCES File(nome, filePath, idSpazio),
+  FOREIGN KEY (idProd, nomeVenditore) REFERENCES ProdottiDigitali(idProd, nomeVenditore),
+  PRIMARY KEY (nome, filePath, idSpazio),
+  PRIMARY KEY (idProd, nomeVenditore)
+);
 ```
 
 ### Nota:
