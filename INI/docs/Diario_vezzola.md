@@ -711,7 +711,7 @@ CREATE TABLE Licenze(
 
 CREATE TABLE Venditori(
   nomeUtente varchar(32),
-  stelle int(1),
+  digitaleOFisico ENUM('Digitale', 'Fisico'),
   FOREIGN KEY (nomeUtente) REFERENCES Utenti(nomeUtente),
   PRIMARY KEY (nomeUtente)
 );
@@ -730,13 +730,13 @@ CREATE TABLE File(
 CREATE TABLE Prodotti(
   idProd int AUTO_INCREMENT,
   nomeVenditore varchar(32),
-  statoProd varchar(32) NOT NULL,
-  descrizione varchar(512),
+  statoProd ENUM('Disponibile', 'Esaurito', 'Su ordinazione'),
+  descrizione varchar(1024),
   nome varchar(32) NOT NULL,
   prezzo decimal(10, 2) NOT NULL,
   quantita int,
   acconto decimal(10, 2),
-  FOREIGN KEY (nomeVenditore) REFERENCES Venditori(nomeVenditore),
+  FOREIGN KEY (nomeVenditore) REFERENCES Venditori(nomeUtente),
   PRIMARY KEY (idProd, nomeVenditore)
 );
 
@@ -744,6 +744,9 @@ CREATE TABLE ProdottiVenduti(
   idProd int,
   nomeVenditore varchar(32),
   nomeCliente varchar(32),
+  stelle int CHECK (stelle BETWEEN 1 AND 5),
+  puntiEco int CHECK (puntiEco BETWEEN 1 AND 5),
+  recensione varchar(512),
   FOREIGN KEY (idProd, nomeVenditore) REFERENCES Prodotti(idProd, nomeVenditore),
   FOREIGN KEY (nomeCliente) REFERENCES Utenti(nomeUtente)
 );
@@ -753,7 +756,7 @@ CREATE TABLE Richieste(
   nomeCliente varchar(32),
   idProd int,
   nomeVenditore varchar(32),
-  statoRichiesta varchar(32) DEFAULT "In attesa",
+  statoRichiesta ENUM('In attesa', 'Accettata', 'Completata', 'Rifiutata'),
   specificazioni varchar(512),
   FOREIGN KEY (nomeCliente) REFERENCES Utenti(nomeUtente),
   FOREIGN KEY (idProd, nomeVenditore) REFERENCES Prodotti(idProd, nomeVenditore),
@@ -764,28 +767,228 @@ CREATE TABLE ProdottiFisici(
   idProd int,
   nomeVenditore varchar(32),
   pesoKg decimal(3,2),
-  FOREIGN KEY (idProd, nomeVenditore),
-  PRIMARY KEY (idProd, nomeVenditore) REFERENCES Prodotti(idProd, nomeVenditore)
+  FOREIGN KEY (idProd, nomeVenditore) REFERENCES Prodotti(idProd, nomeVenditore),
+  PRIMARY KEY (idProd, nomeVenditore)
 );
 
 CREATE TABLE ProdottiDigitali(
   idProd int,
   nomeVenditore varchar(32),
-  FOREIGN KEY (idProd, nomeVenditore) REFERENCES (idProd, nomeVenditore),
+  FOREIGN KEY (idProd, nomeVenditore) REFERENCES Prodotti(idProd, nomeVenditore),
   PRIMARY KEY (idProd, nomeVenditore)
 );
 
 CREATE TABLE FileInProdottiDigitali(
-  nome varchar(255),
-  filePath varchar(260),
+  idFile int,
   idSpazio int,
   idProd int,
   nomeVenditore varchar(32),
-  FOREIGN KEY (nome, filePath, idSpazio) REFERENCES File(nome, filePath, idSpazio),
+  FOREIGN KEY (idFile, idSpazio) REFERENCES File(idFile, idSpazio),
   FOREIGN KEY (idProd, nomeVenditore) REFERENCES ProdottiDigitali(idProd, nomeVenditore),
-  PRIMARY KEY (nome, filePath, idSpazio),
-  PRIMARY KEY (idProd, nomeVenditore)
+  PRIMARY KEY (idFile, idSpazio, idProd, nomeVenditore)
 );
+```
+
+## Popolamento tabelle
+```sql
+-- =============================================================
+--  POPOLAMENTO DATABASE - Ekhoikos Marketplace
+--  Piattaforma e-commerce per prodotti artigianali ed ecologici
+-- =============================================================
+
+
+-- -------------------------------------------------------------
+-- 1. UTENTI  (5 venditori + 5 clienti)
+-- -------------------------------------------------------------
+INSERT INTO Utenti (nomeUtente, psw, nome, cognome, dNascita, email) VALUES
+('giulia_verde',  '$2b$12$KH8eFqLmN3pQrStUvWxYOuGreenCeramicsHashedPassword00001', 'Giulia',    'Verdi',     '1990-03-15', 'giulia.verdi@ekhoikos.it'),
+('marco_bosco',   '$2b$12$AbCdEfGhIjKlMnOpQrStWoodWorkerHashedPasswordItaly00002', 'Marco',     'Boschi',    '1985-07-22', 'marco.boschi@ekhoikos.it'),
+('sofia_luna',    '$2b$12$ZyXwVuTsRqPoNmMacrameNaturalFibersHashedPassword00003',  'Sofia',     'Lunardi',   '1993-11-08', 'sofia.lunardi@ekhoikos.it'),
+('pietro_sole',   '$2b$12$MnOpQrStUvNaturalSoapsOrganicIngredientsHashed000004',   'Pietro',    'Soleri',    '1978-05-30', 'pietro.soleri@ekhoikos.it'),
+('elena_foglia',  '$2b$12$FgHiJkLmBotanicalArtDigitalPatternsHashedPassword00005', 'Elena',     'Fogliani',  '1995-09-12', 'elena.fogliani@ekhoikos.it'),
+('luca_fiume',    '$2b$12$RsTuVwXyClienteBuyerLucaFiumaraHashedPassword000006',    'Luca',      'Fiumara',   '1988-02-14', 'luca.fiumara@ekhoikos.it'),
+('anna_terra',    '$2b$12$PqRsTuVwClienteAnnaTerranovaHashedPassword0000007',      'Anna',      'Terranova', '1992-06-25', 'anna.terranova@ekhoikos.it'),
+('chiara_vento',  '$2b$12$BcDeFgHiClienteChiaraVentosiHashedPassword000000008',    'Chiara',    'Ventosi',   '1997-01-03', 'chiara.ventosi@ekhoikos.it'),
+('fabio_pietra',  '$2b$12$JkLmNoPqClienteFabioPietraniHashedPassword00000009',     'Fabio',     'Pietrani',  '1983-08-18', 'fabio.pietrani@ekhoikos.it'),
+('riccardo_mare', '$2b$12$XyZ01234ClienteRiccardoMarelliHashedPassword000010',     'Riccardo',  'Marelli',   '1991-12-07', 'riccardo.marelli@ekhoikos.it');
+
+
+-- -------------------------------------------------------------
+-- 2. SPAZI DI MEMORIA  (tier 1 = base, 2 = standard, 3 = pro)
+-- -------------------------------------------------------------
+INSERT INTO SpaziDiMemoria (tier) VALUES
+(1),   -- idSpazio = 1  (sofia_luna, piano base)
+(2),   -- idSpazio = 2  (sofia_luna, piano standard)
+(3);   -- idSpazio = 3  (elena_foglia, piano pro)
+
+
+-- -------------------------------------------------------------
+-- 3. LICENZE
+-- -------------------------------------------------------------
+INSERT INTO Licenze (nome, descrizione) VALUES
+('CC BY 4.0',
+ 'Creative Commons Attribuzione 4.0 Internazionale. Consente uso, condivisione, adattamento e distribuzione, anche commerciale, a condizione di citare adeguatamente l autore originale.'),
+('CC BY-NC 4.0',
+ 'Creative Commons Attribuzione-Non Commerciale 4.0. Permette uso e condivisione libera solo per scopi non commerciali, con obbligo di attribuzione all autore.'),
+('CC BY-ND 4.0',
+ 'Creative Commons Attribuzione-Non opere derivate 4.0. Consente redistribuzione, anche commerciale, solo nella forma originale e senza modifiche, con attribuzione.'),
+('Uso Personale',
+ 'Licenza esclusiva per uso strettamente personale e privato. Non e consentita la redistribuzione, la pubblicazione o l utilizzo commerciale del file acquistato.');
+
+
+-- -------------------------------------------------------------
+-- 4. VENDITORI
+-- -------------------------------------------------------------
+INSERT INTO Venditori (nomeUtente, digitaleOFisico) VALUES
+('giulia_verde',  'Fisico'),
+('marco_bosco',   'Fisico'),
+('sofia_luna',    'Digitale'),
+('pietro_sole',   'Fisico'),
+('elena_foglia',  'Digitale');
+
+
+-- -------------------------------------------------------------
+-- 5. FILE  (allegati ai prodotti digitali)
+-- -------------------------------------------------------------
+INSERT INTO File (idSpazio, nome, filePath, dimensioneByte, unicoYN) VALUES
+-- File di sofia_luna (spazio tier 2, idSpazio = 2)
+(2, 'schema_macrame_base.pdf',       '/storage/tier2/sofia_luna/schema_macrame_base.pdf',       2457600, FALSE),  -- idFile = 1
+(2, 'schema_macrame_avanzato.pdf',   '/storage/tier2/sofia_luna/schema_macrame_avanzato.pdf',   3145728, FALSE),  -- idFile = 2
+(2, 'ricamo_mandala_schema.pdf',     '/storage/tier2/sofia_luna/ricamo_mandala_schema.pdf',     1572864, FALSE),  -- idFile = 3
+-- File di elena_foglia (spazio tier 3, idSpazio = 3)
+(3, 'stampa_botanica_felce.png',     '/storage/tier3/elena_foglia/stampa_botanica_felce.png',   8388608, TRUE),   -- idFile = 4
+(3, 'stampa_botanica_iris.png',      '/storage/tier3/elena_foglia/stampa_botanica_iris.png',    7340032, TRUE),   -- idFile = 5
+(3, 'pattern_tessuto_natura.svg',    '/storage/tier3/elena_foglia/pattern_tessuto_natura.svg',   524288, FALSE);  -- idFile = 6
+
+
+-- -------------------------------------------------------------
+-- 6. PRODOTTI
+--    statoProd: 'Disponibile' | 'Esaurito' | 'Su ordinazione'
+-- -------------------------------------------------------------
+INSERT INTO Prodotti (idProd, nomeVenditore, statoProd, descrizione, nome, prezzo, quantita, acconto) VALUES
+
+-- === Giulia Verde – Ceramica con argilla naturale ===
+(1,  'giulia_verde', 'Disponibile',
+ 'Tazza in ceramica lavorata a mano con argilla naturale estratta localmente e smaltatura ecologica priva di piombo e cadmio. Ogni pezzo e unico, decorato con motivi botanici incisi a mano prima della cottura.',
+ 'Tazza Botanica in Ceramica',            28.00,  12, NULL),
+
+(2,  'giulia_verde', 'Disponibile',
+ 'Set di 4 piattini in ceramica artigianale realizzati con argilla di recupero da scarti di lavorazione. Decorati con pigmenti naturali e ossidi minerali. Adatti per dolci, formaggi stagionati o come sottobicchieri.',
+ 'Set Piattini in Ceramica Naturale',     45.00,   6, NULL),
+
+(3,  'giulia_verde', 'Su ordinazione',
+ 'Vaso in ceramica completamente personalizzabile: il cliente sceglie forma, dimensione e motivo decorativo. Realizzato con argilla locale e tecniche di cottura a bassa emissione di CO2. Tempi di consegna: 3-4 settimane.',
+ 'Vaso Ceramica Personalizzato',          65.00, NULL, 20.00),
+
+-- === Marco Bosco – Legno di recupero ===
+(4,  'marco_bosco',  'Disponibile',
+ 'Tagliere ricavato da un tronco di noce recuperato da potature locali. Trattato esclusivamente con olio di lino biologico, senza vernici o prodotti chimici. Le venature sono uniche su ogni pezzo.',
+ 'Tagliere in Legno di Noce Recuperato', 38.00,   8, NULL),
+
+(5,  'marco_bosco',  'Disponibile',
+ 'Cornice per foto realizzata con rami e legni di recupero raccolti nel bosco vicino al laboratorio. Formato 15x20 cm. Finitura a cera d api biologica per esaltare il colore naturale del legno.',
+ 'Cornice Rustica in Legno di Recupero', 22.00,  15, NULL),
+
+-- === Sofia Luna – Tessile naturale e macrame ===
+(6,  'sofia_luna',   'Disponibile',
+ 'Appendiabiti da parete intrecciato a mano in macrame con cordino di cotone biologico non sbiancato. Completamente privo di coloranti sintetici. Dimensioni: circa 40x60 cm. Gancio in legno di pino recuperato.',
+ 'Appendiabiti Macrame Cotone Bio',       35.00,  10, NULL),
+
+(7,  'sofia_luna',   'Disponibile',
+ 'Schema PDF scaricabile per realizzare un appendiabiti in macrame e un ricamo mandala. Istruzioni passo passo, lista materiali eco-compatibili, varianti cromatiche con tinture naturali. Adatto a principianti e intermedi.',
+ 'Schema Macrame & Ricamo Mandala',       12.00, NULL, NULL),
+
+-- === Pietro Sole – Saponi e cosmetici naturali ===
+(8,  'pietro_sole',  'Disponibile',
+ 'Sapone artigianale al carbone vegetale attivo e argilla verde. Ingredienti 100% naturali e biodegradabili, senza SLS, parabeni o profumi sintetici. Peso circa 100g. Confezionato in carta kraft riciclata.',
+ 'Sapone Artigianale Carbone & Argilla',  8.50,  30, NULL),
+
+(9,  'pietro_sole',  'Disponibile',
+ 'Kit da 3 saponi artigianali profumati con oli essenziali biologici certificati: lavanda, tea tree e arancia dolce. Ingredienti naturali e cruelty-free, testati su pelli sensibili. Ottimo come idea regalo sostenibile.',
+ 'Kit Saponi Artigianali Oli Essenziali', 22.00,  18, NULL),
+
+-- === Elena Foglia – Arte botanica digitale ===
+(10, 'elena_foglia', 'Disponibile',
+ 'Stampa artistica botanica su carta cotone 300g riciclata al 50%, formato A4. Raffigura felci e iris selvatiche scansionate ad alta risoluzione. Ogni stampa e numerata e firmata a mano. Spedita in tubo riciclato.',
+ 'Stampa Artistica Botanica - Serie A',   40.00,   5, NULL),
+
+(11, 'elena_foglia', 'Disponibile',
+ 'Pack di pattern digitali in formato SVG ad alta risoluzione ispirati alla natura: foglie, ramoscelli e fiori selvatici. Pronti per uso su tessuti, carta da parati, packaging eco e progetti grafici sostenibili.',
+ 'Pattern Digitali Botanici SVG',         18.00, NULL, NULL);
+
+
+-- -------------------------------------------------------------
+-- 7. PRODOTTI FISICI  (pesoKg per calcolo spedizione eco)
+-- -------------------------------------------------------------
+INSERT INTO ProdottiFisici (idProd, nomeVenditore, pesoKg) VALUES
+(1,  'giulia_verde', 0.35),
+(2,  'giulia_verde', 0.60),
+(3,  'giulia_verde', 0.80),
+(4,  'marco_bosco',  0.75),
+(5,  'marco_bosco',  0.30),
+(6,  'sofia_luna',   0.20),
+(8,  'pietro_sole',  0.10),
+(9,  'pietro_sole',  0.30),
+(10, 'elena_foglia', 0.05);
+
+
+-- -------------------------------------------------------------
+-- 8. PRODOTTI DIGITALI
+-- -------------------------------------------------------------
+INSERT INTO ProdottiDigitali (idProd, nomeVenditore) VALUES
+(7,  'sofia_luna'),
+(11, 'elena_foglia');
+
+
+-- -------------------------------------------------------------
+-- 9. FILE IN PRODOTTI DIGITALI
+--    Prodotto 7  (sofia_luna)  → file 1, 2, 3  (idSpazio = 2)
+--    Prodotto 11 (elena_foglia) → file 6        (idSpazio = 3)
+-- -------------------------------------------------------------
+INSERT INTO FileInProdottiDigitali (idFile, idSpazio, idProd, nomeVenditore) VALUES
+(1, 2,  7,  'sofia_luna'),   -- schema_macrame_base.pdf
+(2, 2,  7,  'sofia_luna'),   -- schema_macrame_avanzato.pdf
+(3, 2,  7,  'sofia_luna'),   -- ricamo_mandala_schema.pdf
+(6, 3,  11, 'elena_foglia'); -- pattern_tessuto_natura.svg
+
+
+-- -------------------------------------------------------------
+-- 10. PRODOTTI VENDUTI
+-- -------------------------------------------------------------
+INSERT INTO ProdottiVenduti (idProd, nomeVenditore, nomeCliente) VALUES
+(1,  'giulia_verde', 'luca_fiume'),
+(1,  'giulia_verde', 'anna_terra'),
+(4,  'marco_bosco',  'chiara_vento'),
+(5,  'marco_bosco',  'riccardo_mare'),
+(6,  'sofia_luna',   'fabio_pietra'),
+(7,  'sofia_luna',   'anna_terra'),
+(7,  'sofia_luna',   'riccardo_mare'),
+(8,  'pietro_sole',  'luca_fiume'),
+(9,  'pietro_sole',  'chiara_vento'),
+(10, 'elena_foglia', 'riccardo_mare'),
+(11, 'elena_foglia', 'fabio_pietra');
+
+
+-- -------------------------------------------------------------
+-- 11. RICHIESTE DI PERSONALIZZAZIONE
+--     statoRichiesta: 'In attesa' | 'Accettata' | 'Completata' | 'Rifiutata'
+-- -------------------------------------------------------------
+INSERT INTO Richieste (nomeCliente, idProd, nomeVenditore, statoRichiesta, specificazioni) VALUES
+
+('luca_fiume',    3, 'giulia_verde', 'Accettata',
+ 'Vaso di medie dimensioni (circa 25 cm di altezza) con motivi a foglie di ulivo incisi. Colori: terracotta naturale con sfumature verdi. Vorrei anche un foro di drenaggio sul fondo.'),
+
+('anna_terra',    3, 'giulia_verde', 'In attesa',
+ 'Vaso piccolo per piante grasse, con foro di drenaggio. Decorazione geometrica minimal stile nordico. Preferisco toni neutri: beige sabbia e grigio ardesia.'),
+
+('riccardo_mare', 3, 'giulia_verde', 'Completata',
+ 'Grande vaso da esterno resistente alle intemperie per pianta di limone (diam. 35 cm). Motivo con onde marine stilizzate. Colori: blu ceruleo e bianco calce.'),
+
+('chiara_vento',  6, 'sofia_luna',   'In attesa',
+ 'Schema per un appendiabiti macrame in versione XL (circa 60x90 cm) con frange lunghe e almeno 8 ganci.'),
+
+('fabio_pietra',  9, 'pietro_sole',  'Rifiutata',
+ 'Possibile sostituire i profumi standard con eucalipto, menta piperita e rosa mosqueta biologica? Confezionamento in scatola regalo in cartone riciclato con nastro in cotone invece del cellofan.');
 ```
 
 ### Nota:
