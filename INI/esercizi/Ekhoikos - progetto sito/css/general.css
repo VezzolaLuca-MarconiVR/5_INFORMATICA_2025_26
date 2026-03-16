@@ -272,4 +272,5 @@ footer {
 
 .error {
   color: var(--danger);
+  font-size: smaller;
 }
