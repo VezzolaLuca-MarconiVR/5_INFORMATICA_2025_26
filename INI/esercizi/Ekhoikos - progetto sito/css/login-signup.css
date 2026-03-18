@@ -5,6 +5,8 @@ form {
   flex-direction: column;
   justify-content: center; /* vertical centering of children */
   align-items: center; /* horizontal centering of children */
+
+  max-width: 600px;
 }
 
 .form-fields {
