@@ -60,6 +60,8 @@ Palumbo citations:
 - _"Che siete? Il gruppo delle educande delle Orsoline?"_ (non abbiamo festeggiato i 100 giorni alla maturità)
 - _"Si, si... andiamo in Pakistan a prendere il personale per l'assistenza"_
 - _"Che è? Il conclave? Nominiamo il papa."_
+- _"Ragazzi con la carta del docente mi sono guadagnata questo tablet del milleottocentoventotto che mio figlio mi ha lasciato dopo avermi rubato il nuovo IPad che ho preso"_
+- _"No, non è il bollo! E' la bolla, è femmina!"_
 - _""_
 
 Fortune cookies citations:
