@@ -1,18 +1,66 @@
-[Sito guida](https://wiki.ubuntu-it.org/Server/MySql)
-
 ## DataBase
 
-### Installazione del DBMS (MySQL)
+### Installazione del DBMS (MySQL) e di PHP
+[Fonte](https://dev.to/idboussadel/setting-up-an-apache-server-with-php-and-ssh-on-linux-2d2)
 ```bash
-sudo apt update
-sudoapt install mysql-server
+# Updating and upgrading apt
+sudo apt update && sudo apt upgrade -y
+# Installing Apache (web server), MySql server (RDBMS), PHP, an Apache module to enable PHP processing, a PHP extension to allow PHP to communicate with MySQL
+sudo apt install apache2 mysql-server php libapache2-mod-php php-mysql -y
+
+# Starting Apache and MySql and making sure they start at boot
+sudo systemctl start apache2
+sudo systemctl enable apache2
+sudo systemctl start mysql
+sudo systemctl enable mysql
+
+# Run the MySQL security script to secure your database:
+# - Set a root password
+# - Remove anonymous users
+# - Disallow remote root login
+# - Remove test databases
+# - Reload privilege tables
+sudo mysql_secure_installation
+
+# Then, log in to MySQL and create a database:
+sudo mysql -u root -p
+
+# ------------- INSIDE MySQL: -------------
+# Creates a new database named IdleDB
+CREATE DATABASE IdleDB;
+# Creates a new MySQL user myuser with the password mypassword.
+# The @'%' part allows the user to connect from any host (% is a wildcard representing any IP address).
+CREATE USER 'luca'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456789';
+GRANT ALL PRIVILEGES ON IdleDB.* TO 'luca'@'localhost';
+
+# Refreshes the MySQL server's internal cache of user privileges. This is necessary after creating users or changing privileges to apply the changes.
+FLUSH PRIVILEGES;
+
+# Insert the data in the table from a file (you can do this now or later)
+SOURCE /path/to/your/file.sql;
+
+EXIT;
+# ------------- MySQL CLOSED -------------
+
+# Configure Apache to Serve Your PHP Site
+# Remove all contents of the Apache /var/www/html folder
+sudo rm -rf /var/www/html/*
+# Create a new php file (or copy here the file if you already have it)
+sudo nano /var/www/html/index.php
+# (Save and exit)
+
+# Set proper permissions:
+# Change ownership of all files and directories in /var/www/html recursively
+sudo chown -R www-data:www-data /var/www/html
+# The user and group ownership is set to 'www-data' which is the default user/group for web servers (Nginx/Apache)
+
+# - Owner (www-data) has read, write, and execute permissions (7)
+# - Group (www-data) and Others have read and execute permissions, but no write permissions
+sudo chmod -R 755 /var/www/html
+
+# Restart Apache:
+sudo systemctl restart apache2
 ```
-// FORSE NON SERVE FARLO DA LOCALE - HO PROVATO SENZA
-<!-- ### Configurazione del server
-Aggiungere "bind-address = 127.0.0.1" (indicando l'IP della macchina sulla quale gira questo server) tramite:
-```bash
-sudo nano /etc/mysql/my.cnf
-``` -->
 
 ### Creazione di un DataBase con una tabella con i seguenti campi: NomeUtente, Password, Nome, Cognome, eta, funzione
 (Si consideri come funzione: utente, amministratore)
@@ -40,15 +88,59 @@ INSERT INTO Utenti(nomeUtente, password, nome, cognome, eta, funzione) VALUES
 ```
 
 ## PHP e HTML
+### Creare una pagina web con campi di input username, password che fornisca come output Nome, Cognome, Eta, Funzione
 Pagina HTML racchiusa in uno script PHP:
-```html
-<!DOCTIPE html>
+```php
+<!-- Codice PHP principale -->
+<?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
+        # Inizializzazione delle variabili descrittive della connessione con il DB
+        $servername = "localhost";
+        $username = "luca";
+        $password = "PASSWORD";
+        $dbname = "IdleDB";
+
+        # Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection to DB failed: " . $conn->connect_error);
+        }
+
+        $user = $_POST["uuser"];
+        $pass = $_POST["upsw"];
+
+        # Prepare SQL and retrieve data
+        $sql = "SELECT nome, cognome, eta, funzione 
+        FROM Utenti 
+        WHERE nomeUtente = '$user' AND password = '$pass'";
+
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo "<p class='result'>{$row['nome']} {$row['cognome']} - {$row['funzione']}</p>";
+            }
+        } else {
+            echo "<p class='error'>Nessun risultato</p>";
+        }
+
+        $conn->close();
+    }
+?>
+
+<!-- Pagina HTML con PHP embedded -->
+<!DOCTYPE html>
 <html>
     <head>
         <title>Per piacere non fate una SQL Injection qui</title>
+        <style>
+        .error {color: red;}
+        .result {color: green;}
+        </style>
     </head>
     <body>
-        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method='POST'>
+        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method='POST' target='_self'>
             <label for='uuser'>Username:</label>
             <input type='text' id='uuser' name='uuser'>
 
@@ -57,28 +149,9 @@ Pagina HTML racchiusa in uno script PHP:
 
             <input type='submit' value='Login'/>
         </form>
-        <?php
-            // Inizializzazione delle variabili descrittive della connessione con il DB
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "IdleDB";
-
-            // Create connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            // Check connection
-            if ($conn->connect_error) {
-                die("Connection to DB failed: " . $conn->connect_error);
-            }
-
-            
-        ?>
     </body>
 </html>
 ```
 
-### Installazione di PHP
-
-### Creare una pagina web con campi di input username, password che fornisca come output Nome, Cognome, Eta, Funzione
-
 ### Generare una stringa SQL che, opportunamente inserita, faccia fornire, noto solo un username, la lista di username e password, cognome e funzione
+![Screenshot SQL Injection](./img/screenshotSQLInjection.png)

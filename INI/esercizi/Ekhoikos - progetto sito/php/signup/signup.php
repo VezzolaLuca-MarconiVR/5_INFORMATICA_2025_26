@@ -74,6 +74,6 @@
       </p>
     </footer>
 
-    <?php require "../php/signup.php";?>
+    <?php require "../php/handleSignup.php";?>
   </body>
 </html>
