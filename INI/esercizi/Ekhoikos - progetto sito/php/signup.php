@@ -45,7 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Connessione al DB
     require "./general/connect.php";
 
-    // $sql = "INSERT INTO Utenti () VALUES (?, ?, ?)";
+    // Preparazione della query
+    $sql = "INSERT INTO Utenti (nomeUtente, psw, nome, cognome, dNascita, email) VALUES (?, ?, ?, ?, ?, ?)";
 
     // // Prepare the SQL query template
     // if($stmt = $conn->prepare($sql)) {
