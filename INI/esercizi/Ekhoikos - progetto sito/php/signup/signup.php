@@ -1,11 +1,13 @@
+<?php require "handleSignup.php";?>
+
 <!DOCTYPE html>
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ekhoikos - Login</title>
-    <link rel="stylesheet" href="../css/general.css" />
-    <link rel="stylesheet" href="../css/login-signup.css" />
+    <link rel="stylesheet" href="../../css/general.css" />
+    <link rel="stylesheet" href="../../css/login-signup.css" />
     <script src="../js/index.js" defer></script>
   </head>
 
@@ -42,6 +44,18 @@
               <input type="surname" id="surname" name="surname" />
             </div>
 
+            <span class="error"><?php echo $formErrors['dateOfBirth'];?></span>
+            <div class="data-form-field">
+              <label for="dateOfBirth">Data di nascita:</label>
+              <input type="date" id="dateOfBirth" name="dateOfBirth" />
+            </div>
+            
+            <span class="error"><?php echo $formErrors['email'];?></span>
+            <div class="data-form-field">
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" />
+            </div>
+
             <span class="error"><?php echo $formErrors['username'];?></span>
             <div class="data-form-field">
               <label for="username">Username:</label>
@@ -56,7 +70,7 @@
 
             <span class="error"><?php echo $formErrors['passwordConfirm'];?></span>
             <div class="data-form-field">
-              <label for="passwordConfirm">Cognome:</label>
+              <label for="passwordConfirm">Conferma la password:</label>
               <input type="password" id="passwordConfirm" name="passwordConfirm" />
             </div>
           </div>
@@ -73,7 +87,5 @@
         <email class="selectable-content">help@ekhoikos.com</email>
       </p>
     </footer>
-
-    <?php require "../php/handleSignup.php";?>
   </body>
 </html>
