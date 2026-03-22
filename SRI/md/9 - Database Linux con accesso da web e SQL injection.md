@@ -78,6 +78,7 @@ CREATE TABLE Utenti(
 ```
 
 ### Popolazione del DataBase con 5 record a scelta
+(Ogni riferimento a qualsiasi persona reale è puramente casuale e da _non_ considerarsi intenzionale)
 ```sql
 INSERT INTO Utenti(nomeUtente, password, nome, cognome, eta, funzione) VALUES
     ('paoloTack', 'Sistemi4Ever!!!', 'Paolo', 'Tacchella', 50, 'amministratore'),
@@ -97,7 +98,7 @@ Pagina HTML racchiusa in uno script PHP:
         # Inizializzazione delle variabili descrittive della connessione con il DB
         $servername = "localhost";
         $username = "luca";
-        $password = "PASSWORD";
+        $password = "METTI QUI LA PASSWORD!!!";
         $dbname = "IdleDB";
 
         # Create connection
@@ -119,7 +120,7 @@ Pagina HTML racchiusa in uno script PHP:
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                echo "<p class='result'>{$row['nome']} {$row['cognome']} - {$row['funzione']}</p>";
+                echo "<p class='result'>{$row['nome']} {$row['cognome']} - {$row['eta']} anni - {$row['funzione']}</p>";
             }
         } else {
             echo "<p class='error'>Nessun risultato</p>";
@@ -154,4 +155,6 @@ Pagina HTML racchiusa in uno script PHP:
 ```
 
 ### Generare una stringa SQL che, opportunamente inserita, faccia fornire, noto solo un username, la lista di username e password, cognome e funzione
+
+Digitando come username e come password la stringa "' OR '1'='1", si esegue una SQL Injection, permettendo la visualizzazione di tutti i dati di tutti gli utenti:
 ![Screenshot SQL Injection](./img/screenshotSQLInjection.png)
