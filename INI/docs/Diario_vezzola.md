@@ -1013,3 +1013,9 @@ if (password_verify($user_input, $stored_hash)) {
     echo "Invalid password.";
 }
 ```
+
+---
+
+#### 27/03/2026
+
+## Implementazione delle sessioni

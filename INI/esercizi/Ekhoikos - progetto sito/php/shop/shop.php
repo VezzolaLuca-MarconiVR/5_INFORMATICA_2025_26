@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ekhoikos - Shop</title>
-    <link rel="stylesheet" href="../css/general.css" />
-    <link rel="stylesheet" href="../css/shop.css" />
+    <link rel="stylesheet" href="../../css/general.css" />
+    <link rel="stylesheet" href="../../css/shop.css" />
     <script src="../js/index.js" defer></script>
   </head>
 
@@ -13,11 +13,19 @@
     <!-- Navbar -->
     <nav>
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html" class="active">Shop</a></li>
-        <li><a href="sales.html">Sales</a></li>
-        <li><a href="chat.html">Chat</a></li>
-        <li style="float: right"><a href="login.html">Login</a></li>
+        <li><a href="../index/index.php">Home</a></li>
+        <li><a href="../shop/shop.php" class="active">Shop</a></li>
+        <li><a href="../sales/sales.php">Sales</a></li>
+        <li><a href="../chat/chat.php">Chat</a></li>
+        <li style="float: right">
+          <?php
+          if (isLoggedIn()) {
+            echo "<p>User: " . $_SESSION['username'] . "</p>";
+          } else {
+            echo "<a href='../login/login.php'>Login</a>";
+          }
+          ?>
+        </li>
       </ul>
     </nav>
 
@@ -37,7 +45,7 @@
         </div>
         <div id="center_content">
           <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../img/mountains-landscape.jpg" />
+            <img class="product-image" src="../../img/mountains-landscape.jpg" />
             <div class="product-text">
               <h3 class="product-title">Titolo prodotto</h3>
               <span class="product-description">
@@ -48,7 +56,7 @@
             </div>
           </div>
           <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../img/mountains-landscape.jpg" />
+            <img class="product-image" src="../../img/mountains-landscape.jpg" />
             <div class="product-text">
               <h3 class="product-title">Titolo prodotto</h3>
               <span class="product-description">
@@ -58,7 +66,7 @@
             </div>
           </div>
           <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../img/mountains-landscape.jpg" />
+            <img class="product-image" src="../../img/mountains-landscape.jpg" />
             <div class="product-text">
               <h3 class="product-title">Titolo prodotto</h3>
               <span class="product-description">
@@ -68,7 +76,7 @@
             </div>
           </div>
           <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../img/mountains-landscape.jpg" />
+            <img class="product-image" src="../../img/mountains-landscape.jpg" />
             <div class="product-text">
               <h3 class="product-title">Titolo prodotto</h3>
               <span class="product-description">
@@ -78,7 +86,7 @@
             </div>
           </div>
           <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../img/mountains-landscape.jpg" />
+            <img class="product-image" src="../../img/mountains-landscape.jpg" />
             <div class="product-text">
               <h3 class="product-title">Titolo prodotto</h3>
               <span class="product-description">
@@ -88,7 +96,7 @@
             </div>
           </div>
           <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../img/mountains-landscape.jpg" />
+            <img class="product-image" src="../../img/mountains-landscape.jpg" />
             <div class="product-text">
               <h3 class="product-title">Titolo prodotto</h3>
               <span class="product-description">
@@ -98,7 +106,7 @@
             </div>
           </div>
           <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../img/mountains-landscape.jpg" />
+            <img class="product-image" src="../../img/mountains-landscape.jpg" />
             <div class="product-text">
               <h3 class="product-title">Titolo prodotto</h3>
               <span class="product-description">
