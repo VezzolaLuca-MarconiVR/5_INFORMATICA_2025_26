@@ -73,9 +73,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       echo("Iscrizione completata!");
 
-      // // Ridireziona l'utente
-      // header("Location: ../shop.php");
-      // exit;
+      
+
+      # Start the user session
+      session_start();
+
+      # Set the starting session variables
+      $_SESSION['username'] = $_POST['username'];
+      $_SESSION['logged_in'] = true;
+      
+      header("Location: ../index/index.php")
+      exit;
     } else {
       echo "Error: " . $sql . "<br>" . $conn->error;
     }

@@ -66,12 +66,12 @@ td:last-child {
 
 #hero-containers {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../img/containers.jpg");
+    url("../../img/containers.jpg");
 }
 
 #hero-mountains {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../img/mountains-landscape.jpg");
+    url("../../img/mountains-landscape.jpg");
 }
 
 .vertical-small-margin-children > * {

@@ -5,9 +5,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ekhoikos - Login</title>
-    <link rel="stylesheet" href="../../css/general.css" />
-    <link rel="stylesheet" href="../../css/login-signup.css" />
+    <title>Ekhoikos - Signup</title>
+    <link rel="stylesheet" href="../../../css/general.css" />
+    <link rel="stylesheet" href="../../../css/login-signup.css" />
     <script src="../js/index.js" defer></script>
   </head>
 
@@ -15,12 +15,18 @@
     <!-- Navbar -->
     <nav>
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="sales.html">Sales</a></li>
-        <li><a href="chat.html">Chat</a></li>
+        <li><a href="../index/index.php">Home</a></li>
+        <li><a href="../shop/shop.php">Shop</a></li>
+        <li><a href="../sales/sales.php">Sales</a></li>
+        <li><a href="../chat/chat.php">Chat</a></li>
         <li style="float: right">
-          <a href="login.html">Login</a>
+          <?php
+          if (isLoggedIn()) {
+            echo "<p>User: " . $_SESSION['username'] . "</p>";
+          } else {
+            echo "<a href='../login/login.php'>Login</a>";
+          }
+          ?>
         </li>
       </ul>
     </nav>
@@ -70,7 +76,7 @@
 
             <span class="error"><?php echo $formErrors['passwordConfirm'];?></span>
             <div class="data-form-field">
-              <label for="passwordConfirm">Conferma la password:</label>
+              <label for="passwordConfirm">Cognome:</label>
               <input type="password" id="passwordConfirm" name="passwordConfirm" />
             </div>
           </div>

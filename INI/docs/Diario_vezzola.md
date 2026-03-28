@@ -1013,3 +1013,12 @@ if (password_verify($user_input, $stored_hash)) {
     echo "Invalid password.";
 }
 ```
+
+---
+
+#### 27/03/2026
+
+## Implementazione delle sessioni
+
+Implementazione delle sessioni con variabili 'logged_in' booleano e 'username'.
+Si prevede di aggiungere 'theme' per la preferenza tra tema chiaro e scuro.

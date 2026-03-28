@@ -1,11 +1,13 @@
+<?php require "handleLogin.php" ?>
+
 <!DOCTYPE html>
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ekhoikos - Login</title>
-    <link rel="stylesheet" href="../css/general.css" />
-    <link rel="stylesheet" href="../css/login-signup.css" />
+    <link rel="stylesheet" href="../../css/general.css" />
+    <link rel="stylesheet" href="../../css/login-signup.css" />
     <script src="../js/index.js" defer></script>
   </head>
 
@@ -13,19 +15,25 @@
     <!-- Navbar -->
     <nav>
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="sales.html">Sales</a></li>
-        <li><a href="chat.html">Chat</a></li>
+        <li><a href="../index/index.php">Home</a></li>
+        <li><a href="../shop/shop.php">Shop</a></li>
+        <li><a href="../sales/sales.php">Sales</a></li>
+        <li><a href="../chat/chat.php">Chat</a></li>
         <li style="float: right">
-          <a href="login.html" class="active">Login</a>
+          <?php
+          if (isLoggedIn()) {
+            echo "<p>User: " . $_SESSION['username'] . "</p>";
+          } else {
+            echo "<a href="../login/login.php" class="active">Login</a>";
+          }
+          ?>
         </li>
       </ul>
     </nav>
 
     <main>
       <div class="center-both full-height">
-        <form action="link.xyz" class="padding rounded-corners">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="padding rounded-corners">
           <h1>Login</h1>
           <div class="form-fields">
             <label for="username">Username:</label>

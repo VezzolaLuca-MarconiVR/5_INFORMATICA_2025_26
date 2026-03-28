@@ -1,11 +1,13 @@
+<?php require "handleIndex.php" ?>
+
 <!DOCTYPE html>
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ekhoikos - Home</title>
-    <link rel="stylesheet" href="../css/general.css" />
-    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../../css/general.css" />
+    <link rel="stylesheet" href="../../css/index.css" />
     <script src="../js/index.js" defer></script>
   </head>
 
@@ -13,11 +15,19 @@
     <!-- Navbar -->
     <nav>
       <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="sales.html">Sales</a></li>
-        <li><a href="chat.html">Chat</a></li>
-        <li style="float: right"><a href="login.html">Login</a></li>
+        <li><a href="../index/index.php" class="active">Home</a></li>
+        <li><a href="../shop/shop.php">Shop</a></li>
+        <li><a href="../sales/sales.php">Sales</a></li>
+        <li><a href="../chat/chat.php">Chat</a></li>
+        <li style="float: right">
+          <?php
+          if (isLoggedIn()) {
+            echo "<p>User: " . $_SESSION['username'] . "</p>";
+          } else {
+            echo "<a href='../login/login.php'>Login</a>";
+          }
+          ?>
+        </li>
       </ul>
     </nav>
 
@@ -26,10 +36,10 @@
       <section id="logo" class="covering-section center-x center-y">
         <img
           width="90%"
-          src="../img/EKHOIKOS!.svg"
+          src="../../img/EKHOIKOS!.svg"
           style="margin: 5vh; max-width: 1900px"
         />
-        <a href="./shop.html">
+        <a href="../shop/shop.html">
           <button class="big-button rounded-corners">Shop Now!</button>
         </a>
         <p style="text-align: center; color: var(--info)">
