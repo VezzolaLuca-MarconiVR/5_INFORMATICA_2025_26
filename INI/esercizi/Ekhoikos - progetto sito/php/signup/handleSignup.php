@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $_SESSION['username'] = $_POST['username'];
       $_SESSION['logged_in'] = true;
       
-      header("Location: ../index/index.php")
+      header("Location: ../index/index.php");
       exit;
     } else {
       echo "Error: " . $sql . "<br>" . $conn->error;
