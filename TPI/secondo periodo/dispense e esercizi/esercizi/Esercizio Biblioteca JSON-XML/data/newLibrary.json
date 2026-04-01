@@ -1,0 +1,25 @@
+{
+  "library": [
+    {
+      "id": "2483a76c-882c-424c-bddc-0fab12d842bc",
+      "title": "1984",
+      "author": "George Orwell",
+      "year": "1949",
+      "genre": "dystopian social science fiction novel"
+    },
+    {
+      "id": 1,
+      "title": "Book A",
+      "author": "Author A",
+      "year": "1999",
+      "genre": "Genre A"
+    },
+    {
+      "id": 2,
+      "title": "Book B",
+      "author": "Author B",
+      "year": "2001",
+      "genre": "Genre B"
+    }
+  ]
+}

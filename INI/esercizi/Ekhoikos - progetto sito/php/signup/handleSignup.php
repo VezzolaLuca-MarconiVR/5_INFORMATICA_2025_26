@@ -6,7 +6,7 @@ $formFieldsNames = array('name', 'surname', 'dateOfBirth', 'email', 'username', 
 # Form errors (associative array ('key'=>'value'))
 $formErrors = array('name'=>'', 'surname'=>'', 'dateOfBirth'=>'', 'email'=>'', 'username'=>'', 'password'=>'', 'passwordConfirm'=>'');
 # Form fields structure requirements in regexp
-$formFieldsStructure = array('name'=>"/^[a-zA-Z-' ]*$/", 'surname'=>"/^[a-zA-Z-' ]*$/", 'dateOfBirth'=>'/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/', 'email'=>"/^[\w\.-]+@[\w\.-]+\.\w{2,}$/", 'username'=>"/^[\w.-]{3,32}$/", 'password'=>"/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/", 'passwordConfirm'=>"/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/");
+$formFieldsRegexs = array('name'=>"/^[a-zA-Z-' ]*$/", 'surname'=>"/^[a-zA-Z-' ]*$/", 'dateOfBirth'=>'/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/', 'email'=>"/^[\w\.-]+@[\w\.-]+\.\w{2,}$/", 'username'=>"/^[\w.-]{3,32}$/", 'password'=>"/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/", 'passwordConfirm'=>"/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Check if all fields are not empty, otherwise warn user for the missing fields by adding the "* Required" error
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
       // Field is compiled -> checkoing if it is structured correctly
       $_POST[$fieldName] = test_input($_POST[$fieldName]);
-      if (!preg_match($formFieldsStructure[$fieldName], $_POST[$fieldName])) {
+      if (!preg_match($formFieldsRegexs[$fieldName], $_POST[$fieldName])) {
         // Field isn't structured correctly
         if($fieldName == 'password'){
           $formErrors[$fieldName] = "* The password must be at least 8 characters long and contain at least an upper case and lower case letter, a number and a special character.";
@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $_SESSION['username'] = $_POST['username'];
       $_SESSION['logged_in'] = true;
       
-      header("Location: ../index/index.php")
+      header("Location: ../index/index.php");
       exit;
     } else {
       echo "Error: " . $sql . "<br>" . $conn->error;

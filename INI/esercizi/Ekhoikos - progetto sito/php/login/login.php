@@ -24,7 +24,7 @@
           if (isLoggedIn()) {
             echo "<p>User: " . $_SESSION['username'] . "</p>";
           } else {
-            echo "<a href="../login/login.php" class="active">Login</a>";
+            echo "<a href='../login/login.php' class='active'>Login</a>";
           }
           ?>
         </li>
