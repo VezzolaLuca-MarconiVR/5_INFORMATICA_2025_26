@@ -45,3 +45,20 @@ Esercizio:
 - Informed ==> Coloro che non hanno un ruolo diretto ma che sono a conoscenza del procedimento dell'attività.
 
 Ogni attività deve avere almeno una "R".
+
+## 01/04/2026
+
+### Studio di fattibilità
+
+Un buono studio di fattibilità deve contenere:
+- i tempi
+- un'analisi di mercato
+- uno scopo ben definito
+- le risorse necessarie
+
+
+### Tecnica WBS (Work Breakdown Structure)
+
+La Work Breakdown Structure (WBS) è una tecnica di gestione progetti che scompone gerarchicamente un progetto complesso in componenti più piccole, gestibili e orientate ai risultati.
+Strutturata in livelli (fasi, sottofasi, work package), facilita l'assegnazione di responsabilità, la stima dei costi e il monitoraggio del progresso.
+![Esempio di WBS](./img/Tecnica%20WBS%20-%20esempio.png)
