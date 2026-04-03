@@ -4,31 +4,28 @@ const fs = require('fs').promises;
 const crypto = require('crypto');
 // Cmd input/output
 const readline = require('node:readline');
-// Cmd colors
-const chalk = require('chalk');
-
-// Chalk-colored console modes
-function console.log(str) {
-  
-}
+// Personal colored console overrides
+require("./coloredConsole.js");
 
 // Factory function to create a new book element
-const createBook = (values = {}) => ({
-  id: values.id ?? crypto.randomUUID(), // Fallbacks to a randomly generated id
-  title: values.title ?? "--Untitled--",
-  author: values.author ?? "--Unknown--",
-  year: values.year ?? null,
-  genre: values.genre ?? "General"
-});
+function createBook(values = {}) {
+  return ({
+    id: values.id ?? crypto.randomUUID(), // Fallbacks to a randomly generated id
+    title: values.title ?? "--Untitled--",
+    author: values.author ?? "--Unknown--",
+    year: values.year ?? null,
+    genre: values.genre ?? "General"
+  });
+}
 
 async function upload_json(filePath) {
   try {
     const data = await fs.readFile(filePath, 'utf8');
     const library = JSON.parse(data).library;
-    console.log("\n<<<<< File uploaded successfully! >>>>>\n");
+    console.success("\nFile uploaded successfully!\n");
     return library;
   } catch (err) {
-    console.error("Error reading JSON:", err);
+    console.error("\nError reading JSON:", err);
     return [];
   }
 }
@@ -37,9 +34,9 @@ async function save_json(library, filePath) {
   try {
     const json = JSON.stringify({ library: library }, null, 2);
     await fs.writeFile(filePath, json);
-    console.log("\n<<<<< JSON saved successfully! >>>>>\n");
+    console.success("\nJSON saved successfully!\n");
   } catch (err) {
-    console.error("Error writing JSON:", err);
+    console.error("\nError writing JSON:", err);
   }
 }
 
@@ -49,7 +46,7 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-// Function to ask user a number - returns parsed user input (Number or NaN or null if empty)
+// Function to ask user a number - returns parsed (type Number) user input (or NaN if invalid or null if empty)
 function askUserNumber(message) {
   return new Promise(resolve => {
     rl.question(message + "\n> ", answer => {
@@ -73,12 +70,19 @@ function askUserQuestion(message) {
 
 // Search for partial or full matches in the title and author values of a list of books - if none found, return empty list
 function findMatchesInLibrary(library, searchStr) {
-  return library.filter(element => {element['title'].includes(searchStr) || element['author'].includes(searchStr)});
+  return library.filter(element => {
+    return element['title'].includes(searchStr) || element['author'].includes(searchStr);
+  });
 }
 
-// Get the index of the book with the specified id or undefined if the element is not found
+// Get the index of the book with the specified id or -1 if the element is not found
 function indexOfBook(library, id) {
-  return library.indexOf(element => { element['id'] == id});
+  for (let i=0; i<library.length; i++) {
+    if (library[i]['id'] == id) {
+      return i;
+    }
+  }
+  return -1;
 }
 
 // MAIN EXECUTION
@@ -89,11 +93,6 @@ async function main() {
   const menu = "====== MENU ======\n1. Carica da XML\n2. Carica da JSON\n3. Salva in XML\n4. Salva in JSON\n5. Aggiungi libro\n6. Cerca libro\n7. Rimuovi libro\n8. Converti XML → JSON\n9. Converti JSON → XML\n10. Mostra tutti i libri\n0. Esci";
   
   let selectedMenuOption = -1;
-
-  let userInput;
-
-  // Clear console (if possible)
-  console.clear();
 
   // Loop until user types '0' (quit)
   while(selectedMenuOption != 0){  
@@ -109,11 +108,37 @@ async function main() {
         // Do option 1 - Upload XML
         break;
       case 2:
-        // Do option 2 - Upload JSON
-        library = library.concat(await upload_json(await askUserQuestion("Type the path of the JSON file to upload:")));
+        console.debug("library.length", library.length);
+
+        // ask and validate Y/N (case-insensitive)
+        let confirmed = true;
+
+        if(library.length > 0) {
+          // show warning
+          console.warn("Warning: uploading a file will overwrite all of the data already uploaded and/or added manually.");
+
+          confirmed = undefined;
+          let userInput = (await askUserQuestion("Are you sure you want to continue? (Y/N)")).toUpperCase();
+          while (confirmed === undefined) {
+            if (userInput === "Y") {
+              confirmed = true;
+            } else if (userInput === "N") {
+              confirmed = false;
+            } else {
+              userInput = (await askUserQuestion("Please type either 'Y' (yes) or 'N' (no).")).toUpperCase();
+            }
+          }
+        }
+        
+        if (confirmed) {
+          // ask for path once, then upload
+          const path = await askUserQuestion("Type the path of the JSON file to upload:");
+          library = await upload_json(path);
+        }
+      
         break;
       case 3:
-        // Do option 3 - Save XML3
+        // Do option 3 - Save XML
         break;
       case 4:
         // Do option 4 - Save JSON
@@ -137,27 +162,58 @@ async function main() {
         // Do option 6 - Find book (by title and/or author)
         const searchStr = await askUserQuestion("Type the title or author (also partially): ");
         const matches = findMatchesInLibrary(library, searchStr);
+
         if (Array.isArray(matches) && matches.length > 0){
           // Matches found
-          console.log();
+          console.success("Matches:",matches);
         } else {
           // No match found
-          console.log("No ");
+          console.error("\nNo match found\n");
         }
         break;
       case 7:
         // Do option 7 - Remove book
+        // Ask user which id has book to remove
+        const userInput = await askUserQuestion("Type the id of the book you want to remove:");
+        const idx = indexOfBook(library, userInput);
+        
+        console.debug("idx", idx);
+
+        if(idx < 0){
+          // No book found
+          console.error("No book found with the id", userInput);
+        } else {
+          // Book found: display the book and ask for confirmation
+          let confirmed = undefined;
+          console.warn("Book to delete:", library[idx]);
+          let userInput = (await askUserQuestion("Are you sure you want to delete this book? (Y/N)")).toUpperCase();
+          while (confirmed === undefined) {
+            if (userInput === "Y") {
+              confirmed = true;
+            } else if (userInput === "N") {
+              confirmed = false;
+            } else {
+              userInput = (await askUserQuestion("Please type either 'Y' (yes) or 'N' (no).")).toUpperCase();
+            }
+          }
+          if(confirmed) {
+            library.splice(idx, 1);
+            console.success("Book successfully deleted.");
+          }
+        }
 
         break;
       case 8:
         // Do option 8 - Convert XML into JSON
+
         break;
       case 9:
         // Do option 9 - Convert JSON into XML
+
         break;
       case 10:
         // Do option 10 - Show all books
-        console.log("\nCurrent library:\n", library);
+        console.success("Current library:", library);
         break;
       default:
         // Bad user input
