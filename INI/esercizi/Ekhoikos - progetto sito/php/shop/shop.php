@@ -6,7 +6,7 @@
     <title>Ekhoikos - Shop</title>
     <link rel="stylesheet" href="../../css/general.css" />
     <link rel="stylesheet" href="../../css/shop.css" />
-    <script src="../js/index.js" defer></script>
+    <script src="../../js/index.js" defer></script>
   </head>
 
   <body>
@@ -20,7 +20,7 @@
         <li style="float: right">
           <?php
           if (isLoggedIn()) {
-            echo "<p>User: " . $_SESSION['username'] . "</p>";
+            echo "<a href='../user/user.php'>User: " . $_SESSION['username'] . "</a>";
           } else {
             echo "<a href='../login/login.php'>Login</a>";
           }

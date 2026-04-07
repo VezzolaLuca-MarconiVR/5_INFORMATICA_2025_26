@@ -8,7 +8,7 @@
     <title>Ekhoikos - Login</title>
     <link rel="stylesheet" href="../../css/general.css" />
     <link rel="stylesheet" href="../../css/login-signup.css" />
-    <script src="../js/index.js" defer></script>
+    <script src="../../js/index.js" defer></script>
   </head>
 
   <body>
@@ -22,7 +22,7 @@
         <li style="float: right">
           <?php
           if (isLoggedIn()) {
-            echo "<p>User: " . $_SESSION['username'] . "</p>";
+            echo "<a href='../user/user.php'>User: " . $_SESSION['username'] . "</a>";
           } else {
             echo "<a href='../login/login.php' class='active'>Login</a>";
           }
@@ -43,7 +43,7 @@
             <input type="password" id="password" name="password" />
           </div>
           <input type="submit" id="form_submit" />
-          <a class="small-link" href="signup.html">Devi ancora registrarti?</a>
+          <a class="small-link" href="../signup/signup.php">Devi ancora registrarti?</a>
         </form>
       </div>
     </main>

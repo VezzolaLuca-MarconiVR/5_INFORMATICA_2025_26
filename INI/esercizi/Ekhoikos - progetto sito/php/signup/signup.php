@@ -6,9 +6,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ekhoikos - Signup</title>
-    <link rel="stylesheet" href="../../../css/general.css" />
-    <link rel="stylesheet" href="../../../css/login-signup.css" />
-    <script src="../js/index.js" defer></script>
+    <link rel="stylesheet" href="../../css/general.css" />
+    <link rel="stylesheet" href="../../css/login-signup.css" />
+    <script src="../../js/index.js" defer></script>
   </head>
 
   <body>
@@ -22,7 +22,7 @@
         <li style="float: right">
           <?php
           if (isLoggedIn()) {
-            echo "<p>User: " . $_SESSION['username'] . "</p>";
+            echo "<a href='../user/user.php'>User: " . $_SESSION['username'] . "</a>";;
           } else {
             echo "<a href='../login/login.php'>Login</a>";
           }
@@ -35,7 +35,7 @@
     <main>
       <div class="center-both full-height">
         <!-- Form -->
-        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" class="padding rounded-corners">
+        <form style="margin: 20px;" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" class="padding rounded-corners">
           <h1>Registrati</h1>
           <div class="form-fields">
             <span class="error"><?php echo $formErrors['name'];?></span>
@@ -76,7 +76,7 @@
 
             <span class="error"><?php echo $formErrors['passwordConfirm'];?></span>
             <div class="data-form-field">
-              <label for="passwordConfirm">Cognome:</label>
+              <label for="passwordConfirm">Conferma la password:</label>
               <input type="password" id="passwordConfirm" name="passwordConfirm" />
             </div>
           </div>

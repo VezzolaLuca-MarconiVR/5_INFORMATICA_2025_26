@@ -8,7 +8,7 @@
     <title>Ekhoikos - Home</title>
     <link rel="stylesheet" href="../../css/general.css" />
     <link rel="stylesheet" href="../../css/index.css" />
-    <script src="../js/index.js" defer></script>
+    <script src="../../js/index.js" defer></script>
   </head>
 
   <body>
@@ -22,7 +22,7 @@
         <li style="float: right">
           <?php
           if (isLoggedIn()) {
-            echo "<p>User: " . $_SESSION['username'] . "</p>";
+            echo "<a href='../user/user.php'>User: " . $_SESSION['username'] . "</a>";
           } else {
             echo "<a href='../login/login.php'>Login</a>";
           }
@@ -33,13 +33,13 @@
 
     <main>
       <!-- Logo -->
-      <section id="logo" class="covering-section center-x center-y">
+      <section id="logo" style="padding-top: 0; margin-top:0;" class="covering-section center-x center-y">
         <img
           width="90%"
           src="../../img/EKHOIKOS!.svg"
           style="margin: 5vh; max-width: 1900px"
         />
-        <a href="../shop/shop.html">
+        <a href="../shop/shop.php">
           <button class="big-button rounded-corners">Shop Now!</button>
         </a>
         <p style="text-align: center; color: var(--info)">
@@ -100,65 +100,39 @@
       </section>
 
       <!-- WHY?/MISSION -->
-      <section class="covering-section center-both">
+      <section id="mission_cards_section" class="covering-section center-both">
         <div class="section-wrapper">
           <div style="width: 100%; margin: auto">
             <h1>La <i>nostra</i> missione</h1>
           </div>
-          <div
-            style="width: 100%; display: flex; justify-content: space-evenly"
-          >
+          <div id="mission_cards">
             <div class="card">
               <h2>Perchè tutto questo?</h2>
               <p>
-                La nascita di Ekhoikos è dovuta ad una necessità che spesso è
-                stata colmata male o totalmente ignorata: la necessità di uno
-                spazio che permetta all'attività artigianale di fiorire, andando
-                controcorrente rispetto tutto il resto del mondo, che fin dalla
-                prima rivoluzione industriale ha portato all'erosione le
-                fondamenta dell'hand-made, affossando i venditori locali e anche
-                chi fa tutto ciò solo per hobbi. Questo è un tentativo che si è
-                realizzato al suo pieno potenziale, e ciò è dovuto soprattutto a
-                voi.
+                Ekhoikos nasce per dare spazio all'artigianato locale, 
+                contrastando l'omologazione industriale che da secoli erode 
+                i piccoli produttori. Uno spazio per chi crea con le proprie 
+                mani — per passione o per mestiere.
               </p>
             </div>
+
             <div class="card">
               <h2>E la qualità dei prodotti?</h2>
               <p>
-                Ogni singolo prodotto, digitale o fisico che sia, può essere
-                valutato dagli utenti che lo acquistano in due misure:
-              </p>
-              <ul>
-                <li>
-                  Quanto li ha soddisfati la qualità di quel prodotto (stelle)
-                </li>
-                <li>
-                  Quanto, secondo loro, i materiali utilizzati sono
-                  ecosostenibili (eco-punti)
-                </li>
-              </ul>
-              <p>
-                Sono entrambe valutazioni fatte su una scala da 1 a 5, con
-                incrementi di mezzo punto alla volta (come le "stelline" di cui
-                siamo abituati). Gli eco-punti, come le stelle, aiutano gli
-                utenti a navigare per trovare i migliori e più sostenibili
-                prodotti nella loro zona.
+                Ogni prodotto può essere valutato su due scale da 1 a 5: 
+                le <b>stelle</b> per la qualità percepita, 
+                gli <b>eco-punti</b> per la sostenibilità dei materiali. 
+                Entrambi aiutano a trovare il meglio nella propria zona.
               </p>
             </div>
+
             <div class="card">
               <h2>"Dietro le quinte"</h2>
               <p>
-                Dietro questa piattaforma ci sono decine di persone che
-                monitorano, assistono e migliorano l'esperienza di tutti gli
-                utenti, che siano clienti o "eco-artigiani", senza i quali
-                Ekhoikos non potrebbe esistere. Ruolo fondamentale è stato
-                quello dei fondatori: hanno deciso di prendere una svolta
-                rivoluzionaria anche nella progettazione del sito web: ogni
-                elemento visivo è stato ideato, creato e posizionato a mano,
-                senza l'ausilio di alcuna Intelligenza Artificiale. Questa
-                scelta ha permesso la nascita e lo sviluppo di questa
-                piattaforma meravigliosa e dallo stile unico (e anche con
-                pochissime emissioni di CO2!!!).
+                Un team dedicato monitora e migliora la piattaforma ogni giorno. 
+                Ogni elemento visivo è stato progettato a mano, senza IA — 
+                una scelta coerente con i valori di Ekhoikos, 
+                anche in termini di emissioni di CO₂.
               </p>
             </div>
           </div>

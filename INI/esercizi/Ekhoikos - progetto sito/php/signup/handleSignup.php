@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Se non è presente nessun errore, vai avanti e inserisci il nuovo utente iscrivendolo per poi creare una sessione e fare un redirect alla home
   if($isFormOk){
     // Connessione al DB
-    require "./general/connect.php";
+    require "../general/connect.php";
 
     // Preparazione della query
     $sql = "INSERT INTO Utenti (nome, cognome, dNascita, email, nomeUtente, psw) VALUES (?, ?, ?, ?, ?, ?)";
@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
       echo "Error: " . $sql . "<br>" . $conn->error;
     }
+    $conn->close();
   }
-  $conn->close();
 }
 ?>

@@ -1,4 +1,6 @@
 <?php
+require "../general/functions.php";
+
 # =============== AUTHENTICATION HANDLER ===============
 if($_REQUEST == 'POST') {
   $passwordInChiaro = $_POST['password'];

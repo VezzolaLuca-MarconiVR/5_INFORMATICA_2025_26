@@ -1,33 +1,67 @@
+/* Form: larghezza responsiva e centrata */
 form {
   background-color: var(--bg-light);
   box-shadow: 0 0 5px 5px var(--bg-dark);
   display: flex;
   flex-direction: column;
-  justify-content: center; /* vertical centering of children */
-  align-items: center; /* horizontal centering of children */
+  justify-content: center;
+  align-items: center;
 
-  max-width: 600px;
+  /* larghezza responsiva: non troppo stretta, non troppo larga */
+  width: min(90vw, 420px);
+  box-sizing: border-box;
+  padding: 1.5rem;
+  min-width: 260px; /* evita che diventi troppo piccolo su schermi stretti */
 }
 
+/* Form fields container: lascia che si adatti */
 .form-fields {
+  /* rimuovi width: 200px; oppure rendila flessibile */
+  width: 100%;
+  max-width: 380px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   row-gap: 10px;
 }
 
+/* Grid per ogni riga: label compatta, campo flessibile */
 .form-fields .data-form-field {
   display: grid;
-  grid-template-columns: auto auto;
-  gap: 20px;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 8px 16px;
+  align-items: center;
+  overflow: hidden;
 }
 
+/* Input dentro la grid: possono ridursi correttamente */
+.form-fields .data-form-field input,
+.form-fields .data-form-field select,
+.form-fields .data-form-field textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0; /* CRUCIALE: permette alla colonna di comprimersi senza rompere il layout */
+  padding: 6px 8px;
+}
+
+/* Specifico per date: usa 100% per allinearlo agli altri campi */
+.form-fields .data-form-field input[type="date"] {
+  width: 100%;
+  min-width: 0;
+}
+
+/* Label: non spezzare testo e mantieni allineamento */
+.form-fields .data-form-field label {
+  white-space: nowrap;
+  justify-self: start;
+}
+
+/* Bottone invio */
 #form_submit {
   margin: 10px;
-  width: 80px;
+  width: 100px;
   background-color: var(--secondary);
   color: var(--bg);
-}
-
-#form_submit:hover {
-  background-color: var(--secondary-muted);
+  padding: 6px 10px;
+  border-radius: 6px;
 }
