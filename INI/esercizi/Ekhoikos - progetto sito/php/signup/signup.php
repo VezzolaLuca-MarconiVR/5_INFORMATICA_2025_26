@@ -17,7 +17,6 @@
       <ul>
         <li><a href="../index/index.php">Home</a></li>
         <li><a href="../shop/shop.php">Shop</a></li>
-        <li><a href="../sales/sales.php">Sales</a></li>
         <li><a href="../chat/chat.php">Chat</a></li>
         <li style="float: right">
           <?php

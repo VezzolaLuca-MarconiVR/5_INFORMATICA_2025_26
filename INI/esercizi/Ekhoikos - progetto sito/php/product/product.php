@@ -1,11 +1,13 @@
+<?php require "handleProduct.php";?>
+
 <!DOCTYPE html>
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ekhoikos - TEMPLATE</title>
+    <title>Ekhoikos - Home</title>
     <link rel="stylesheet" href="../../css/general.css" />
-    <link rel="stylesheet" href="../../css/THIS_PAGE_CSS" />
+    <link rel="stylesheet" href="../../css/index.css" />
     <script src="../../js/index.js" defer></script>
   </head>
 
@@ -13,7 +15,7 @@
     <!-- Navbar -->
     <nav>
       <ul>
-        <li><a href="../index/index.php">Home</a></li>
+        <li><a href="../index/index.php" class="active">Home</a></li>
         <li><a href="../shop/shop.php">Shop</a></li>
         <li><a href="../chat/chat.php">Chat</a></li>
         <li style="float: right">
@@ -29,7 +31,7 @@
     </nav>
 
     <main>
-      <!-- MAIN CONTENT-->
+      
     </main>
 
     <footer>

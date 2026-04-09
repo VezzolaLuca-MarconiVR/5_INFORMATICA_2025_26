@@ -1,3 +1,5 @@
+<?php require "./handleShop.php";?>
+
 <!DOCTYPE html>
 <html lang="it">
   <head>
@@ -15,7 +17,6 @@
       <ul>
         <li><a href="../index/index.php">Home</a></li>
         <li><a href="../shop/shop.php" class="active">Shop</a></li>
-        <li><a href="../sales/sales.php">Sales</a></li>
         <li><a href="../chat/chat.php">Chat</a></li>
         <li style="float: right">
           <?php
@@ -43,79 +44,33 @@
             <input type="submit" name="Filtra" />
           </form>
         </div>
+
+        <!-- LISTA DEI PRODOTTI -->
         <div id="center_content">
-          <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../../img/mountains-landscape.jpg" />
-            <div class="product-text">
-              <h3 class="product-title">Titolo prodotto</h3>
-              <span class="product-description">
-                Parolalunghissimissimissimissima prodotto oooo ooooooo oooo
-                ooooo oooooooo oooo. Parolalunghissimissimissimissima prodotto oooo ooooooo oooo
-                ooooo oooooooo oooo.
-              </span>
-            </div>
-          </div>
-          <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../../img/mountains-landscape.jpg" />
-            <div class="product-text">
-              <h3 class="product-title">Titolo prodotto</h3>
-              <span class="product-description">
-                Parolalunghissimissimissimissima prodotto oooo ooooooo oooo
-                ooooo oooooooo oooo.
-              </span>
-            </div>
-          </div>
-          <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../../img/mountains-landscape.jpg" />
-            <div class="product-text">
-              <h3 class="product-title">Titolo prodotto</h3>
-              <span class="product-description">
-                Parolalunghissimissimissimissima prodotto oooo ooooooo oooo
-                ooooo oooooooo oooo.
-              </span>
-            </div>
-          </div>
-          <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../../img/mountains-landscape.jpg" />
-            <div class="product-text">
-              <h3 class="product-title">Titolo prodotto</h3>
-              <span class="product-description">
-                Parolalunghissimissimissimissima prodotto oooo ooooooo oooo
-                ooooo oooooooo oooo.
-              </span>
-            </div>
-          </div>
-          <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../../img/mountains-landscape.jpg" />
-            <div class="product-text">
-              <h3 class="product-title">Titolo prodotto</h3>
-              <span class="product-description">
-                Parolalunghissimissimissimissima prodotto oooo ooooooo oooo
-                ooooo oooooooo oooo.
-              </span>
-            </div>
-          </div>
-          <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../../img/mountains-landscape.jpg" />
-            <div class="product-text">
-              <h3 class="product-title">Titolo prodotto</h3>
-              <span class="product-description">
-                Parolalunghissimissimissimissima prodotto oooo ooooooo oooo
-                ooooo oooooooo oooo.
-              </span>
-            </div>
-          </div>
-          <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../../img/mountains-landscape.jpg" />
-            <div class="product-text">
-              <h3 class="product-title">Titolo prodotto</h3>
-              <span class="product-description">
-                Parolalunghissimissimissimissima prodotto oooo ooooooo oooo
-                ooooo oooooooo oooo.
-              </span>
-            </div>
-          </div>
+          <?php
+            if($result->num_rows > 0) {
+              // Output data for each row
+              while($row = $result->fetch_assoc()) {
+                echo
+                "<a href='../product/product.php?idProd=" . $row["idProd"] . "'>
+                  <div class='product-card grainPaperTextureSmall'>
+                  <img class='product-image' src='../../img/mountains-landscape.jpg'/>
+                  <div class='product-text'>
+                    <h3 class='product-title'>" . $row["nome"] . "</h3>
+                    <span class='product-description'>" . $row["descrizione"] . "</span>
+                  </div>
+                </div>
+              </a>";
+              }
+            } else {
+              echo "Nessun prodotto nel negozio per ora.";
+            }
+
+            $conn->close();
+          ?>
         </div>
+
+        <!-- MAPPA (forse la tolgo) -->
         <div id="right_content"></div>
       </div>
     </main>

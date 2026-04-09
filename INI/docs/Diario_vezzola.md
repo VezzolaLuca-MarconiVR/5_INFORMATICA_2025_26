@@ -1022,3 +1022,19 @@ if (password_verify($user_input, $stored_hash)) {
 
 Implementazione delle sessioni con variabili 'logged_in' booleano e 'username'.
 Si prevede di aggiungere 'theme' per la preferenza tra tema chiaro e scuro.
+
+---
+
+#### 9/04/2026
+
+## Implementazione dello 'Shop'
+
+Implementazione della pagina 'Shop' con interrogazione SQL per visualizzare tutti i prodotti disponibili.
+
+## Rimozione di 'Sales'
+
+Rimozione della pagina 'Sales' - la sua esistenza non è necessaria.
+
+## Aggiunta di una pagina di visualizzazione del prodotto
+
+Aggiunta di una pagina accessibile con richiesta GET dalla pagina 'Shop' per visualizzare i dettagli di un prodotto e per acquistarlo (se loggati).
