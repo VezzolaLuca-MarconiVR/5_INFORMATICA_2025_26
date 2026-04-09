@@ -1041,3 +1041,38 @@ Implementazione delle immagini dei prodotti nel DB mediante l'aggiunta del path 
 ```sql
 ALTER TABLE `prodotti` ADD `url` VARCHAR(255) NULL AFTER `acconto`;
 ```
+
+Implementazione in PHP della visualizzazione delle immagini:
+```php
+function displayProductsCards() {
+  global $result;
+
+  $prefix = "../../users_uploads/products/";
+  $defaultImage = "../../img/default-product.png"; // percorso relativo dell'immagine di fallback
+
+  if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+
+      // Se urlImmagine è vuoto o nullo, usa l'immagine di default
+      if (!empty($row["urlImmagine"])) {
+        $imagePath = $prefix . $row["urlImmagine"];
+      } else {
+        $imagePath = $defaultImage;
+      }
+      
+      echo "<div class='product-card grainPaperTextureSmall'>
+        <img class='product-image' 
+             src='" . $imagePath . "' " .
+             (empty($row["urlImmagine"]) ? "style='image-rendering: pixelated;'" : "") .
+        " />
+        <div class='product-text'>
+          <h3 class='product-title'>" . $row["nome"] . "</h3>
+          <span class='product-description'>" . $row["descrizione"] . "</span>
+        </div>
+      </div>";
+    }
+  } else {
+    echo 'Nessun prodotto ancora in vendita.';
+  }
+}
+```
