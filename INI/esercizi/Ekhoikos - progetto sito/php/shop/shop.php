@@ -1,3 +1,5 @@
+<?php require "./handleShop.php";?>
+
 <!DOCTYPE html>
 <html lang="it">
   <head>
@@ -15,22 +17,27 @@
       <ul>
         <li><a href="../index/index.php">Home</a></li>
         <li><a href="../shop/shop.php" class="active">Shop</a></li>
-        <li><a href="../sales/sales.php">Sales</a></li>
         <li><a href="../chat/chat.php">Chat</a></li>
-        <li style="float: right">
-          <?php
-          if (isLoggedIn()) {
-            echo "<a href='../user/user.php'>User: " . $_SESSION['username'] . "</a>";
-          } else {
-            echo "<a href='../login/login.php'>Login</a>";
-          }
-          ?>
-        </li>
+        <?php
+        if (isLoggedIn()) {
+          echo "<li style='float: right'>
+                  <a href='../general/logout.php'>Logout</a>
+                </li>
+                <li style='float: right'>
+                  <a href='../user/user.php'>User: " . $_SESSION['username'] . "</a>
+                </li>";
+        } else {
+          echo "<li style='float: right'>
+                  <a href='../login/login.php'>Login</a>
+                </li>";
+        }
+        ?>
       </ul>
     </nav>
 
     <main>
       <div id="main_container">
+        <!-- Left Content → FILTERS -->
         <div id="left_content">
           <form action="link.xyz">
             <h3>Caratteristiche:</h3>
@@ -43,80 +50,17 @@
             <input type="submit" name="Filtra" />
           </form>
         </div>
+
+        <!-- Center Content → PRODUCTS LIST -->
         <div id="center_content">
-          <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../../img/mountains-landscape.jpg" />
-            <div class="product-text">
-              <h3 class="product-title">Titolo prodotto</h3>
-              <span class="product-description">
-                Parolalunghissimissimissimissima prodotto oooo ooooooo oooo
-                ooooo oooooooo oooo. Parolalunghissimissimissimissima prodotto oooo ooooooo oooo
-                ooooo oooooooo oooo.
-              </span>
-            </div>
-          </div>
-          <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../../img/mountains-landscape.jpg" />
-            <div class="product-text">
-              <h3 class="product-title">Titolo prodotto</h3>
-              <span class="product-description">
-                Parolalunghissimissimissimissima prodotto oooo ooooooo oooo
-                ooooo oooooooo oooo.
-              </span>
-            </div>
-          </div>
-          <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../../img/mountains-landscape.jpg" />
-            <div class="product-text">
-              <h3 class="product-title">Titolo prodotto</h3>
-              <span class="product-description">
-                Parolalunghissimissimissimissima prodotto oooo ooooooo oooo
-                ooooo oooooooo oooo.
-              </span>
-            </div>
-          </div>
-          <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../../img/mountains-landscape.jpg" />
-            <div class="product-text">
-              <h3 class="product-title">Titolo prodotto</h3>
-              <span class="product-description">
-                Parolalunghissimissimissimissima prodotto oooo ooooooo oooo
-                ooooo oooooooo oooo.
-              </span>
-            </div>
-          </div>
-          <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../../img/mountains-landscape.jpg" />
-            <div class="product-text">
-              <h3 class="product-title">Titolo prodotto</h3>
-              <span class="product-description">
-                Parolalunghissimissimissimissima prodotto oooo ooooooo oooo
-                ooooo oooooooo oooo.
-              </span>
-            </div>
-          </div>
-          <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../../img/mountains-landscape.jpg" />
-            <div class="product-text">
-              <h3 class="product-title">Titolo prodotto</h3>
-              <span class="product-description">
-                Parolalunghissimissimissimissima prodotto oooo ooooooo oooo
-                ooooo oooooooo oooo.
-              </span>
-            </div>
-          </div>
-          <div class="product-card grainPaperTextureSmall">
-            <img class="product-image" src="../../img/mountains-landscape.jpg" />
-            <div class="product-text">
-              <h3 class="product-title">Titolo prodotto</h3>
-              <span class="product-description">
-                Parolalunghissimissimissimissima prodotto oooo ooooooo oooo
-                ooooo oooooooo oooo.
-              </span>
-            </div>
+          <?php displayProductsCards();?>
+        </div>
+
+        <!-- Right Content → MAP -->
+        <div id="right_content">
+          <div class="embed-map-responsive"><div class="embed-map-container"><iframe class="embed-map-frame" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&height=400&hl=en&q=verona&t=k&z=13&ie=UTF8&iwloc=B&output=embed"></iframe><a href="https://idolsofash.app" style="font-size:2px!important;color:gray!important;position:absolute;bottom:0;left:0;z-index:1;max-height:1px;overflow:hidden">Idols of Ash</a></div>
           </div>
         </div>
-        <div id="right_content"></div>
       </div>
     </main>
   </body>

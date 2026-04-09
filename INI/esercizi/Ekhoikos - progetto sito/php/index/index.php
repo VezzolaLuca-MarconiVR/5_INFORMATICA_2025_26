@@ -17,17 +17,22 @@
       <ul>
         <li><a href="../index/index.php" class="active">Home</a></li>
         <li><a href="../shop/shop.php">Shop</a></li>
-        <li><a href="../sales/sales.php">Sales</a></li>
         <li><a href="../chat/chat.php">Chat</a></li>
-        <li style="float: right">
-          <?php
-          if (isLoggedIn()) {
-            echo "<a href='../user/user.php'>User: " . $_SESSION['username'] . "</a>";
-          } else {
-            echo "<a href='../login/login.php'>Login</a>";
-          }
-          ?>
-        </li>
+        <?php
+        if (isLoggedIn()) {
+          echo "<li style='float: right'>
+                  <a href='../general/logout.php'>Logout</a>
+                </li>
+                <li style='float: right'>
+                  <a href='../user/user.php'>User: " . $_SESSION['username'] . "</a>
+                </li>";
+        } else {
+          echo "<li style='float: right'>
+                  <a href='../login/login.php'>Login</a>
+                </li>";
+        }
+        ?>
+        
       </ul>
     </nav>
 

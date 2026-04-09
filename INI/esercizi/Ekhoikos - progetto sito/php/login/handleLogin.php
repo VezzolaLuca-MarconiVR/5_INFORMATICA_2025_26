@@ -1,27 +1,46 @@
 <?php
 require "../general/functions.php";
 
+session_start();
+
+$loginError = "";
+
 # =============== AUTHENTICATION HANDLER ===============
-if($_REQUEST == 'POST') {
-  $passwordInChiaro = $_POST['password'];
-  $nomeUtente       = $_POST['nomeUtente'];
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $loginUsername = test_input($_POST['username']);
+  $plainTextPassword = $_POST['password'];
+
   
-  // Recuperi l'hash salvato nel DB
-  $stmt = $pdo->prepare("SELECT psw FROM Utenti WHERE nomeUtente = ?");
-  $stmt->execute([$nomeUtente]);
-  $utente = $stmt->fetch();
+  // Connect to DB
+  require "../general/connect.php";
   
-  if ($utente && password_verify($passwordInChiaro, $utente['psw'])) {
-    // Password corretta -> avvia la sessione
-    session_start();
-    $_SESSION['username'] = $_POST['username'];
-    $_SESSION['logged_in'] = true;
-    header("Location: ../index/index.php");
-    exit;
+  // Use direct query with proper escaping
+  $escapedUsername = $conn->real_escape_string($loginUsername);
+  $sql = "SELECT psw FROM Utenti WHERE nomeUtente = '" . $escapedUsername . "'";
+  
+  $result = $conn->query($sql);
+  
+  if (!$result) {
+    $loginError = "Credenziali non valide!";
   } else {
-    // Credenziali errate
-    // Non specificare MAI se è sbagliato utente o password
-    echo "<p class='error'>Credenziali non valide!</p>";
+    $userQuery = $result->fetch_assoc();
+    
+    if ($userQuery === null) {
+      $loginError = "Credenziali non valide!";
+    } else {
+      // Check password
+      if (password_verify($plainTextPassword, $userQuery['psw'])) {
+        // Correct password -> start session
+        $_SESSION['username'] = $loginUsername;
+        $_SESSION['logged_in'] = true;
+        header("Location: ../index/index.php");
+        exit;
+      } else {
+        $loginError = "Credenziali non valide!";
+      }
+    }
   }
+  
+  $conn->close();
 }
 ?>

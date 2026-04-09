@@ -17,25 +17,30 @@
       <ul>
         <li><a href="../index/index.php">Home</a></li>
         <li><a href="../shop/shop.php">Shop</a></li>
-        <li><a href="../sales/sales.php">Sales</a></li>
         <li><a href="../chat/chat.php">Chat</a></li>
-        <li style="float: right">
-          <?php
-          if (isLoggedIn()) {
-            echo "<a href='../user/user.php'>User: " . $_SESSION['username'] . "</a>";
-          } else {
-            echo "<a href='../login/login.php' class='active'>Login</a>";
-          }
-          ?>
-        </li>
+        <?php
+        if (isLoggedIn()) {
+          echo "<li style='float: right'>
+                  <a href='../general/logout.php'>Logout</a>
+                </li>
+                <li style='float: right'>
+                  <a href='../user/user.php'>User: " . $_SESSION['username'] . "</a>
+                </li>";
+        } else {
+          echo "<li style='float: right'>
+                  <a href='../login/login.php' class='active'>Login</a>
+                </li>";
+        }
+        ?>
       </ul>
     </nav>
 
     <main>
       <div class="center-both full-height">
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="padding rounded-corners">
+        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="padding rounded-corners">
           <h1>Login</h1>
           <div class="form-fields">
+            <?php echo "<p class='error'>" . $loginError . "</p>";?>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" />
 

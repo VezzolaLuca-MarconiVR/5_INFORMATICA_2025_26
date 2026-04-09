@@ -16,7 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $formErrors[$fieldName] = '* Required field';
     } else {
       // Field is compiled -> checkoing if it is structured correctly
-      $_POST[$fieldName] = test_input($_POST[$fieldName]);
+      // Don't sanitize passwords with test_input() - passwords should be stored as-is
+      if($fieldName !== 'password' && $fieldName !== 'passwordConfirm'){
+        $_POST[$fieldName] = test_input($_POST[$fieldName]);
+      }
       if (!preg_match($formFieldsRegexs[$fieldName], $_POST[$fieldName])) {
         // Field isn't structured correctly
         if($fieldName == 'password'){
@@ -66,12 +69,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Preparazione del template della query SQL
     if($stmt = $conn->prepare($sql)) {
+      // Extract values into separate variables for proper binding
+      $name = $_POST['name'];
+      $surname = $_POST['surname'];
+      $dateOfBirth = $_POST['dateOfBirth'];
+      $email = $_POST['email'];
+      $username = $_POST['username'];
+      
       // Bind dei parametri con i formati corretti
-      $stmt->bind_param("ssssss", $_POST[$formFieldsNames[0]], $_POST[$formFieldsNames[1]], $_POST[$formFieldsNames[2]], $_POST[$formFieldsNames[3]], $_POST[$formFieldsNames[4]], $passwordHash);
+      $stmt->bind_param("ssssss", $name, $surname, $dateOfBirth, $email, $username, $passwordHash);
 
       $stmt->execute();
 
-      echo("Iscrizione completata!");
+      alert("Iscrizione completata!");
 
       
 
@@ -79,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       session_start();
 
       # Set the starting session variables
-      $_SESSION['username'] = $_POST['username'];
+      $_SESSION['username'] = $username;
       $_SESSION['logged_in'] = true;
       
       header("Location: ../index/index.php");
