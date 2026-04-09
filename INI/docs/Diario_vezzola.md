@@ -1022,3 +1022,22 @@ if (password_verify($user_input, $stored_hash)) {
 
 Implementazione delle sessioni con variabili 'logged_in' booleano e 'username'.
 Si prevede di aggiungere 'theme' per la preferenza tra tema chiaro e scuro.
+
+---
+
+#### 9/04/2026
+
+## Correzzione Login e Logout
+
+Sono stati corretti i file di Login e Logout (ATTENTO: connect.php sovrascriveva la variabile username, quidni l'ho cambiata).
+
+## Implementazione del negozio
+
+Lo 'Shop' ora mostra tutti i prodotti disponibili e una mappa del territorio al lato (qui sono a scopo illustrativo, non serve a nulla dato che non possiamo aggiungere dati fittizzi a maps).
+
+### Implementazione delle immagini dei prodotti nel DB
+
+Implementazione delle immagini dei prodotti nel DB mediante l'aggiunta del path dell'immagine alla tabella dei prodotti:
+```sql
+ALTER TABLE `prodotti` ADD `url` VARCHAR(255) NULL AFTER `acconto`;
+```
