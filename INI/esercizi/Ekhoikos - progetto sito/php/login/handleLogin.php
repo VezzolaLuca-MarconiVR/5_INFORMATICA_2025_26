@@ -1,39 +1,46 @@
 <?php
 require "../general/functions.php";
 
+session_start();
+
+$loginError = "";
+
 # =============== AUTHENTICATION HANDLER ===============
-if($_REQUEST == 'POST') {
-  $passwordInChiaro = $_POST['password'];
-  $nomeUtente       = $_POST['nomeUtente'];
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $loginUsername = test_input($_POST['username']);
+  $plainTextPassword = $_POST['password'];
+
   
   // Connect to DB
   require "../general/connect.php";
-
-  // Recuperi l'hash salvato nel DB
-  $sql = "SELECT psw FROM Utenti WHERE nomeUtente = ?";
-  if($stmt = $conn->prepare($sql)) {
-    // Bind parameters
-    $stmt->bind_param("s", $nomeUtente);
-    $utente = $stmt->fetch();
-
-    if ($utente && password_verify($passwordInChiaro, $utente['psw'])) {
-      // Password corretta -> avvia la sessione
-      session_start();
-      $_SESSION['username'] = $_POST['username'];
-      $_SESSION['logged_in'] = true;
-      header("Location: ../index/index.php");
-      exit;
-    } else {
-      // Credenziali errate
-      // Non specificare MAI se è sbagliato utente o password
-      echo "<p class='error'>Credenziali non valide!</p>";
-    }
-
+  
+  // Use direct query with proper escaping
+  $escapedUsername = $conn->real_escape_string($loginUsername);
+  $sql = "SELECT psw FROM Utenti WHERE nomeUtente = '" . $escapedUsername . "'";
+  
+  $result = $conn->query($sql);
+  
+  if (!$result) {
+    $loginError = "Credenziali non valide!";
   } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    $userQuery = $result->fetch_assoc();
+    
+    if ($userQuery === null) {
+      $loginError = "Credenziali non valide!";
+    } else {
+      // Check password
+      if (password_verify($plainTextPassword, $userQuery['psw'])) {
+        // Correct password -> start session
+        $_SESSION['username'] = $loginUsername;
+        $_SESSION['logged_in'] = true;
+        header("Location: ../index/index.php");
+        exit;
+      } else {
+        $loginError = "Credenziali non valide!";
+      }
+    }
   }
-
-  $stmt->close();
+  
   $conn->close();
 }
 ?>

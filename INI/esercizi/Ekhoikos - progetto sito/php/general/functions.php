@@ -10,4 +10,9 @@ function test_input($data) {
 function isLoggedIn() {
   return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
 }
+
+# Creates a javascript alert with the given message
+function alert($msg) {
+  echo "<script type='text/javascript'>alert('$msg');</script>";
+}
 ?>

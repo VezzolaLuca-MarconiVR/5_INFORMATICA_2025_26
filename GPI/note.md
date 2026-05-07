@@ -62,3 +62,61 @@ Un buono studio di fattibilità deve contenere:
 La Work Breakdown Structure (WBS) è una tecnica di gestione progetti che scompone gerarchicamente un progetto complesso in componenti più piccole, gestibili e orientate ai risultati.
 Strutturata in livelli (fasi, sottofasi, work package), facilita l'assegnazione di responsabilità, la stima dei costi e il monitoraggio del progresso.
 ![Esempio di WBS](./img/Tecnica%20WBS%20-%20esempio.png)
+
+## 06/05/2026
+
+### X Prossima Verifica
+
+Si parte sempre dal business plan (ora si usa fare una previsione sui prossimi 3 anni).
+
+Si identificano le macroattività:
+- avviamento
+- pianificazione
+- sviluppo/esecuzione
+- chiusura/collaudo
+
+Utilizzando il WBS si dividono in sottoattività le macroattività qui sopra indicate.
+La somma delle durate delle attività figlie devono corrispoondere alla durata dell'attività madre.
+
+Il WBS si può trasformare nella OBS andando ad analizzare non più i tempi, ma le ?? (i ruoli??).
+
+Prima colonna gli idedntificativi (1.1, 1.2, ... 2.1, 2.2, ...)
+| id | descrizione | durata | (se è stato fatto il WBS)->il numero di risorse coinvolte |
+
+#### PERT e GANTT
+Il diagramma? di Pert (o critical path??) indica le dipendenze indicando il percorso critico (quello che dura di più), il quale permette di calcolare la durata dell'intero progetto.
+Nel pert ci sono 4 tipologie di dipendenza: FF, FS, SF, SS.
+Il diagramma di Gantt permette di visualizzare le varie fasi del progetto nella loro disposizione nel tempo ma non fornisce delle vere informazioni ulteriori??.
+
+#### Earned Value Method
+Per valutare l'andamento del progetto si può usare l'EVM (Earned Value Method). Si valuta l'avanzamento dello stato dei progetti e se esso è in linea con il piano??.
+Questo metodo si basa su degli indicatori (degli indici), che vanno valutati per verificare l'andamento del progetto.
+Prima comincizre un progetto, ne viene fatta una stima, sia dei costi - il "Budget Totale" (BT) -, sia dei tempi - il "Tempo Totale" (TT).
+Il tempo attuale di analisi è detto "Time Now" (TN).
+Il valore pianificato ("Planned Value" - PV), è la porzione di budget pianificata per il periodo corrente ("quanto avremmo dovuto spendere fino ad ora?").
+Il costo attuale ("Actual Cost" - AC) è la somma dei costi reali accumulati al TN.
+Il valore guadagnato ("Earned Value" - EV) è la somma dei guadagni reali accumulati al TN.
+
+Indici:
+- Il "Cost Performance Index" (CPI) è uguale a EV/AC. Se esso risulta < 1, significa che attualmente i costi sono maggiori dei guadagni;
+- Lo "Schedule Performance Index" (SPI) è uguale a EV/PV. Se esso risulta < 1, significa che attualmente ??.
+
+Parametri:
+- L'"Estimate At Completion"? (EAC) è uguale a AC + (BT - EV)/CPI;
+- Lo "Schedule At Completion" (SAC) è uguale al TT/SPI. Indica il tempo totale previsto secondo gli indici correnti.
+
+### Esempio di esercizio
+BT = 5'000€ (x marketing iniziale) + 100'000€ (x 3 nuovi negozi) = 105'000€
+TT = 12 mesi
+=========================================================
+TN = 2 mesi => 16,6% del TT
+PV = 5'000€ * 100% + 100'000€ *16,6% = 21'600€
+AC = 6'800€ (i costi reali usati per il marketing) + 28'500 (i costi reali sostenuti fino ad ora per i negozi) = 35'300€
+EV = 5'000€ + 30% * 100'000€ = 35'000€
+
+CPI = 35'000€/35'300€ = 0,99
+SPI = 35'000€/21'600€ = 1,62
+
+EAC = 35'300€ + (105'000€ - 35'000€)/0,99 = 106'000€
+
+SAC = 12 mesi/1,62 = 7,4 mesi

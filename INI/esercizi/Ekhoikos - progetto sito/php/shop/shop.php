@@ -18,20 +18,26 @@
         <li><a href="../index/index.php">Home</a></li>
         <li><a href="../shop/shop.php" class="active">Shop</a></li>
         <li><a href="../chat/chat.php">Chat</a></li>
-        <li style="float: right">
-          <?php
-          if (isLoggedIn()) {
-            echo "<a href='../user/user.php'>User: " . $_SESSION['username'] . "</a>";
-          } else {
-            echo "<a href='../login/login.php'>Login</a>";
-          }
-          ?>
-        </li>
+        <?php
+        if (isLoggedIn()) {
+          echo "<li style='float: right'>
+                  <a href='../general/logout.php'>Logout</a>
+                </li>
+                <li style='float: right'>
+                  <a href='../user/user.php'>User: " . $_SESSION['username'] . "</a>
+                </li>";
+        } else {
+          echo "<li style='float: right'>
+                  <a href='../login/login.php'>Login</a>
+                </li>";
+        }
+        ?>
       </ul>
     </nav>
 
     <main>
       <div id="main_container">
+        <!-- Left Content → FILTERS -->
         <div id="left_content">
           <form action="link.xyz">
             <h3>Caratteristiche:</h3>
@@ -45,33 +51,16 @@
           </form>
         </div>
 
-        <!-- LISTA DEI PRODOTTI -->
+        <!-- Center Content → PRODUCTS LIST -->
         <div id="center_content">
-          <?php
-            if($result->num_rows > 0) {
-              // Output data for each row
-              while($row = $result->fetch_assoc()) {
-                echo
-                "<a href='../product/product.php?idProd=" . $row["idProd"] . "'>
-                  <div class='product-card grainPaperTextureSmall'>
-                  <img class='product-image' src='../../img/mountains-landscape.jpg'/>
-                  <div class='product-text'>
-                    <h3 class='product-title'>" . $row["nome"] . "</h3>
-                    <span class='product-description'>" . $row["descrizione"] . "</span>
-                  </div>
-                </div>
-              </a>";
-              }
-            } else {
-              echo "Nessun prodotto nel negozio per ora.";
-            }
-
-            $conn->close();
-          ?>
+          <?php displayProductsCards();?>
         </div>
 
-        <!-- MAPPA (forse la tolgo) -->
-        <div id="right_content"></div>
+        <!-- Right Content → MAP -->
+        <div id="right_content">
+          <div class="embed-map-responsive"><div class="embed-map-container"><iframe class="embed-map-frame" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&height=400&hl=en&q=verona&t=k&z=13&ie=UTF8&iwloc=B&output=embed"></iframe></div>
+          </div>
+        </div>
       </div>
     </main>
   </body>
