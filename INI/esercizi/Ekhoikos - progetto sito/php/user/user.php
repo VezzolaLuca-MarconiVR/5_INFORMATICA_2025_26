@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ekhoikos - TEMPLATE</title>
     <link rel="stylesheet" href="../../css/general.css" />
-    <link rel="stylesheet" href="../../css/THIS_PAGE_CSS" />
+    <link rel="stylesheet" href="../../css/user.css" />
     <script src="../../js/index.js" defer></script>
   </head>
 
@@ -37,22 +37,23 @@
 
     <main>
       <!-- MAIN CONTENT-->
-      <div id="userDataContainer">
-        <p>Nome utente:</p>
-        <p><?php $u_username?></p>
+      <?php
+      if (isLoggedIn()) {
+        echo '<div id="userDataContainer">
+                <p>Nome utente: ' . $u_username . '</p>
 
-        <p>Nome:</p>
-        <p><?php $u_name?></p>
+                <p>Nome: ' . $u_name . '</p>
 
-        <p>Cognome:</p>
-        <p><?php $u_surname?></p>
+                <p>Cognome: ' . $u_surname . '</p>
 
-        <p>Data di nascita:</p>
-        <p><?php $u_dateofbirth?></p>
+                <p>Data di nascita: ' . $u_dateofbirth . '</p>
 
-        <p>Email:</p>
-        <p><?php $u_email?></p>
-      </div>
+                <p>Email: ' . $u_email . '</p>
+              </div>';
+      } else {
+        alert("è necessario fare il login per visualizzare i propri dati!");
+      }
+      ?>
     </main>
 
     <footer>
