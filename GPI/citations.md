@@ -33,6 +33,38 @@ Palumbo citations:
 - _"mi appello alla corte di giustizia"_
 - _"Ivan Valentino... prima o poi lo conosceremo"_
 - _"Ma che rottura di palle"_
+- _"assiettete"_ (siediti)
+- _"se avete la vista di spiderman voi dietro ci vedete"_
+- _"gli hai svelato il Quarto Segreto di Fatima"_
+- _"Chiudete questa galleria del vento"_ (abbiamo aperto tutte le finestre in lab206 pk c'era puzza)
+- _"Addenziòne addenziòne"_
+- _"Shiangazza, cha'tti ta rifrisca e a mi m'ammazza"_
+- _(Palumbo)"Stai qui" (De Carli)"No, devo andare via" (Palumbo)"NO NO Stai qui, stà calmo un attimo"_ (non poteva lasciare l'aula senza prof)
+- _"E da Peschiera poi come ci arrivate a Garda? A cavallo?"_
+- _"(I bus) Procedono lenti come la peste"_
+- _"La Magnone la inchioderemo alla croce... non avrà scampo... altrimenti dovete trovare un'anima pia che vi accompagni"_
+- _"Domanda pleonastica"_
+- _"Accidenti, questo correttore mi scrive in aramaico"_
+- _"Il cicciottino della mamma"_ (bovi - il più piccolo della classe)
+- _"Per la Peppa"_
+- _"Oi, non mi dite niente di questi nuovi occhialini color vomito mattutino? Mi sono seduta sopra gli altri e hanno fatto splash"_
+- _"Io in Europa non posso dire 'la Coca-Cola è buona e con la Pepsi mi sciacquo i piedi', in America si"_
+- _"...allora non chiediamo al signor Pizza e Fichi"_
+- _"Capish' ammé"_
+- _"Quello con quel codino simpatico come un calcio di un cavallo"_ (riferendosi al tecnico)
+- _"Eh... la scuola deve limitare le entrate all'esame altrimenti quelli si portano dietro anche la clack"_
+- _"..."_ Mentre io soffocavo e le chiedevo di andare in bagno lei mi guardò... e continuò a non fare nulla... (Non mi rispose mai)
+- _"Vi scamazzo sul muro"_
+- _"Sono di Bolzano mare"_
+- _"Io aiuto solo dopo il versamento di una cospicua cifra"_ (all'inizio delle prove INVALSI)
+- _"Che siete? Il gruppo delle educande delle Orsoline?"_ (non abbiamo festeggiato i 100 giorni alla maturità)
+- _"Si, si... andiamo in Pakistan a prendere il personale per l'assistenza"_
+- _"Che è? Il conclave? Nominiamo il papa."_
+- _"Ragazzi con la carta del docente mi sono guadagnata questo tablet del milleottocentoventotto che mio figlio mi ha lasciato dopo avermi rubato il nuovo IPad che ho preso"_
+- _"No, non è il bollo! E' la bolla, è femmina!"_
+- _"Avete fatto come le ballerine del Bolshoi?"_
+- _"Queste lavagnette sembrano quelle da mettere in cucina... ci fai al massimo la lista della spesa."_
+- _"Vediamo se ho la penna magica... quella di Hello Kitty."_
 - _""_
 
 Fortune cookies citations:

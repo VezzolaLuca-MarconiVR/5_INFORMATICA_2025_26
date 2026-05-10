@@ -1,0 +1,65 @@
+<?php require "handleLogin.php" ?>
+
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ekhoikos - Login</title>
+    <link rel="stylesheet" href="../../css/general.css" />
+    <link rel="stylesheet" href="../../css/login-signup.css" />
+    <script src="../../js/index.js" defer></script>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav>
+      <ul>
+        <li><a href="../index/index.php">Home</a></li>
+        <li><a href="../shop/shop.php">Shop</a></li>
+        <li><a href="../chat/chat.php">Chat</a></li>
+        <?php
+        if (isLoggedIn()) {
+          echo "<li style='float: right'>
+                  <a href='../general/logout.php'>Logout</a>
+                </li>
+                <li style='float: right'>
+                  <a href='../user/user.php'>User: " . $_SESSION['username'] . "</a>
+                </li>";
+        } else {
+          echo "<li style='float: right'>
+                  <a href='../login/login.php' class='active'>Login</a>
+                </li>";
+        }
+        ?>
+      </ul>
+    </nav>
+
+    <main>
+      <div class="center-both full-height">
+        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" class="padding rounded-corners">
+          <h1>Login</h1>
+          <div class="form-fields">
+            <?php echo "<p class='error'>" . $loginError . "</p>";?>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" />
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" />
+          </div>
+          <input type="submit" id="form_submit" />
+          <a class="small-link" href="../signup/signup.php">Devi ancora registrarti?</a>
+        </form>
+      </div>
+    </main>
+
+    <footer>
+      <p>Grazie per aver scelto Ekhoikos!</p>
+
+      <p>
+        Tel: <phone class="selectable-content">+39 3370071503</phone> email:
+        <email class="selectable-content">help@ekhoikos.com</email>
+      </p>
+    </footer>
+  </body>
+</html>

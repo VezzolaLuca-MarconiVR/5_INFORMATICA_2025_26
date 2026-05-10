@@ -1,0 +1,17 @@
+main {
+  display: flex;
+}
+
+#userDataContainer {
+  width: fit-content;
+  margin: auto;
+
+  background-color: var(--bg-light);
+  box-shadow: 0 0 5px 5px var(--bg-dark);
+
+  /* larghezza responsiva: non troppo stretta, non troppo larga */
+  width: min(90vw, 420px);
+  box-sizing: border-box;
+  padding: 1.5rem;
+  min-width: 260px; /* evita che diventi troppo piccolo su schermi stretti */
+}

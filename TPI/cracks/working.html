@@ -1,0 +1,250 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Canvas DTW Visualization</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      .wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+      canvas {
+        border: 1px solid #222;
+        background: #fff;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <canvas id="canvas"></canvas>
+    </div>
+    <script>
+      const canvas = document.getElementById("canvas");
+      const cssWidth = 900;
+      const cssHeight = 500;
+      const dpr = window.devicePixelRatio || 1;
+      canvas.style.width = cssWidth + "px";
+      canvas.style.height = cssHeight + "px";
+      canvas.width = Math.floor(cssWidth * dpr);
+      canvas.height = Math.floor(cssHeight * dpr);
+      const ctx = canvas.getContext("2d");
+      ctx.scale(dpr, dpr);
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
+
+      const RANDOM_GEN_RANGE = 5;
+
+      function generateRandos(len) {
+        const arr = new Array(len);
+        for (let i = 0; i < len; i++) {
+          arr[i] =
+            Math.floor(Math.random() * (RANDOM_GEN_RANGE * 2 + 1)) -
+            RANDOM_GEN_RANGE;
+        }
+        return arr;
+      }
+
+      function arrayMax(arr) {
+        let max = -Infinity;
+        for (let i = 0; i < arr.length; i++) if (arr[i] > max) max = arr[i];
+        return max;
+      }
+
+      function arrayMin(arr) {
+        let min = Infinity;
+        for (let i = 0; i < arr.length; i++) if (arr[i] < min) min = arr[i];
+        return min;
+      }
+
+      function clearCanvas() {
+        ctx.clearRect(0, 0, cssWidth, cssHeight);
+      }
+
+      function drawAxes(regionTop, regionHeight) {
+        ctx.strokeStyle = "#eee";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(30, regionTop);
+        ctx.lineTo(cssWidth - 10, regionTop);
+        ctx.moveTo(30, regionTop + regionHeight);
+        ctx.lineTo(cssWidth - 10, regionTop + regionHeight);
+        ctx.stroke();
+      }
+
+      function drawLineFromValues(
+        values,
+        regionTop,
+        regionHeight,
+        color,
+        strokeWidth,
+        leftPadding,
+        rightPadding,
+      ) {
+        if (!values || values.length === 0) return { points: [] };
+        const usableWidth = cssWidth - leftPadding - rightPadding;
+        const len = values.length;
+        const step = len > 1 ? usableWidth / (len - 1) : usableWidth;
+        const vMin = arrayMin(values);
+        const vMax = arrayMax(values);
+        const range = vMax - vMin || 1;
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = strokeWidth;
+        const points = [];
+        for (let i = 0; i < len; i++) {
+          const x = leftPadding + i * step;
+          const normalized = (values[i] - vMin) / range;
+          const y = regionTop + (1 - normalized) * regionHeight;
+          points.push({ x, y, value: values[i], index: i });
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+        return { points };
+      }
+
+      function computeDTW(a, b) {
+        const n = a.length;
+        const m = b.length;
+        const INF = 1e12;
+        const dtw = new Array(n + 1);
+        for (let i = 0; i <= n; i++) {
+          dtw[i] = new Array(m + 1).fill(INF);
+        }
+        dtw[0][0] = 0;
+        for (let i = 1; i <= n; i++) {
+          for (let j = 1; j <= m; j++) {
+            const cost = Math.abs(a[i - 1] - b[j - 1]);
+            const minPrev = Math.min(
+              dtw[i - 1][j],
+              dtw[i][j - 1],
+              dtw[i - 1][j - 1],
+            );
+            dtw[i][j] = cost + minPrev;
+          }
+        }
+        let i = n,
+          j = m;
+        const path = [];
+        while (i > 0 || j > 0) {
+          path.push([i - 1, j - 1]);
+          if (i > 0 && j > 0) {
+            const diag = dtw[i - 1][j - 1];
+            const up = dtw[i - 1][j];
+            const left = dtw[i][j - 1];
+            if (diag <= up && diag <= left) {
+              i--;
+              j--;
+              continue;
+            }
+            if (up <= left) {
+              i--;
+              continue;
+            }
+            j--;
+            continue;
+          }
+          if (i > 0) {
+            i--;
+            continue;
+          }
+          if (j > 0) {
+            j--;
+            continue;
+          }
+        }
+        path.reverse();
+        return { cost: dtw[n][m], path };
+      }
+
+      function drawDTWConnections(path, pointsA, pointsB, topA, topB) {
+        for (let k = 0; k < path.length; k++) {
+          const [ia, jb] = path[k];
+          if (ia < 0 || jb < 0) continue;
+          const pa = pointsA[ia];
+          const pb = pointsB[jb];
+          if (!pa || !pb) continue;
+          let prev = k > 0 ? path[k - 1] : null;
+          let type = "match";
+          if (prev) {
+            const [pia, pjb] = prev;
+            if (pia === ia - 1 && pjb === jb - 1) type = "match";
+            else if (pia === ia - 1 && pjb === jb) type = "deletion";
+            else if (pia === ia && pjb === jb - 1) type = "insertion";
+            else type = "match";
+          }
+          ctx.beginPath();
+          if (type === "match") {
+            ctx.strokeStyle = "rgba(0,128,0,0.6)";
+            ctx.lineWidth = 1.6;
+          } else if (type === "insertion") {
+            ctx.strokeStyle = "rgba(0,0,200,0.45)";
+            ctx.lineWidth = 1.2;
+          } else {
+            ctx.strokeStyle = "rgba(200,0,0,0.45)";
+            ctx.lineWidth = 1.2;
+          }
+          ctx.moveTo(pa.x, pa.y);
+          ctx.lineTo(pb.x, pb.y);
+          ctx.stroke();
+        }
+      }
+
+      function drawPoints(points, color) {
+        ctx.fillStyle = color;
+        for (let i = 0; i < points.length; i++) {
+          const p = points[i];
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function drawTwoGraphsDTW(lenA, lenB) {
+        clearCanvas();
+        const padding = 20;
+        const regionHeight = (cssHeight - padding * 3) / 2;
+        const topA = padding;
+        const topB = padding * 2 + regionHeight;
+        const leftPadding = 40;
+        const rightPadding = 20;
+        const dataA = generateRandos(lenA);
+        const dataB = generateRandos(lenB);
+        drawAxes(topA, regionHeight);
+        drawAxes(topB, regionHeight);
+        const resA = drawLineFromValues(
+          dataA,
+          topA,
+          regionHeight,
+          "#1f77b4",
+          2.5,
+          leftPadding,
+          rightPadding,
+        );
+        const resB = drawLineFromValues(
+          dataB,
+          topB,
+          regionHeight,
+          "#d62728",
+          2.5,
+          leftPadding,
+          rightPadding,
+        );
+        drawPoints(resA.points, "#1f77b4");
+        drawPoints(resB.points, "#d62728");
+        const dtw = computeDTW(dataA, dataB);
+        drawDTWConnections(dtw.path, resA.points, resB.points, topA, topB);
+      }
+
+      drawTwoGraphsDTW(20, 30);
+    </script>
+  </body>
+</html>

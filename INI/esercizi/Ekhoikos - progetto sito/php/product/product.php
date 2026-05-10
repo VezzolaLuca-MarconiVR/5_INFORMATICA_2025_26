@@ -1,0 +1,46 @@
+<?php require "handleProduct.php";?>
+
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ekhoikos - Home</title>
+    <link rel="stylesheet" href="../../css/general.css" />
+    <link rel="stylesheet" href="../../css/index.css" />
+    <script src="../../js/index.js" defer></script>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav>
+      <ul>
+        <li><a href="../index/index.php" class="active">Home</a></li>
+        <li><a href="../shop/shop.php">Shop</a></li>
+        <li><a href="../chat/chat.php">Chat</a></li>
+        <li style="float: right">
+          <?php
+          if (isLoggedIn()) {
+            echo "<a href='../user/user.php'>User: " . $_SESSION['username'] . "</a>";
+          } else {
+            echo "<a href='../login/login.php'>Login</a>";
+          }
+          ?>
+        </li>
+      </ul>
+    </nav>
+
+    <main>
+      
+    </main>
+
+    <footer>
+      <p>Grazie per aver scelto Ekhoikos!</p>
+
+      <p>
+        Tel: <phone class="selectable-content">+39 3370071503</phone> email:
+        <email class="selectable-content">help@ekhoikos.com</email>
+      </p>
+    </footer>
+  </body>
+</html>
