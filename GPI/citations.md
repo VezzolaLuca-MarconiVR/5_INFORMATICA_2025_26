@@ -65,6 +65,8 @@ Palumbo citations:
 - _"Avete fatto come le ballerine del Bolshoi?"_
 - _"Queste lavagnette sembrano quelle da mettere in cucina... ci fai al massimo la lista della spesa."_
 - _"Vediamo se ho la penna magica... quella di Hello Kitty."_
+- _"Questi ruoli non sono ectoplasmi, sono persone vere."_
+- _"10 ore settimanali, manco fossimo in Cina."_
 - _""_
 
 Fortune cookies citations:
