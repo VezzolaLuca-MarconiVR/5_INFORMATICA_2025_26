@@ -2,9 +2,124 @@
 <html>
   <head>
     <title>Rubrica</title>
+    <style>
+      body {
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 0.9rem;
+      }
+
+      #contenitore-principale {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: flex-start;
+        margin: 15px;
+        row-gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      #form-contatto {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        border: 1px solid black;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: rgb(243, 243, 243);
+      }
+
+      #form-contatto button {
+        background-color: rgb(159, 225, 159);
+        border: none;
+        border-radius: 5px;
+        padding: 5px;
+      }
+
+      #form-contatto button:hover {
+        background-color: rgb(142, 201, 142);
+      }
+
+      #form-contatto > div {
+        display: flex;
+        flex-direction: column;
+      }
+
+      #form-contatto > div > input {
+        border: 1px solid black;
+        border-radius: 5px;
+      }
+
+      .messaggio {
+        margin: 1rem 0;
+        padding: 0.75rem;
+        border-radius: 4px;
+      }
+
+      #api-log-entries {
+        margin: 1rem 0;
+      }
+
+      .messaggio-successo {
+        color: green;
+      }
+
+      .messaggio-errore {
+        color: red;
+      }
+
+      #container-tabella > table {
+        border: 1px solid black;
+        border-spacing: 5px;
+      }
+      
+      #container-tabella td {
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 5px;
+      }
+
+      #container-tabella td:nth-last-child(-n+2) {
+        border: none;
+      }
+
+      #btn-aggiungi {
+        margin: 10px;
+      }
+    </style>
   </head>
   <body>
-    
+    <div id="contenitore-principale">
+      <form id="form-contatto">
+        <div>
+          <label for="input-nome">Nome:</label>
+          <input id="input-nome" type="text">
+        </div>
+
+        <div>
+          <label for="input-cognome">Cognome:</label>
+          <input id="input-cognome" type="text">
+        </div>
+
+        <div>
+          <label for="input-telefono">Telefono:</label>
+          <input id="input-telefono" type="tel" pattern="[0-9\-\s]+">
+        </div>
+
+        <div>
+          <label for="input-email">Email:</label>
+          <input id="input-email" type="email">
+        </div>
+
+      <button id="btn-aggiungi" type="button" onclick="aggiungiContatto()">Aggiungi contatto</button>
+    </form>
+      <div id="container-tabella"></div>
+      <div id="contenitore-info">
+        <div id="messaggio"></div>
+        <div id="api-log-entries"></div>
+      </div>
+    </div>
+
     <script>
       const API_URL = `http://localhost:3000/api`;
 
@@ -15,10 +130,18 @@
         const log = document.getElementById(`api-log-entries`);
         const classe = `log-${metodo.toLowerCase()}`;
         const ora = new Date().toLocaleTimeString();
+        
+        // Elimina la scritta "latest" dall'ultima entry
+        const latestText = document.getElementById("latestText");
+        if(latestText){
+          latestText.remove();
+        }
+
         log.innerHTML = `<div class="log-entry">
           <span class="${classe}">[${metodo}]</span>
           ${url}
-          -> <strong>${stato}</strong> <span style="color:#7f8c8d"> (${ora})</span>
+          -> <strong>${stato}</strong> <span style="color:#7f8c8d"> (${ora})  </span>
+          <span id="latestText" style="color: green;">(LATEST)</span>
         </div>` + log.innerHTML;
       }
 
@@ -31,7 +154,7 @@
 
         setTimeout(() => {
           div.style.display = `none`;
-        }, 3000);
+        }, 5000);
       }
 
       async function caricaContatti() {
@@ -50,8 +173,86 @@
         }
       }
 
+      function mostraListaContatti(dati) {
+        creaTabella(dati);
+      }
+
+      function creaTabella(dati) {
+        const container = document.getElementById("container-tabella");
+        container.innerHTML = "";
+
+        // Controlla che i dati (la rubrica) non siano vuoti
+        if (!Array.isArray(dati) || dati.length === 0) {
+          container.textContent = "Nessun contatto presente.";
+          return;
+        }
+
+        // Crea l'elemento tabella
+        const table = document.createElement("table");
+
+        // Crea l'intestazione e la riga di intestazione
+        const thead = document.createElement("thead");
+        const headerRow = document.createElement("tr");
+
+        // estrae le chiavi dal dict 'dati' per i nomi delle colonne
+        const headers = Object.keys(dati[0]);
+        // crea una colonna per ogni chiave del dict trovata
+        headers.forEach(text => {
+          const th = document.createElement("th");
+          th.textContent = text;
+          headerRow.appendChild(th);
+        });
+
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        // Crea le righe del corpo della tabella
+        const tbody = document.createElement("tbody");
+        dati.forEach(item => {
+          const row = document.createElement("tr");
+          Object.values(item).forEach(value => {
+            const cell = document.createElement("td");
+            cell.textContent = value;
+            row.appendChild(cell);
+          });
+
+          // Aggiunge una cella per la modifica del contatto con il bottone apposito
+          const btnModifica = document.createElement("button");
+          btnModifica.type = "button";
+          btnModifica.onclick = () => preparaModifica(item.id, item.nome, item.cognome, item.telefono, item.email);
+          btnModifica.textContent = "✏️";
+
+          const btnElimina = document.createElement("button");
+          btnElimina.type = "button";
+          btnElimina.onclick = () => eliminaContatto(item.id, item.nome+" "+item.cognome);
+          btnElimina.textContent = "❌";
+
+          const cellModifica = document.createElement("td");
+          cellModifica.appendChild(btnModifica);
+          row.appendChild(cellModifica);
+
+          const cellElimina = document.createElement("td");
+          cellElimina.appendChild(btnElimina);
+          row.appendChild(cellElimina);
+
+          // Aggiunge la riga alla tabella
+          tbody.appendChild(row);
+        });
+        table.appendChild(tbody);
+
+        // Append al container della tabella
+        document.getElementById("container-tabella").appendChild(table)
+      }
+
+      function pulisciForm() {
+        document.getElementById(`input-nome`).value = ``;
+        document.getElementById(`input-cognome`).value = ``;
+        document.getElementById(`input-telefono`).value = ``;
+        document.getElementById(`input-email`).value = ``;
+      }
+
       async function aggiungiContatto() {
-        // Legge i valori dei campi del form tramite il oro id
+        // Legge i valori dei campi del form tramite il loro id
         const nome = document.getElementById(`input-nome`).value.trim();
         const cognome = document.getElementById(`input-cognome`).value.trim();
         const telefono = document.getElementById(`input-telefono`).value.trim();
@@ -149,6 +350,8 @@
           console.error(`Errore nell\`eliminazione:`, errore);
         }
       }
+
+      caricaContatti();
     </script>
   </body>
 </html>
