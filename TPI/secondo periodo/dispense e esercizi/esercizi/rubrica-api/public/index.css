@@ -51,10 +51,25 @@ body {
 #container-tabella,
 #form-contatto,
 #contenitore-info {
-  background-color: rgb(243, 243, 243);
+  background-color: rgba(243, 243, 243, 0.3);
   border: 3px solid rgb(105, 105, 105);
   padding: 10px;
   border-radius: 10px;
+}
+
+* {
+  color: white;
+}
+
+td > button {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  text-align: center;
+}
+
+td > button:hover {
+  cursor: pointer;
+  scale: 120%;
 }
 
 #container-tabella > table {
